@@ -4,7 +4,6 @@ const app = createApp({
     data() {
         return {
             data: [],
-            clients: [],
             name: "",
             lastname: "",
             email: "",
@@ -17,13 +16,15 @@ const app = createApp({
         loadData() {
             axios("/clients")
                 .then(response => {
-                    this.data = response
+                    this.data = response.data._embedded.clients
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
-        createClient() {
+        createClient(event) {
+            
+            event.preventDefault()
             axios.post("/clients",
                 {
                     "name": this.name,
@@ -32,15 +33,20 @@ const app = createApp({
                 })
                 .then(response => {
                     this.data = response
+                    this.loadData()
+                    this.cleanInputs()
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
-        deleteClient() {
-            axios.delete("/clients/6")
+        deleteClient(event) {
+            event.preventDefault()
+            axios.delete("/clients/1")
                 .then(response => {
                     this.data = response
+                    this.loadData()
+                    this.cleanInputs()
                 })
                 .catch(error => {
                     console.log(error)

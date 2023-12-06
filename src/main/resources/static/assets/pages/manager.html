@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../style/style.css">
     <link rel="shortcut icon" href="../images/iconoDelBanco.png" type="image/x-icon">
     <title>managers</title>
 </head>
@@ -24,23 +25,44 @@
         </header>
 
         <main class="bg-slate-200 h-full flex justify-center items-center flex-col">
-            <form action="" class="flex flex-col w-[300px] my-5 bg-gray-400 p-4 rounded-lg">
-                <h2 class=" flex my-2 items-center justify-center ">Create Client</h2>
+            <form action="" class="flex flex-col w-auto my-5 bg-gray-400 p-4 rounded-lg">
+                <h2 class=" flex my-2 items-center justify-center text-lg text-bold ">Create Client</h2>
                 <label for="">Name</label>
-                <input type="text" class=" rounded-md" v-model="name" placeholder="name">
+                <input type="text" class=" rounded-md px-1" v-model="name" placeholder="Name">
                 <label for="">Last Name</label>
-                <input type="text" class=" rounded-md" v-model="lastname" placeholder="last name">
+                <input type="text" class=" rounded-md px-1" v-model="lastname" placeholder="last name">
                 <label for="">Email</label>
-                <input type="text" class=" rounded-md" v-model="email" placeholder="email">
+                <input type="text" class=" rounded-md px-1" v-model="email" placeholder="email">
                 <div class="flex justify-between">
-                    <button @click="createClient"
-                        class="mt-2 bg-slate-600 text-white m-auto px-2 rounded-md">Create</button>
+                    <button @click="createClient" class="mt-2 mx-2 bg-slate-700 text-white m-auto px-2 rounded-md">Add
+                        Client</button>
                     <button @click="deleteClient"
-                        class="mt-2 bg-slate-600 text-white m-auto px-2 rounded-md">Delete</button>
+                        class="mt-2 mx-2 bg-slate-700 text-white m-auto px-2 rounded-md">Delete
+                        Client</button>
                 </div>
-
             </form>
+            <div>
+                <table class="my-5 bg-gray-400 p-4 rounded-lg text-left ">
+                    <caption class="text-3xl bg-slate-700 rounded-lg text-white">Clients</caption>
+                    <thead>
+                        <tr >
+                            <th class="p-2">Name</th>
+                            <th class="p-2">Last Name</th>
+                            <th class="p-2">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template  v-if="data.length > 0" v-for="client in data">
+                            <tr class="border-t-2">
+                                <td class="p-2 " >{{client.name}}</td>
+                                <td class="p-2">{{client.lastname}}</td>
+                                <td class="p-2">{{client.email}}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
 
+            </div>
             <pre>{{data}}</pre>
         </main>
 
