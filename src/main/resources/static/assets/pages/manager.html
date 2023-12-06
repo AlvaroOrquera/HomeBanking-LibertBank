@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="../images/iconoDelBanco.png" type="image/x-icon">
+    <title>managers</title>
+</head>
+
+<body>
+    <div id="app">
+        <header class="flex justify-between bg-red-600 p-2 items-center">
+            <div class="mx-1 ">
+                <img class="h-[40px] w-[40px]" src="../images/iconoDelBanco.png" alt="iconoDelBanco">
+            </div>
+            <nav>
+                <ul class="flex gap-2 ">
+                    <li><a href="../../index.html" class=" p-1 rounded-lg text-white">Home</a></li>
+                    <li><a href="#" class=" p-1 rounded-lg text-white">managers</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="bg-slate-200 flex justify-center items-center flex-col">
+            <form action="" class="flex flex-col w-[300px] my-5 bg-gray-400 p-4 rounded-lg">
+                <h2 class=" flex my-2 items-center justify-center ">Create Client</h2>
+                <label for="">Name</label>
+                <input type="text" class=" rounded-md" v-model="name" placeholder="name">
+                <label for="">Last Name</label>
+                <input type="text" class=" rounded-md" v-model="lastname" placeholder="last name">
+                <label for="">Email</label>
+                <input type="text" class=" rounded-md" v-model="email" placeholder="email">
+                <div class="flex justify-between">
+                    <button @click="createClient"
+                        class="mt-2 bg-slate-600 text-white m-auto px-2 rounded-md">Create</button>
+                    <button @click="deleteClient"
+                        class="mt-2 bg-slate-600 text-white m-auto px-2 rounded-md">Delete</button>
+                </div>
+
+            </form>
+
+            <pre>{{data}}</pre>
+        </main>
+
+    </div>
+    <script type="module" src="../style/tailwind.config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./managers.js"></script>
+</body>
+
+</html>
