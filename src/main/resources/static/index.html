@@ -3,26 +3,31 @@
 
 <head>
     <meta charset="UTF-8">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="./assets/images/iconoDelBanco.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Liberty Bank</title>
 </head>
 
 <body>
-    <header class="flex justify-between bg-red-600 p-2 items-center">
-        <div class="mx-1 ">
-            <img class="h-[40px] w-[40px]" src="./assets/images/iconoDelBanco.png" alt="iconoDelBanco">
-        </div>
-        <nav>
-            <ul class="flex gap-2 ">
-                <li><a href="#" class=" p-1 rounded-lg text-white">Home</a></li>
-                <li><a href="./assets/pages/manager.html" class=" p-1 rounded-lg text-white">managers</a></li>
-            </ul>
-        </nav>
-    </header>
-<main class="bg-slate-200 flex justify-center items-center flex-col">
+    <div id="app">
+        <header class="flex justify-between bg-red-600 p-2 items-center">
+            <div class="mx-1 ">
+                <img class="h-[40px] w-[40px]" src="./assets/images/iconoDelBanco.png" alt="iconoDelBanco">
+            </div>
+            <nav>
+                <ul class="flex gap-2 ">
+                    <li><a href="#" class=" p-1 rounded-lg text-white">Home</a></li>
+                    <li><a href="./assets/pages/manager.html" class=" p-1 rounded-lg text-white">managers</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="bg-slate-200 h-full flex justify-center items-center flex-col">
 
-</main>
+        </main>
+    </div>
+    <script type="module" src="./assets/style/tailwind.config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </body>
 
 </html>
