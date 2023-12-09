@@ -23,7 +23,6 @@ const app = createApp({
                 })
         },
         createClient(event) {
-            
             event.preventDefault()
             axios.post("/clients",
                 {

@@ -1,9 +1,9 @@
 package com.mindhub.homebanking.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity //crea una tabla en la base de datos
 public class Client {
@@ -11,41 +11,53 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     // hace que las columnas en la tabla de la base de datos
 
-    private String name, lastname, email;
+    private String firstName, lastName, email;
+
+    //accounts es una propiedad y tiene que estar en private
+    private List<Account> accounts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    //eager lo que hace es traer todo lo relacionado con cliente
+    //  onetomany decimos que un cliente va a tener varias cuentas
+    // mappedby decimos que va a mapear las cuentas
+    //fetch decimos como queremos que nos traiga los datos en relacion con el account
+    public List<Account> getAccounts() {
+        return accounts;
+    }
 
     public Client(String name, String lastname, String email) {
-        this.name = name;
-        this.lastname = lastname;
+        this.firstName = name;
+        this.lastName = lastname;
         this.email = email;
     }
+
+    public void addAccount(Account account) {
+        account.setClient(this);
+        this.accounts.add(account);
+    }
+
     //constructor vacio "client" que sirve cuando yo haga la peticion evite el error status=500
     public Client() {
     }
-    public long getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getName() {
-        return name;
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getLastname() {
-        return lastname;
+        return lastName;
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+        this.lastName = lastname;
     }
 
     public String getEmail() {
@@ -60,8 +72,8 @@ public class Client {
     public String toString() {
         return "Client{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
+                ", name='" + firstName + '\'' +
+                ", lastname='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
