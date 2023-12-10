@@ -15,21 +15,21 @@ public class Client {
     // hace que las columnas en la tabla de la base de datos
 
     private String firstName, lastName, email;
-
-    //accounts es una propiedad y tiene que estar en private
-    private List<Account> accounts = new ArrayList<>();
-
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    //accounts es una propiedad y tiene que estar en private
     //eager lo que hace es traer todo lo relacionado con cliente
     //  onetomany decimos que un cliente va a tener varias cuentas
     // mappedby decimos que va a mapear las cuentas
     //fetch decimos como queremos que nos traiga los datos en relacion con el account
+    private List<Account> accounts = new ArrayList<>();
+
+
     public List<Account> getAccounts() {
         return accounts;
     }
 
-    public Client(String name, String lastname, String email) {
-        this.firstName = name;
+    public Client(String firstName, String lastname, String email) {
+        this.firstName = firstName;
         this.lastName = lastname;
         this.email = email;
     }
@@ -47,7 +47,7 @@ public class Client {
         return id;
     }
 
-    public String getName() {
+    public String getFirstName() {
         return firstName;
     }
 
