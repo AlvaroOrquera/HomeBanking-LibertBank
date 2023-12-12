@@ -3,22 +3,20 @@ const app = createApp({
     data() {
         return {
             data: [],
-            fechaYHora: [],
+            account: [],
         }
     },
     created() {
-        const search = location.search
-        const params = new URLSearchParams(search)
-        this.id = params.get('id')
         this.loadData()
         this.formatBudget()
-
     },
     methods: {
         loadData() {
-            axios.get("/api/accounts/" + this.id + "/transactions")
-                .then(response => {
-                    this.data = response.data
+            axios.get("/api/clients/1")
+                .then(data => {
+                    this.data = data.data
+                    this.account = data.data.accountDTOS
+                    console.log(this.account)
                     console.log(this.data)
                 })
                 .catch(error => {
@@ -34,14 +32,5 @@ const app = createApp({
                 })
             }
         },
-        formatFechaYHora(fechaYHora) {
-            if (fechaYHora) {
-                const fechaFormateada = new Date(fechaYHora);
-                const opciones = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-                return fechaFormateada.toLocaleString('en-US', opciones);
-            }
-            return '';
-        },
-
     }
 }).mount('#app')

@@ -14,30 +14,41 @@
     <div id="app">
         <header class="flex justify-between bg-red-600 p-2 items-center flex-col lg:flex-row">
             <div class="flex flex-col lg:flex-row justify-center items-center">
-                <img class="h-[40px] w-[40px] rounded-3xl shadow-lg" src="./assets/images/iconoDelBanco.png" alt="iconoDelBanco">
+                <img class="h-[40px] w-[40px] rounded-3xl shadow-lg" src="./assets/images/iconoDelBanco.png"
+                    alt="iconoDelBanco">
                 <h2 class=" p-1 rounded-lg text-white text-lg ">Liberty Bank</h2>
             </div>
             <nav>
                 <ul class="flex gap-2 ">
-                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Accounts</a></li>
-                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Cards</a></li>
-                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Loans</a></li>
-                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Transactions</a></li>
+                    <li><a href="#"
+                            class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-800">Accounts</a></li>
+                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-800">Cards</a>
+                    </li>
+                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-800">Loans</a>
+                    </li>
+                    <li><a href="#"
+                            class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-800">Transactions</a>
+                    </li>
                 </ul>
             </nav>
         </header>
-        <main class="min-h-screen">
-            <div class="bg-slate-500/30 shadow-lg flex-col justify-center items-center lg:justify-start flex p-3 rounded-b-lg">
+        <main >
+            <div>
+                <img class="w-full object-cover h-96" src="./assets/images/banner.png" alt="">
+            </div>
+            <div
+                class="bg-slate-500/30 shadow-lg flex-col justify-center items-center lg:justify-start flex p-3 rounded-b-lg">
                 <h2 class="text-lg lg:text-3xl">Welcome!</h2>
                 <h2 class="text-lg  lg:text-2xl">{{data.firstName}} {{data.lastName}}</h2>
             </div>
-            <div class="lg:flex lg:items-center lg:justify-center lg:h-screen">
+            <div class="sm:flex sm:items-center sm:justify-center sm:h-screen ">
                 <template v-if="account.length > 0" v-for="accounts in account">
-                    <div class="bg-red-600 m-8 p-3 rounded-lg shadow-lg ">
+                    <div class="bg-red-500 m-8 p-3 rounded-lg shadow-2xl sm:h-60 sm:w-96 sm:flex sm:flex-col sm:justify-center sm:items-center">
                         <h2 class="text-white">Account Number: {{accounts.number}}</h2>
                         <h2 class="text-white">Balance: {{formatBudget(accounts.balance)}}</h2>
                         <h2 class="text-white">Date Created: {{accounts.createDate}}</h2>
-                    </div>
+                        <a v-bind:href="'./account.html?id=' + accounts.id" class="text-white underline mt-4">See More...</a>
+                    </div>  
                 </template>
             </div>
         </main>
@@ -49,7 +60,7 @@
     <script type="module" src="./assets/style/tailwind.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="./assets/pages/account.js"></script>
+    <script src="./assets/pages/accounts.js"></script>
 </body>
 
 </html>
