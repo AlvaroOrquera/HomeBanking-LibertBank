@@ -3,7 +3,9 @@ package com.mindhub.homebanking.models;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity //crea una tabla en la base de datos
 public class Client {
@@ -23,6 +25,17 @@ public class Client {
     //fetch decimos como queremos que nos traiga los datos en relacion con el account
     private List<Account> accounts = new ArrayList<>();
 
+    //set que conecta a client con clientsloans
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<ClientsLoans> clientsLoans = new HashSet<>();
+
+    public Set<ClientsLoans> getClientsLoans() {
+        return clientsLoans;
+    }
+    public void addClientsLoans(ClientsLoans clientsLoans){
+        clientsLoans.setClient(this);
+        this.clientsLoans.add(clientsLoans);
+    }
 
     public List<Account> getAccounts() {
         return accounts;
@@ -46,6 +59,7 @@ public class Client {
     public Long getId() {
         return id;
     }
+
 
     public String getFirstName() {
         return firstName;

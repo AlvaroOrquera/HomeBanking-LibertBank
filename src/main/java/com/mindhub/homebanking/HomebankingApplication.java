@@ -1,12 +1,7 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,14 +21,16 @@ public class HomebankingApplication {
     @Bean
     public CommandLineRunner initData(ClientRepository clientRepository,
                                       AccountRepository accountRepository,
-                                      TransactionRepository transactionRepository) {
+                                      TransactionRepository transactionRepository,
+                                      ClientsLoansRepository clientsLoansRepository,
+                                      LoansRepository loansRepository) {
         return args -> {
             Client numero1 = new Client("Melba", "Morel", "melba@mindhub.com");
             Client numero2 = new Client("Alvaro", "Orquera", "alvarosop23@gmail.com");
-            System.out.println(numero1);
-            System.out.println(numero2);
             clientRepository.save(numero1);
             clientRepository.save(numero2);
+            System.out.println(numero1);
+            System.out.println(numero2);
             Account vin001 = new Account("VIN001", LocalDate.now(), 5000);
             Account vin002 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
             Account vin003 = new Account("VIN003", LocalDate.now(), 5000);
@@ -80,6 +77,36 @@ public class HomebankingApplication {
             transactionRepository.save(trans6);
             transactionRepository.save(trans7);
             transactionRepository.save(trans8);
+
+
+            Loans Hipotecario = new Loans("Hipotecario", 500000, List.of(12, 24, 36, 48, 60));
+            Loans Personal = new Loans("Personal", 100000, List.of(6, 12, 24));
+            Loans Automotriz = new Loans("Automotriz", 300000, List.of(6, 12, 24, 36));
+
+            loansRepository.save(Hipotecario);
+            loansRepository.save(Personal);
+            loansRepository.save(Automotriz);
+
+
+            ClientsLoans melbaHipotecario = new ClientsLoans(400000, 60);
+            ClientsLoans melbaPersonal = new ClientsLoans(50000, 12);
+            ClientsLoans alvaroAutomotriz = new ClientsLoans(40000, 36);
+
+            Hipotecario.addtClientsLoans(melbaHipotecario);
+            Personal.addtClientsLoans(melbaPersonal);
+            Automotriz.addtClientsLoans(alvaroAutomotriz);
+
+            numero1.addClientsLoans(melbaHipotecario);
+            numero1.addClientsLoans(melbaPersonal);
+            numero2.addClientsLoans(alvaroAutomotriz);
+
+            clientsLoansRepository.save(melbaHipotecario);
+            clientsLoansRepository.save(melbaPersonal);
+            clientsLoansRepository.save(alvaroAutomotriz);
+           //el orden de guardado para un correcto funcionamiento seria: 1ro se guarda el cliente en el repositorio
+            // 2do se guarda el loans que seria el uno para muchos que este va a la clase clientsLoans
+            // y 3ro se guarda recien el clientsLoans que seria el mucho para uno
+
 
         };
     }

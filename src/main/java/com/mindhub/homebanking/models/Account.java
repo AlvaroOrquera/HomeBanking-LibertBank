@@ -23,9 +23,7 @@ public class Account {
     //creo la lista tipo set para que no me salgan repetidas, el Hashset: cumple una funcion similar a la de arraylist
     //construye un conjunto nuevo y vacio
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    private Set<Transaction> transactions = new HashSet<>() {
-
-    };
+    private Set<Transaction> transactions = new HashSet<>() {};
 
     public Set<Transaction> getTransactions() {
         return transactions;
