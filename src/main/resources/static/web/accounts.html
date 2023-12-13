@@ -32,23 +32,68 @@
                 </ul>
             </nav>
         </header>
-        <main >
+        <main>
             <div>
                 <img class="w-full object-cover h-96" src="./assets/images/banner.png" alt="">
             </div>
-            <div
-                class="bg-slate-500/30 shadow-lg flex-col justify-center items-center lg:justify-start flex p-3 rounded-b-lg">
+            <div class="bg-slate-500/30 shadow-lg flex-col justify-center items-center  flex p-3 rounded-b-lg">
                 <h2 class="text-lg lg:text-3xl">Welcome!</h2>
                 <h2 class="text-lg  lg:text-2xl">{{data.firstName}} {{data.lastName}}</h2>
             </div>
             <div class="sm:flex sm:items-center sm:justify-center sm:h-screen ">
                 <template v-if="account.length > 0" v-for="accounts in account">
-                    <div class="bg-red-500 m-8 p-3 rounded-lg shadow-2xl sm:h-60 sm:w-96 sm:flex sm:flex-col sm:justify-center sm:items-center">
+                    <div
+                        class="bg-red-500 m-8 p-3 rounded-lg shadow-2xl sm:h-60 sm:w-96 sm:flex sm:flex-col sm:justify-center sm:items-center">
                         <h2 class="text-white">Account Number: {{accounts.number}}</h2>
                         <h2 class="text-white">Balance: {{formatBudget(accounts.balance)}}</h2>
                         <h2 class="text-white">Date Created: {{accounts.createDate}}</h2>
-                        <a v-bind:href="'./account.html?id=' + accounts.id" class="text-white underline mt-4">See More...</a>
-                    </div>  
+                        <a v-bind:href="'./account.html?id=' + accounts.id" class="text-white underline mt-4">See
+                            your transactions...</a>
+                    </div>
+                </template>
+            </div>
+            <div>
+                <div class="sm:flex sm:justify-center flex justify-center">
+                    <h2
+                        class="bg-slate-500/30 shadow-lg w-1/3 justify-center items-center sm:justify-center sm:text-xl flex p-3 rounded-t-lg">
+                        LOANS</h2>
+                </div>
+
+                <template v-if="data1.length > 0" v-for="clientsLoansDTOS in data1">
+                    <div class="overflow-x-auto sm:flex sm:justify-center mb-2">
+                        <table class="sm:w-[450px] w-[400px] sm:mt-3 mt-3 divide-y shadow-lg divide-red-200">
+                            <thead class="bg-red-500">
+                                <tr>
+                                    <th
+                                        class="sm:rounded-l-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        Name</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        Amount</th>
+                                    <th
+                                        class="sm:rounded-r-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        payments</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-red-200">
+                                <tr>
+                                    <td class="sm:rounded-l-lg px-6 py-4 whitespace-nowrap text-base text-black">
+                                        {{clientsLoansDTOS
+                                        .name}}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-base text-black">
+                                        {{formatBudget(clientsLoansDTOS .amount)}}</td>
+                                    <td class="sm:rounded-r-lg px-6 py-4 whitespace-nowrap text-base text-black">
+                                        {{clientsLoansDTOS .payments}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+                <template v-else>
+                    <h2
+                        class="bg-slate-500/30 shadow-lg justify-center items-center sm:justify-center sm:text-xl flex p-3 rounded-t-lg">
+                        No Loans</h2>
                 </template>
             </div>
         </main>

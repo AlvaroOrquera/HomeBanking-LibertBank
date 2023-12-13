@@ -33,25 +33,26 @@
             </nav>
         </header>
         <main class="min-h-screen">
+            <h2 class="bg-slate-500/30 shadow-lg flex-col justify-center items-center sm:text-xl flex p-3 rounded-b-lg">Transactions</h2>
             <template v-if="data.length > 0" v-for="transactions in data">
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-red-200">
+                <div class="overflow-x-auto sm:flex sm:justify-center sm:mt-[30px] ">
+                    <table class="w-auto divide-y divide-red-200 shadow-lg">
                         <thead class="bg-red-500">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Type</th>
+                                <th class="sm:rounded-l-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Type</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                                     Amount</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                <th class=" px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                                     Description</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                <th class="sm:rounded-r-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                                     Date-Time</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-red-200">
                             <tr>
                                 <td v-if="transactions.type=='Credit'"
-                                    class="px-6 py-4 whitespace-nowrap text-sm text-green-600">{{transactions.type}}
+                                    class="sm:rounded-l-lg px-6 py-4 whitespace-nowrap text-sm text-green-600">{{transactions.type}}
                                 </td>
                                 <td v-else class="px-6 py-4 whitespace-nowrap text-sm text-red-700">
                                     {{transactions.type}}</td>
@@ -59,7 +60,7 @@
                                     {{formatBudget(transactions.amount)}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{transactions.description}}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
+                                <td class="sm:rounded-r-l gpx-6 py-4 px-2 whitespace-nowrap text-sm text-black">
                                     {{formatFechaYHora(transactions.dateTime)}}</td>
                             </tr>
                         </tbody>
