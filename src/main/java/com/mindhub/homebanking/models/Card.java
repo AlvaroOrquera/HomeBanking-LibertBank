@@ -23,13 +23,14 @@ public class Card {
     public Card() {
     }
 
-    public Card(CardType type, CardColors colors, String number, Integer cvv, LocalDate fromDate, LocalDate truDate) {
+    public Card(String cardHolder, CardType type, CardColors colors, String number, Integer cvv, LocalDate fromDate, LocalDate truDate) {
         this.type = type;
         this.colors = colors;
         this.number = number;
         this.cvv = cvv;
         this.fromDate = fromDate;
         this.truDate = truDate;
+        this.cardHolder = cardHolder;
     }
 
     public Long getId() {

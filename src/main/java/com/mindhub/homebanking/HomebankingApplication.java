@@ -105,11 +105,11 @@ public class HomebankingApplication {
             clientsLoansRepository.save(melbaPersonal);
             clientsLoansRepository.save(alvaroAutomotriz);
 
-            Card cardMelbaGold = new Card(CardType.DEBIT, CardColors.GOLD,
+            Card cardMelbaGold = new Card("Mebal Morel" ,CardType.DEBIT, CardColors.GOLD,
                     "3325-5745-7876-4445", 990, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
-            Card cardMelbaTitanium = new Card(CardType.CREDIT, CardColors.TITANIUM,
+            Card cardMelbaTitanium = new Card( "Mebal Morel" ,CardType.CREDIT, CardColors.TITANIUM,
                     "2234-6745-5523-7888", 750, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
-            Card cardAlvaroSilver = new Card(CardType.CREDIT, CardColors.SILVER,
+            Card cardAlvaroSilver = new Card( "Alvaro Orquera",CardType.CREDIT, CardColors.SILVER,
                     "2234-6745-7876-4445", 231, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
             numero1.addCard(cardMelbaGold);
             numero1.addCard(cardMelbaTitanium);

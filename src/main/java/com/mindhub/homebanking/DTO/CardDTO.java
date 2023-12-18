@@ -19,7 +19,7 @@ public class CardDTO {
 
     public CardDTO(Card card) {
         this.id = card.getId();
-        this.cardHolder = card.getClient().getFirstName() + " " + card.getClient().getLastname();
+        this.cardHolder = card.getCardHolder();
         this.type = card.getType();
         this.colors= card.getColors();
         this.number = card.getNumber();
