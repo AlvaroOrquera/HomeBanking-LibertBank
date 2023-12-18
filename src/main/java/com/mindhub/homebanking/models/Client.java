@@ -17,13 +17,7 @@ public class Client {
     // hace que las columnas en la tabla de la base de datos
 
     private String firstName, lastName, email;
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    //accounts es una propiedad y tiene que estar en private
-    //eager lo que hace es traer todo lo relacionado con cliente
-    //  onetomany decimos que un cliente va a tener varias cuentas
-    // mappedby decimos que va a mapear las cuentas
-    //fetch decimos como queremos que nos traiga los datos en relacion con el account
-    private List<Account> accounts = new ArrayList<>();
+
 
     //set que conecta a client con clientsloans
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
@@ -32,14 +26,12 @@ public class Client {
     public Set<ClientsLoans> getClientsLoans() {
         return clientsLoans;
     }
-    public void addClientsLoans(ClientsLoans clientsLoans){
+
+    public void addClientsLoans(ClientsLoans clientsLoans) {
         clientsLoans.setClient(this);
         this.clientsLoans.add(clientsLoans);
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
-    }
 
     public Client(String firstName, String lastname, String email) {
         this.firstName = firstName;
@@ -47,9 +39,33 @@ public class Client {
         this.email = email;
     }
 
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    //accounts es una propiedad y tiene que estar en private
+    //eager lo que hace es traer todo lo relacionado con cliente
+    //  onetomany decimos que un cliente va a tener varias cuentas
+    // mappedby decimos que va a mapear las cuentas
+    //fetch decimos como queremos que nos traiga los datos en relacion con el account
+    private List<Account> accounts = new ArrayList<>();
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
     public void addAccount(Account account) {
         account.setClient(this);
         this.accounts.add(account);
+    }
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    public Set<Card> cards = new HashSet<>();
+
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void addCard(Card card) {
+        card.setClient(this);
+        this.cards.add(card);
     }
 
     //constructor vacio "client" que sirve cuando yo haga la peticion evite el error status=500
@@ -84,11 +100,11 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
+        return "Client{" + "id=" + id +
                 ", name='" + firstName + '\'' +
                 ", lastname='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+                ", email='" + email + '\'' + '}';
     }
+
+
 }

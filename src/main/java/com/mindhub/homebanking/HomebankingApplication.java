@@ -23,7 +23,8 @@ public class HomebankingApplication {
                                       AccountRepository accountRepository,
                                       TransactionRepository transactionRepository,
                                       ClientsLoansRepository clientsLoansRepository,
-                                      LoansRepository loansRepository) {
+                                      LoansRepository loansRepository,
+                                      CardRepository cardRepository) {
         return args -> {
             Client numero1 = new Client("Melba", "Morel", "melba@mindhub.com");
             Client numero2 = new Client("Alvaro", "Orquera", "alvarosop23@gmail.com");
@@ -103,7 +104,20 @@ public class HomebankingApplication {
             clientsLoansRepository.save(melbaHipotecario);
             clientsLoansRepository.save(melbaPersonal);
             clientsLoansRepository.save(alvaroAutomotriz);
-           //el orden de guardado para un correcto funcionamiento seria: 1ro se guarda el cliente en el repositorio
+
+            Card cardMelbaGold = new Card(CardType.DEBIT, CardColors.GOLD,
+                    "3325-5745-7876-4445", 990, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
+            Card cardMelbaTitanium = new Card(CardType.CREDIT, CardColors.TITANIUM,
+                    "2234-6745-5523-7888", 750, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
+            Card cardAlvaroSilver = new Card(CardType.CREDIT, CardColors.SILVER,
+                    "2234-6745-7876-4445", 231, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
+            numero1.addCard(cardMelbaGold);
+            numero1.addCard(cardMelbaTitanium);
+            numero2.addCard(cardAlvaroSilver);
+            cardRepository.save(cardAlvaroSilver);
+            cardRepository.save(cardMelbaTitanium);
+            cardRepository.save(cardMelbaGold);
+            //el orden de guardado para un correcto funcionamiento seria: 1ro se guarda el cliente en el repositorio
             // 2do se guarda el loans que seria el uno para muchos que este va a la clase clientsLoans
             // y 3ro se guarda recien el clientsLoans que seria el mucho para uno
 

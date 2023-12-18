@@ -20,11 +20,13 @@
             </div>
             <nav>
                 <ul class="flex gap-2 ">
+                    <li><a href="../index.html"
+                        class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-800">Home</a></li>
                     <li><a href="./accounts.html"
                             class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Accounts</a></li>
-                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Cards</a>
+                    <li><a href="./cards.html" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Cards</a>
                     </li>
-                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Loans</a>
+                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-800">Loans</a>
                     </li>
                     <li><a href="#"
                             class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Transactions</a>
@@ -32,27 +34,32 @@
                 </ul>
             </nav>
         </header>
-        <main class="min-h-screen">
-            <h2 class="bg-slate-500/30 shadow-lg flex-col justify-center items-center sm:text-xl flex p-3 rounded-b-lg">Transactions</h2>
-            <template v-if="data.length > 0" v-for="transactions in data">
-                <div class="overflow-x-auto sm:flex sm:justify-center sm:mt-[30px] ">
-                    <table class="w-auto divide-y divide-red-200 shadow-lg">
-                        <thead class="bg-red-500">
-                            <tr>
-                                <th class="sm:rounded-l-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+        <main class="">
+            <h2 class="bg-slate-500/30 shadow-lg flex-col justify-center items-center sm:text-xl flex p-3 rounded-b-lg">
+                Transactions</h2>
+
+            <div class="overflow-x-auto sm:flex sm:justify-center sm:mt-[30px] ">
+                <table class="w-auto divide-y divide-red-200 shadow-lg">
+                    <thead class="bg-red-500">
+                        <tr>
+                            <th
+                                class="sm:rounded-l-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                                 Type</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Amount</th>
-                                <th class=" px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Description</th>
-                                <th class="sm:rounded-r-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Date-Time</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-red-200">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Amount</th>
+                            <th class=" px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Description</th>
+                            <th
+                                class="sm:rounded-r-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Date-Time</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-red-200">
+                        <template v-if="data.length > 0" v-for="transactions in data">
                             <tr>
                                 <td v-if="transactions.type=='Credit'"
-                                    class="sm:rounded-l-lg px-6 py-4 whitespace-nowrap text-sm text-green-600">{{transactions.type}}
+                                    class="sm:rounded-l-lg px-6 py-4 whitespace-nowrap text-sm text-green-600">
+                                    {{transactions.type}}
                                 </td>
                                 <td v-else class="px-6 py-4 whitespace-nowrap text-sm text-red-700">
                                     {{transactions.type}}</td>
@@ -60,15 +67,16 @@
                                     {{formatBudget(transactions.amount)}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{transactions.description}}
                                 </td>
-                                <td class="sm:rounded-r-l gpx-6 py-4 px-2 whitespace-nowrap text-sm text-black">
+                                <td class="sm:rounded-r-l gpx-6 py-4 px-2    whitespace-nowrap text-sm text-black">
                                     {{formatFechaYHora(transactions.dateTime)}}</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </template>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
             <div class=" justify-center items-center flex mt-5">
-                <img class="rounded-lg w-[250px] h-[250px] shadow-xl sm:w-[500px] sm:h-[500px] sm:m-3 sm:rounded-xl sm:shadow-inner" src="./assets/images/NEW DESING.png" alt="">
+                <img class="rounded-lg w-[250px] h-[250px] shadow-xl sm:w-[500px] sm:h-[500px] sm:m-3 sm:rounded-xl sm:shadow-inner"
+                    src="./assets/images/NEW DESING.png" alt="">
             </div>
         </main>
         <footer class="bg-red-600 p-2 flex justify-between text-white">

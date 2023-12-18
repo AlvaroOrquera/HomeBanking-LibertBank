@@ -11,16 +11,20 @@
     import java.util.stream.Collectors;
 
     //esto tambien es un servlet es el conjunto de las dos cosas, donde podemos decir que
-    // es un programa que controla y escucha las peticiones
+    // es un programa que  escucha y responde(en JSON/XML) las peticiones(HTTP metodos(GET PUT POST DELETE))
     @RestController
     //este indica la ruta donde va a estar escuchando el controlador
     @RequestMapping("/api/clients")// este sirve para devolver lo que le pidas basado en una ruta de acceso
     public class ClientController {
-        @Autowired //es algo similar a generar una instancia de esto, osea envita hacer el constructor
+
+
+        @Autowired //es algo similar a generar una instancia de esto, osea evita hacer el constructor
+        //osea hacemos una inyeccion de dependencias
         private ClientRepository clientRepository;
 
 
         //esto es un servlet= microprograma que responde peticiones especificas
+        //RequestMapping por defecto es tipo GET
         @RequestMapping("/all")
         public List<ClientDTO> getAllClient(){
             return clientRepository.findAll()
