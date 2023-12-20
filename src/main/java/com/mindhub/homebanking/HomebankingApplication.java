@@ -2,10 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +20,9 @@ public class HomebankingApplication {
         SpringApplication.run(HomebankingApplication.class, args);
     }
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Bean
     public CommandLineRunner initData(ClientRepository clientRepository,
                                       AccountRepository accountRepository,
@@ -25,11 +30,16 @@ public class HomebankingApplication {
                                       ClientsLoansRepository clientsLoansRepository,
                                       LoansRepository loansRepository,
                                       CardRepository cardRepository) {
+
+
         return args -> {
-            Client numero1 = new Client("Melba", "Morel", "melba@mindhub.com");
-            Client numero2 = new Client("Alvaro", "Orquera", "alvarosop23@gmail.com");
+            Client numero1 = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("Melba1234"));
+            Client numero2 = new Client("Alvaro", "Orquera", "alvarosop23@gmail.com", passwordEncoder.encode("Alvaro232315"));
+            Client admin = new Client("Alvaro", "Orqueras", "alvarocapo2013@gmail.com", passwordEncoder.encode("Alvaro232315"));
+            admin.setRol(RoleType.ADMIN);
             clientRepository.save(numero1);
             clientRepository.save(numero2);
+            clientRepository.save(admin);
             System.out.println(numero1);
             System.out.println(numero2);
             Account vin001 = new Account("VIN001", LocalDate.now(), 5000);
@@ -47,17 +57,17 @@ public class HomebankingApplication {
             accountRepository.save(vin003);
             accountRepository.save(vin004);
             Transaction trans1 = new Transaction(TransactionType.Credit, 20000, "Food", LocalDateTime.now());
-            Transaction trans2 = new Transaction(TransactionType.Debit, 10000, "Clothing ", LocalDateTime.now());
+            Transaction trans2 = new Transaction(TransactionType.Debit, -10000, "Clothing ", LocalDateTime.now());
 
             Transaction trans4 = new Transaction(TransactionType.Credit, 40000, "Food", LocalDateTime.now());
-            Transaction trans3 = new Transaction(TransactionType.Debit, 60000, "Clothing ", LocalDateTime.now());
+            Transaction trans3 = new Transaction(TransactionType.Debit, -60000, "Clothing ", LocalDateTime.now());
 
 
             Transaction trans5 = new Transaction(TransactionType.Credit, 20000, "Food", LocalDateTime.now());
-            Transaction trans6 = new Transaction(TransactionType.Debit, 10000, "Clothing ", LocalDateTime.now());
+            Transaction trans6 = new Transaction(TransactionType.Debit, -10000, "Clothing ", LocalDateTime.now());
 
             Transaction trans8 = new Transaction(TransactionType.Credit, 40000, "Food", LocalDateTime.now());
-            Transaction trans7 = new Transaction(TransactionType.Debit, 60000, "Clothing ", LocalDateTime.now());
+            Transaction trans7 = new Transaction(TransactionType.Debit, -60000, "Clothing ", LocalDateTime.now());
 
             vin001.addTransaction(trans1);
             vin002.addTransaction(trans2);
@@ -80,9 +90,9 @@ public class HomebankingApplication {
             transactionRepository.save(trans8);
 
 
-            Loans Hipotecario = new Loans("Hipotecario", 500000, List.of(12, 24, 36, 48, 60));
+            Loans Hipotecario = new Loans("Mortgage", 500000, List.of(12, 24, 36, 48, 60));
             Loans Personal = new Loans("Personal", 100000, List.of(6, 12, 24));
-            Loans Automotriz = new Loans("Automotriz", 300000, List.of(6, 12, 24, 36));
+            Loans Automotriz = new Loans("Automotive", 300000, List.of(6, 12, 24, 36));
 
             loansRepository.save(Hipotecario);
             loansRepository.save(Personal);
@@ -105,11 +115,11 @@ public class HomebankingApplication {
             clientsLoansRepository.save(melbaPersonal);
             clientsLoansRepository.save(alvaroAutomotriz);
 
-            Card cardMelbaGold = new Card("Mebal Morel" ,CardType.DEBIT, CardColors.GOLD,
+            Card cardMelbaGold = new Card("Mebal Morel", CardType.DEBIT, CardColors.GOLD,
                     "3325-5745-7876-4445", 990, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
-            Card cardMelbaTitanium = new Card( "Mebal Morel" ,CardType.CREDIT, CardColors.TITANIUM,
+            Card cardMelbaTitanium = new Card("Mebal Morel", CardType.CREDIT, CardColors.TITANIUM,
                     "2234-6745-5523-7888", 750, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
-            Card cardAlvaroSilver = new Card( "Alvaro Orquera",CardType.CREDIT, CardColors.SILVER,
+            Card cardAlvaroSilver = new Card("Alvaro Orquera", CardType.CREDIT, CardColors.SILVER,
                     "2234-6745-7876-4445", 231, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
             numero1.addCard(cardMelbaGold);
             numero1.addCard(cardMelbaTitanium);

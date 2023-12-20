@@ -16,7 +16,11 @@ public class Client {
     private Long id;
     // hace que las columnas en la tabla de la base de datos
 
-    private String firstName, lastName, email;
+    private String firstName, lastName, email, password;
+    //asigno y inicialiso el roltype
+    private RoleType rol = RoleType.CLIENT;
+
+
 
 
     //set que conecta a client con clientsloans
@@ -33,10 +37,11 @@ public class Client {
     }
 
 
-    public Client(String firstName, String lastname, String email) {
+    public Client(String firstName, String lastname, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastname;
         this.email = email;
+        this.password = password;
     }
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
@@ -70,6 +75,22 @@ public class Client {
 
     //constructor vacio "client" que sirve cuando yo haga la peticion evite el error status=500
     public Client() {
+    }
+
+    public RoleType getRol() {
+        return rol;
+    }
+
+    public void setRol(RoleType rol) {
+        this.rol = rol;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {
