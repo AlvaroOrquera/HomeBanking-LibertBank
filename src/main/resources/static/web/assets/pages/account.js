@@ -42,6 +42,14 @@ const app = createApp({
             }
             return '';
         },
-
+        logout(){
+            axios.post("/api/logout")
+                .then(response => {
+                    console.log(response)
+                    if (response.status == 200) {
+                        window.location.href = "./login.html"
+                    }
+                })
+        },
     }
 }).mount('#app')

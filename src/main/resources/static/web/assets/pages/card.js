@@ -11,7 +11,7 @@ const app = createApp({
     },
     methods: {
         loadData() {
-            axios.get("/api/clients/1")
+            axios.get("/api/clients/current")
                 .then(data => {
                     this.data = data.data.cardDTOS
                     console.log(this.data)
@@ -27,6 +27,15 @@ const app = createApp({
                 return fechaFormateada.toLocaleString('en-US', opciones);
             }
             return '';
+        },
+        logout(){
+            axios.post("/api/logout")
+                .then(response => {
+                    console.log(response)
+                    if (response.status == 200) {
+                        window.location.href = "./login.html"
+                    }
+                })
         },
     }
 }).mount('#app')

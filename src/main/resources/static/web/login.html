@@ -4,79 +4,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="web/assets/images/iconoDelBanco.png" type="image/x-icon">
-    <link rel="stylesheet" href="./web/assets/style/style.css">
+    <link rel="stylesheet" href="./assets/style/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Liberty Bank</title>
+    <link rel="shortcut icon" href="./assets/images/iconoDelBanco.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <title>Liberty Bank | Login</title>
 </head>
 
 <body>
     <div id="app">
-        <header class="flex min-h-[5vh] rounded-xl justify-between items-center w-full flex-col lg:flex-row bg-white p-2">
-            <div class="mx-1 items-center flex flex-col md:flex-row ">
-                <img class="h-10 w-10" src="./web/assets/images/iconoDelBanco.png" alt="iconoDelBanco">
+        <header class="flex min-h-[5vh] justify-between items-center w-full flex-col md:flex-row bg-white p-2">
+            <div class="mx-1 items-center flex flex-col md:flex-row">
+                <img class="h-10 w-10" src="./assets/images/iconoDelBanco.png" alt="iconoDelBanco">
                 <h2 class="p-1 text-red-600">Liberty Bank</h2>
             </div>
             <nav>
                 <ul class="flex gap-2">
                     <li>
-                        <a href="./web/login.html"
-                            class="p-2 rounded-lg text-white text-sm lg:text-base bg-red-600
-                                hover:bg-red-800/50">Join Homebanking</a>
+                        <a href="../index.html"
+                            class="p-2 rounded-lg text-white text-sm lg:text-base bg-red-600 hover:bg-red-800/50">Home</a>
                     </li>
                 </ul>
             </nav>
         </header>
-
-        <main class="bg-slate-200  min-h-[90vh] bg-gradient-to-t from-red-900 to-red-500">
-            <div class="container mx-auto p-4 flex flex-col justify-center items-center">
-                <div class="banner text-center mb-8 flex justify-center items-center flex-col">
-                    <h2 class="text-4xl p-4">Welcome! How can we help you?</h2>
-                    <div class="coheader bg-slate-500/60 p-1 shadow-md rounded-lg flex flex-col md:flex md:flex-row">
-                        <ul class=" gap-4 justify-center items-center text-xl md:flex">
-                            <li class="hover:bg-red-800/40 p-1 rounded-lg"><a href="#">Online Shifts</a></li>
-                            <li class="hover:bg-red-800/40 p-1 rounded-lg"><a href="#">Benefits</a></li>
-                            <li class="hover:bg-red-800/40 p-1 rounded-lg"><a href="#">Promotions</a></li>
-                            <li class="hover:bg-red-800/40 p-1 rounded-lg"><a href="#">Join Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="flex items-center flex-col justify-center md:flex md:flex-row">
-                    <div
-                        class="anuncio flex flex-col items-center md:p-1 justify-center flex-colp-3 w-auto md:w-[300px] lg:w-[350] h-auto bg-gradient-to-t from-red-500 to-red-800 rounded-lg shadow-md  mt-7">
-                        <img src="./web/assets/images/banner-index.png"
-                            class=" w-[250px] md:w-[250px] h-[230px] md:ml-1 rounded-lg shadow-black shadow-lg" alt="">
-                        <p
-                            class="flex flex-col  ml-2 md:flex-row p-1 justify-center items-center w-[250px] h-[250px] md:w-[300px] text-white">
-                            We are a bank that is ready to help you with the management of your money.
-                            We assist the customer as if we were one, you and I are a team!
-                        </p>
-                    </div>
-                    <div
-                        class="location text-white text-center md:ml-4 flex flex-col  w-[250px] md:w-[350px] lg:w-[500px] justify-center items-center bg-gradient-to-t from-red-500 to-red-800 p-2 shadow-lg rounded-lg mt-2">
-                        <h2 class="text-2xl mb-4">Contact Us</h2>
-                        <div class="bg-gray-500/30 rounded-lg w-[250px] md:w-[350px] lg:w-[400px] h-full p-4">
-                            <h3 class="text-xl mb-2 ">Our Location</h3>
-                            <iframe class="rounded-lg"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d198740.175355699!2d-77.17938912292058!3d38.893905900629214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7c6de5af6e45b%3A0xc2524522d4885d2a!2sWashington%20D.%20C.%2C%20Distrito%20de%20Columbia%2C%20EE.%20UU.!5e0!3m2!1ses!2sar!4v1702893829525!5m2!1ses!2sar"
-                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
+        <main class="bg-gradient-to-t from-red-900 to-red-500 min-h-[90vh] flex justify-center items-center">
+            <div class="login&register md:w-[1000px] md:h-[400px] flex rounded-md shadow-lg">
+                <div
+                    class="login flex md:w-[500px] md:h-[400px] justify-center items-center bg-red-600 rounded-md md:rounded-l-md shadow-lg gap-2   ">
+                    <form id="formLogin">
+                        <div class="form-group flex flex-col p-2 ">
+                            <div class="flex flex-col justify-center items-center  mb-2 ">
+                                <img class="h-12 w-12" src="./assets/images/iconoDelBanco.png" alt="">
+                                <h2 class="text-white text-xl"> Liberty Bank</h2>
+                            </div>
+                            <div
+                                class="redes flex justify-center items-center flex-col bg-red-700/60 p-1 rounded-lg shadow-lg mb-3">
+                                <h2 class="text-white text-base">Login with: </h2>
+                                <div class="flex justify-center items-center">
+                                    <a href="https://www.facebook.com/?locale=es_LA"><img class="h-9 w-9"
+                                            src="./assets/images/facebook.png" alt=""></a>
+                                    <a href="https://www.google.com/?hl=es"><img class="h-9 w-9"
+                                            src="./assets/images/google.png" alt=""></a>
+                                    <a href="https://www.linkedin.com/home"><img class="h-9 w-9"
+                                            src="./assets/images/linkedin.png" alt=""></a>
+                                    <a href="https://www.yahoo.com"><img class="h-9 w-9" src="./assets/images/yahoo.png"
+                                            alt=""></a>
+                                </div>
+                            </div>
+                            <label class="text-white" for="email">Email</label>
+                            <input class="rounded-md" type="email" id="email" name="email" placeholder="Email"
+                                @input="getEmail" :value="email" required>
+                            <label class="text-white" for="password" class="mt-2">Password</label>
+                            <div class="flex items-center">
+                                <input type="password" class="rounded-md" id="password" name="password"
+                                    placeholder="Password" @input="getPassword" :value="password">
+                                <i class="far fa-eye cursor-pointer bg-white h-[24px] rounded-md p-1"
+                                    @click="togglePassword()" id="togglePassword"></i>
+                            </div>
+                            <div class="flex justify-end">
+                                <a href="">
+                                    <h3 class="text-xs text-white">forgot password?</h3>
+                                </a>
+                            </div>
+                            <button
+                                class="p-2 rounded-lg text-white text-sm lg:text-base bg-gray-900/30 hover:bg-red-700 mt-2"
+                                @click.prevent="login()">login</button>
+                            <div class="flex justify-center items-center">
+                                <h4 class="text-white text-sm   ">Don't have an account?
+                                    <button v-on:click="showModal" class="text-white hover:text-black" href="">Create
+                                        account </button>
+                                </h4>
+                            </div>
                         </div>
-                        <form class="mt-4 mx-auto max-w-md" action="#" method="post">
-                            <label for="name">Name:</label>
-                            <input type="text" id="name" name="name" class="w-full p-2 mb-2" placeholder="Name"required>
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" class="w-full p-2 mb-2" placeholder="Email" required>
-                            <label for="location">Location:</label>
-                            <input type="text" id="location" name="location" class="w-full p-2 mb-4" placeholder="Location" required>
-                            <button type="submit" class="bg-red-600 text-white p-2 rounded-md">Submit</button>
-                        </form>
-                    </div>
+                    </form>
+                </div>
+                <div class="hidden md:block">
+                    <img class="md:w-[500px] md:h-[400px] rounded-r-md"
+                        src="./assets/images/depositphotos_9968183-stock-photo-build-bank.jpg" alt="">
                 </div>
             </div>
         </main>
-        <footer class="bg-white p-2 min-h-[5vh] flex justify-between text-black">
+        <footer class=" bg-white p-2 min-h-[5vh] flex justify-between text-black">
             <div class="redes flex">
                 <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" role="img">
                     <path fill="#222222"
@@ -110,12 +118,62 @@
                         d="M17.5,2 C19.9852814,2 22,4.01471863 22,6.5 L22,17.5 C22,19.9852814 19.9852814,22 17.5,22 L6.5,22 C4.01471863,22 2,19.9852814 2,17.5 L2,6.5 C2,4.01471863 4.01471863,2 6.5,2 L17.5,2 Z M17.5,3 L6.5,3 C4.56700338,3 3,4.56700338 3,6.5 L3,17.5 C3,19.4329966 4.56700338,21 6.5,21 L17.5,21 C19.4329966,21 21,19.4329966 21,17.5 L21,6.5 C21,4.56700338 19.4329966,3 17.5,3 Z M9.16407219,6.76398937 L16.9279761,10.5973103 C17.2190043,10.7410015 17.4555744,10.9752125 17.6021749,11.264786 C17.9763578,12.0038927 17.6805287,12.9063922 16.941422,13.2805751 L9.17751807,17.2111581 C8.96749776,17.3174837 8.7354011,17.3728871 8.5,17.3728871 C7.67157288,17.3728871 7,16.7013142 7,15.8728871 L7,8.1089831 C7,7.87866091 7.05303923,7.65143219 7.15500627,7.44491092 C7.52176321,6.70209139 8.42125266,6.39723243 9.16407219,6.76398937 Z M12.724,12.431 L8.803,16.278 L14.026,13.635 L12.724,12.431 Z M8,8.1089831 L8,15.665 L11.989,11.752 L8.00196545,8.06469237 C8.00065843,8.07938941 8,8.09416706 8,8.1089831 Z M14.62,10.572 L13.439,11.73 L14.977,13.153 L16.4897433,12.3883944 C16.7361122,12.2636668 16.8347219,11.9628336 16.7099943,11.7164647 C16.6611274,11.6199402 16.5822707,11.5418699 16.4852613,11.4939728 L14.62,10.572 Z M9.402,7.996 L12.704,11.05 L13.67,10.103 L9.402,7.996 Z">
                     </path>
                 </svg>
-            </div> 
+            </div>
         </footer>
+        <div v-if="modalVisible"
+            class="bg-gray-700/60 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+            <section
+                class="bg-gradient-to-t from-red-900 to-red-500 text-black w-[300px] h-[500px] rounded-lg p-2 flex flex-col relative    ">
+                <div class="flex justify-end items-end">
+                    <button v-on:click="closeModal()">
+                        <img src="./assets/images/salir-de-pantalla-completa.png" class="h-6 w-6" alt="">
+                    </button>
+                </div>
+                <div class="h-full flex flex-col items-center justify-center ">
+                    <div class="flex flex-col justify-center items-center  mb-2 ">
+                        <img class="h-12 w-12" src="./assets/images/iconoDelBanco.png" alt="">
+                        <h2 class="text-white text-xl"> Liberty Bank</h2>
+                    </div>
+                    <div
+                        class="redes flex justify-center items-center flex-col bg-red-700/60 p-1 rounded-lg shadow-lg mb-3">
+                        <h2 class="text-white text-base">Register with: </h2>
+                        <div class="flex justify-center items-center">
+                            <a href="https://www.facebook.com/?locale=es_LA"><img class="h-9 w-9"
+                                    src="./assets/images/facebook.png" alt=""></a>
+                            <a href="https://www.google.com/?hl=es"><img class="h-9 w-9"
+                                    src="./assets/images/google.png" alt=""></a>
+                            <a href="https://www.linkedin.com/home"><img class="h-9 w-9"
+                                    src="./assets/images/linkedin.png" alt=""></a>
+                            <a href="https://www.yahoo.com"><img class="h-9 w-9" src="./assets/images/yahoo.png"
+                                    alt=""></a>
+                        </div>
+                    </div>
+                    <h2 class="text-white text-xl">Register:</h2>
+                    <form class=" flex flex-col">
+                        <label class="flex justify-center text-white">First Name</label>
+                        <input type="text" class="rounded-md" name="name" @input="getName" :value="name" required placeholder="Name">
+                        <label class="flex justify-center text-white">Last Name</label>
+                        <input type="text" class="rounded-md" name="lastname" @input="getLastName" :value="lastname"
+                            required placeholder="Last Name">
+                        <label class="flex justify-center text-white">Email</label>
+                        <input type="text" class="rounded-md" name="email" @input="getEmail" :value="email" required placeholder="Email">
+                        <label class="flex justify-center text-white">Password</label>
+                        <div>
+                            <input type="password" class="rounded-md" id="password2" name="password"
+                                placeholder="Password" @input="getPassword" :value="password">
+                        </div>
+                        <button type="submit" @click.prevent="register()"
+                            class="p-2 rounded-lg text-white text-sm lg:text-base bg-gray-900/30 hover:bg-red-700 mt-2">Create
+                            Account</button>
+                    </form>
+                </div>
+            </section>
+        </div>
     </div>
-    <script type="module" src="./web/assets/style/tailwind.config.js"></script>
+    <script type="module" src="./assets/style/tailwind.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./assets/pages/login.js"></script>
 </body>
 
 </html>

@@ -18,8 +18,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/login","/web/assets/**").permitAll()
+                .requestMatchers("/web/login.html","/web/assets/**","/index.html").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
+                .requestMatchers("/web/*","/api/clients/**","/api/accounts/*/transactions").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.GET, "/api/clients/current").hasAuthority("CLIENT")
+                .requestMatchers("/web/ADMIN/**","/h2-console/**").hasAuthority("ADMIN")
                 .anyRequest().denyAll()
         );
 

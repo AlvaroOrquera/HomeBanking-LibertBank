@@ -1,3 +1,4 @@
+const CLIENT = '/api/clients/current'
 const { createApp } = Vue
 const app = createApp({
     data() {
@@ -11,10 +12,11 @@ const app = createApp({
         this.loadData()
         this.formatBudget()
         this.loadData2()
+        console.log("holitas")
     },
     methods: {
         loadData() {
-            axios.get("/api/clients/1")
+            axios.get(CLIENT)
                 .then(data => {
                     this.data = data.data
                     this.account = data.data.accountDTOS
@@ -26,7 +28,7 @@ const app = createApp({
                 })
         },
         loadData2() {
-            axios.get("/api/clients/1")
+            axios.get(CLIENT)
                 .then(data => {
                     this.data1 = data.data.clientsLoansDTOS
                     console.log(this.data1)
@@ -43,6 +45,15 @@ const app = createApp({
                     minimumFractingDigits: 0,
                 })
             }
+        },
+        logout(){
+            axios.post("/api/logout")
+                .then(response => {
+                    console.log(response)
+                    if (response.status == 200) {
+                        window.location.href = "./login.html"
+                    }
+                })
         },
     }
 }).mount('#app')

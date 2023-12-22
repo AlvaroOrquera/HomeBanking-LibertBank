@@ -12,207 +12,319 @@
 
 <body>
     <div id="app">
-        <header class="flex justify-between bg-red-600 p-2 items-center flex-col lg:flex-row">
+        <header class="flex justify-between min-h-[5vh] bg-white p-1 items-center flex-col lg:flex-row">
             <div class="flex flex-col lg:flex-row justify-center items-center">
                 <img class="h-[40px] w-[40px] rounded-3xl shadow-lg" src="./assets/images/iconoDelBanco.png"
                     alt="iconoDelBanco">
-                <h2 class=" p-1 rounded-lg text-white text-lg ">Liberty Bank</h2>
+                <h2 class=" p-1 rounded-lg text-red-600 text-lg ">Liberty Bank</h2>
             </div>
             <nav>
-                <ul class="flex gap-2 ">
-                    <li><a href="../index.html"
-                            class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-700">Home</a></li>
+                <ul class="flex gap-2 items-center">
                     <li><a href="./accounts.html"
-                            class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-700">Accounts</a></li>
+                            class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-700">Accounts</a></li>
                     <li><a href="./cards.html"
-                            class=" p-1 rounded-lg text-white text-sm lg:text-base bg-gray-900/30 hover:bg-red-700">Cards</a>
+                            class=" p-1 rounded-lg text-black text-sm lg:text-base bg-gray-900/30 hover:bg-red-700">Cards</a>
                     </li>
-                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-700">Loans</a>
-                    </li>   
+                    <li><a href="#" class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-700">Loans</a>
+                    </li>
                     <li><a href="#"
-                            class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-700">Transactions</a>
+                            class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-700">Transactions</a>
                     </li>
+                    <li><button v-on:click="logout()"><img src="./assets/images/cerrar-sesion.png" alt=""></button></li>
                 </ul>
             </nav>
         </header>
-        <main class="flex flex-col grow justify-center items-center h-screen">
-            <div class="mb-5 bg-slate-600/40 w-auto p-3 rounded-lg flex justify-center items-center">
-                <h2 class="text-5xl">Your Cards</h2>
+        <main class="flex flex-col md:flex-row gap-2 grow justify-center min-h-[90vh] bg-gradient-to-t from-red-900 to-red-500">
+            <div class="flex flex-col items-center">
+                <div class="mb-5 bg-slate-600/40 w-auto p-3 rounded-lg flex justify-center items-center">
+                    <h2 class="text-3xl">Your Cards</h2>
+                </div>
+                <div class="w-11/12 flex-wrap flex justify-center gap-5 items-center">
+                    <template v-if="data.length > 0" v-for="cardDTOS in data">
+                        <template v-if="cardDTOS.type == 'CREDIT' && cardDTOS.colors=='TITANIUM'">
+                            <!--  template para identificar las cards -->
+                            <!-- CONTENEDOR CARD -->
+                            <div class="flex justify-center items-center w-[350px]">
+                                <div class="card flex w-full justify-center items-center">
+                                    <div class="flip">
+                                        <div
+                                            class="FRONT tarjeta p-3 bg-gradient-to-br from-black to-gray-600 text-white rounded-lg shadow-md">
+                                            <div class="delantera"><!--  parte delantera de la tarjeta -->
+                                                <div class="flex justify-between mb-5">
+                                                    <!-- icono del banco y tipo de tarjeta -->
+                                                    <p class="text-xl">{{cardDTOS.type}}</p>
+                                                    <div class="flex items-center">
+                                                        <img src="./assets/images/iconoDelBanco.png" class="w-5 h-5"
+                                                            alt="">
+                                                        <h2 class="ml-2">Liberty Bank</h2>
+                                                    </div>
+                                                </div> <!-- fin del icono del banco y tipo de tarjeta -->
+                                                <div class="flex mb-2 mt-4"> <!-- chip de la tarjeta -->
+                                                    <img src="./assets/images/chip-tarjeta.png" class="chip w-12 h-10"
+                                                        alt="">
+                                                </div> <!-- fin del chip -->
+                                                <div class="datos mt-5"> <!-- datos de la persona -->
+                                                    <div class="grupo mb-2 mt-3" id="numero">
+                                                        <p class="text-xs">Card Number</p>
+                                                        <p class="numero text-lg">{{cardDTOS.number}}</p>
+                                                    </div>
+                                                    <div class="grupo flex justify-center" id="expiracion">
+                                                        <p class="text-xs uppercase">
+                                                            {{formatFechaYHora(cardDTOS.fromDate)}}
+                                                            to
+                                                            {{formatFechaYHora(cardDTOS.truDate)}}</p>
+                                                    </div>
+                                                    <div class="grupo flex justify-between items-center mb-2"
+                                                        id="nombre">
+                                                        <p class="nombre text-lg">{{cardDTOS.cardHolder}}</p>
+                                                        <div>
+                                                            <template v-if="cardDTOS.type=='DEBIT'">
+                                                                <div class="logo-marca">
+                                                                    <img src="./assets/images/mastercard.png"
+                                                                        class="w-16 h-13" alt="">
+                                                                </div>
+                                                            </template>
+                                                            <template v-if="cardDTOS.type=='CREDIT'">
+                                                                <div class="logo-marca">
+                                                                    <img src="./assets/images/visa.png"
+                                                                        class="w-16 h-13" alt="">
+                                                                </div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- fin de los datos -->
+                                            </div> <!-- fin de la parte delantera -->
+                                        </div>
+                                        <!-- PARTE TRASERA DE LA CARD -->
+                                        <div
+                                            class="BACK bg-gradient-to-br from-black to-gray-600 p-3 rounded-lg shadow-md">
+                                            <p class="text-center text-xs">customer service center (Arg):34517424247</p>
+                                            <div class="barra-magnetica h-10 bg-black w-full mb-6"></div>
+                                            <div class="datos">
+                                                <div class="grupo mb-4 flex items-center" id="firma">
+                                                    <div class="firma m-3 bg-gray-500 w-4/5 mx-auto">
+                                                        <div class="grupo flex items-end justify-end" id="ccv">
+                                                            <p class="bg-slate-400 p-2  text-base">{{cardDTOS.cvv}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <p class="text-xs text-white">This card is issued by Liberty Bank
+                                                        S.A
+                                                        under license
+                                                        of
+                                                        MasterCard International and Visa
+                                                        International </p>
+                                                </div>
+                                            </div>
+                                            <div class="flex justify-between items-center">
+                                                <a class="text-xs text-white"
+                                                    href="./accounts.html">www.libertybank.com</a>
+                                                <div class="flex gap-2  ">
+                                                    <img class="w-5 " src="./assets/images/logobanelco.png" alt="">
+                                                    <img class="w-5 " src="./assets/images/logolink.png" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-if="cardDTOS.type == 'DEBIT' && cardDTOS.colors=='GOLD'">
+                            <!--  template para identificar las cards -->
+                            <!-- CONTENEDOR CARD -->
+                            <div class="flex justify-center items-center w-[350px]">
+                                <div class="card flex w-full justify-center items-center">
+                                    <div class="flip">
+                                        <div
+                                            class="FRONT tarjeta p-3 bg-gradient-to-br from-yellow-800 to-yellow-600 text-white rounded-lg shadow-md">
+                                            <div class="delantera"><!--  parte delantera de la tarjeta -->
+                                                <div class="flex justify-between mb-5">
+                                                    <!-- icono del banco y tipo de tarjeta -->
+                                                    <p class="text-xl">{{cardDTOS.type}}</p>
+                                                    <div class="flex items-center">
+                                                        <img src="./assets/images/iconoDelBanco.png" class="w-5 h-5"
+                                                            alt="">
+                                                        <h2 class="ml-2">Liberty Bank</h2>
+                                                    </div>
+                                                </div> <!-- fin del icono del banco y tipo de tarjeta -->
+                                                <div class="flex mb-2 mt-4"> <!-- chip de la tarjeta -->
+                                                    <img src="./assets/images/chip-tarjeta.png" class="chip w-12 h-10"
+                                                        alt="">
+                                                </div> <!-- fin del chip -->
+                                                <div class="datos mt-5"> <!-- datos de la persona -->
+                                                    <div class="grupo mb-2 mt-3" id="numero">
+                                                        <p class="text-xs">Card Number</p>
+                                                        <p class="numero text-lg">{{cardDTOS.number}}</p>
+                                                    </div>
+                                                    <div class="grupo flex justify-center" id="expiracion">
+                                                        <p class="text-xs uppercase">
+                                                            {{formatFechaYHora(cardDTOS.fromDate)}}
+                                                            to
+                                                            {{formatFechaYHora(cardDTOS.truDate)}}</p>
+                                                    </div>
+                                                    <div class="grupo flex justify-between items-center mb-2"
+                                                        id="nombre">
+                                                        <p class="nombre text-lg">{{cardDTOS.cardHolder}}</p>
+                                                        <div>
+                                                            <template v-if="cardDTOS.type=='DEBIT'">
+                                                                <div class="logo-marca">
+                                                                    <img src="./assets/images/mastercard.png"
+                                                                        class="w-16 h-13" alt="">
+                                                                </div>
+                                                            </template>
+                                                            <template v-if="cardDTOS.type=='CREDIT'">
+                                                                <div class="logo-marca">
+                                                                    <img src="./assets/images/visa.png"
+                                                                        class="w-16 h-13" alt="">
+                                                                </div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- fin de los datos -->
+                                            </div> <!-- fin de la parte delantera -->
+                                        </div>
+                                        <!-- PARTE TRASERA DE LA CARD -->
+                                        <div
+                                            class="BACK bg-gradient-to-br from-yellow-800 to-yellow-600 p-3 rounded-lg shadow-md">
+                                            <p class="text-center text-xs">customer service center (Arg):34517424247</p>
+                                            <div class="barra-magnetica h-10 bg-black w-full mb-6"></div>
+                                            <div class="datos">
+                                                <div class="grupo mb-4 flex items-center" id="firma">
+                                                    <div class="firma m-3 bg-gray-500 w-4/5 mx-auto">
+                                                        <div class="grupo flex items-end justify-end" id="ccv">
+                                                            <p class="bg-slate-400 p-2  text-base">{{cardDTOS.cvv}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <p class="text-xs text-white">This card is issued by Liberty Bank
+                                                        S.A
+                                                        under license
+                                                        of
+                                                        MasterCard International and Visa
+                                                        International </p>
+                                                </div>
+                                            </div>
+                                            <div class="flex justify-between items-center">
+                                                <a class="text-xs text-white"
+                                                    href="./accounts.html">www.libertybank.com</a>
+                                                <div class="flex gap-2  ">
+                                                    <img class="w-5 " src="./assets/images/logobanelco.png" alt="">
+                                                    <img class="w-5 " src="./assets/images/logolink.png" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-if="cardDTOS.type == 'CREDIT' && cardDTOS.colors=='SILVER'">
+                            <div class="flex justify-center items-center w-[350px]">
+                                <div class="card flex w-full justify-center items-center">
+                                    <div class="flip">
+                                        <div
+                                            class="FRONT tarjeta p-3 bg-gradient-to-br from-slate-800 to-slate-600 text-white rounded-lg shadow-md">
+                                            <div class="delantera"><!--  parte delantera de la tarjeta -->
+                                                <div class="flex justify-between mb-5">
+                                                    <!-- icono del banco y tipo de tarjeta -->
+                                                    <p class="text-xl">{{cardDTOS.type}}</p>
+                                                    <div class="flex items-center">
+                                                        <img src="./assets/images/iconoDelBanco.png" class="w-5 h-5"
+                                                            alt="">
+                                                        <h2 class="ml-2">Liberty Bank</h2>
+                                                    </div>
+                                                </div> <!-- fin del icono del banco y tipo de tarjeta -->
+                                                <div class="flex mb-2 mt-4"> <!-- chip de la tarjeta -->
+                                                    <img src="./assets/images/chip-tarjeta.png" class="chip w-12 h-10"
+                                                        alt="">
+                                                </div> <!-- fin del chip -->
+                                                <div class="datos mt-5"> <!-- datos de la persona -->
+                                                    <div class="grupo mb-2 mt-3" id="numero">
+                                                        <p class="text-xs">Card Number</p>
+                                                        <p class="numero text-lg">{{cardDTOS.number}}</p>
+                                                    </div>
+                                                    <div class="grupo flex justify-center" id="expiracion">
+                                                        <p class="text-xs uppercase">
+                                                            {{formatFechaYHora(cardDTOS.fromDate)}}
+                                                            to
+                                                            {{formatFechaYHora(cardDTOS.truDate)}}</p>
+                                                    </div>
+                                                    <div class="grupo flex justify-between items-center mb-2"
+                                                        id="nombre">
+                                                        <p class="nombre text-lg">{{cardDTOS.cardHolder}}</p>
+                                                        <div>
+                                                            <template v-if="cardDTOS.type=='DEBIT'">
+                                                                <div class="logo-marca">
+                                                                    <img src="./assets/images/mastercard.png"
+                                                                        class="w-16 h-13" alt="">
+                                                                </div>
+                                                            </template>
+                                                            <template v-if="cardDTOS.type=='CREDIT'">
+                                                                <div class="logo-marca">
+                                                                    <img src="./assets/images/visa.png"
+                                                                        class="w-16 h-13" alt="">
+                                                                </div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- fin de los datos -->
+                                            </div> <!-- fin de la parte delantera -->
+                                        </div>
+                                        <!-- PARTE TRASERA DE LA CARD -->
+                                        <div
+                                            class="BACK bg-gradient-to-br from-slate-800 to-slate-600 p-3 rounded-lg shadow-md">
+                                            <p class="text-center text-xs">customer service center (Arg):34517424247</p>
+                                            <div class="barra-magnetica h-10 bg-black w-full mb-6"></div>
+                                            <div class="datos">
+                                                <div class="grupo mb-4 flex items-center" id="firma">
+                                                    <div class="firma m-3 bg-gray-500 w-4/5 mx-auto">
+                                                        <div class="grupo flex items-end justify-end" id="ccv">
+                                                            <p class="bg-slate-400 p-2  text-base">{{cardDTOS.cvv}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <p class="text-xs text-white">This card is issued by Liberty Bank
+                                                        S.A
+                                                        under license
+                                                        of
+                                                        MasterCard International and Visa
+                                                        International </p>
+                                                </div>
+                                            </div>
+                                            <div class="flex justify-between items-center">
+                                                <a class="text-xs text-white"
+                                                    href="./accounts.html">www.libertybank.com</a>
+                                                <div class="flex gap-2  ">
+                                                    <img class="w-5 " src="./assets/images/logobanelco.png" alt="">
+                                                    <img class="w-5 " src="./assets/images/logolink.png" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </template><!-- fin del template para identificar las cards -->
+                </div>
             </div>
-            <div class="w-11/12 flex-wrap flex justify-center gap-5 items-center">
-                <template v-if="data.length > 0" v-for="cardDTOS in data">
-                    <template v-if="cardDTOS.type == 'CREDIT' && cardDTOS.colors=='TITANIUM'">
-                        <!--  template para identificar las cards -->
-                        <!-- CONTENEDOR CARD -->
-                        <div class="flex justify-center items-center w-[350px]">
-                            <div class="card flex w-full justify-center items-center">
-                                <div class="flip">
-                                    <div
-                                        class="FRONT tarjeta p-3 bg-gradient-to-br from-gray-800 to-gray-600 text-white rounded-lg shadow-md">
-                                        <div class="delantera"><!--  parte delantera de la tarjeta -->
-                                            <div class="flex justify-between mb-5">
-                                                <!-- icono del banco y tipo de tarjeta -->
-                                                <p class="text-xl">{{cardDTOS.type}}</p>
-                                                <div class="flex items-center">
-                                                    <img src="./assets/images/iconoDelBanco.png" class="w-5 h-5" alt="">
-                                                    <h2 class="ml-2">Liberty Bank</h2>
-                                                </div>
-                                            </div> <!-- fin del icono del banco y tipo de tarjeta -->
-                                            <div class="flex mb-2 mt-4"> <!-- chip de la tarjeta -->
-                                                <img src="./assets/images/chip-tarjeta.png" class="chip w-12 h-10"
-                                                    alt="">
-                                            </div> <!-- fin del chip -->
-                                            <div class="datos mt-5"> <!-- datos de la persona -->
-                                                <div class="grupo mb-2 mt-3" id="numero">
-                                                    <p class="text-xs">Card Number</p>
-                                                    <p class="numero text-lg">{{cardDTOS.number}}</p>
-                                                </div>
-                                                <div class="grupo flex justify-center" id="expiracion">
-                                                    <p class="text-xs uppercase">{{formatFechaYHora(cardDTOS.fromDate)}}
-                                                        to
-                                                        {{formatFechaYHora(cardDTOS.truDate)}}</p>
-                                                </div>
-                                                <div class="grupo flex justify-between items-center mb-2" id="nombre">
-                                                    <p class="nombre text-lg">{{cardDTOS.cardHolder}}</p>
-                                                    <div>
-                                                        <template v-if="cardDTOS.type=='DEBIT'">
-                                                            <div class="logo-marca">
-                                                                <img src="./assets/images/mastercard.png"
-                                                                    class="w-16 h-13" alt="">
-                                                            </div>
-                                                        </template>
-                                                        <template v-if="cardDTOS.type=='CREDIT'">
-                                                            <div class="logo-marca">
-                                                                <img src="./assets/images/visa.png" class="w-16 h-13"
-                                                                    alt="">
-                                                            </div>
-                                                        </template>
-                                                    </div>
-                                                </div>
-                                            </div> <!-- fin de los datos -->
-                                        </div> <!-- fin de la parte delantera -->
-                                    </div>
-                                    <!-- PARTE TRASERA DE LA CARD -->
-                                    <div
-                                        class="BACK bg-gradient-to-br from-gray-800 to-gray-600 p-3 rounded-lg shadow-md">
-                                        <p class="text-center text-xs">customer service center (Arg):34517424247</p>
-                                        <div class="barra-magnetica h-10 bg-black w-full mb-6"></div>
-                                        <div class="datos">
-                                            <div class="grupo mb-4 flex items-center" id="firma">
-                                                <div class="firma m-3 bg-gray-500 w-4/5 mx-auto">
-                                                    <div class="grupo flex items-end justify-end" id="ccv">
-                                                        <p class="bg-slate-400 p-2  text-base">{{cardDTOS.cvv}}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <p class="text-xs text-white">This card is issued by Liberty Bank S.A
-                                                    under license
-                                                    of
-                                                    MasterCard International and Visa
-                                                    International </p>
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-between items-center">
-                                            <a class="text-xs text-white" href="./accounts.html">www.libertybank.com</a>
-                                            <div class="flex gap-2  ">
-                                                <img class="w-5 " src="./assets/images/logobanelco.png" alt="">
-                                                <img class="w-5 " src="./assets/images/logolink.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    <template v-if="cardDTOS.type == 'DEBIT' && cardDTOS.colors=='GOLD'">
-                        <!--  template para identificar las cards -->
-                        <!-- CONTENEDOR CARD -->
-                        <div class="flex justify-center items-center w-[350px]">
-                            <div class="card flex w-full justify-center items-center">
-                                <div class="flip">
-                                    <div
-                                        class="FRONT tarjeta p-3 bg-gradient-to-br from-yellow-800 to-yellow-600 text-white rounded-lg shadow-md">
-                                        <div class="delantera"><!--  parte delantera de la tarjeta -->
-                                            <div class="flex justify-between mb-5">
-                                                <!-- icono del banco y tipo de tarjeta -->
-                                                <p class="text-xl">{{cardDTOS.type}}</p>
-                                                <div class="flex items-center">
-                                                    <img src="./assets/images/iconoDelBanco.png" class="w-5 h-5" alt="">
-                                                    <h2 class="ml-2">Liberty Bank</h2>
-                                                </div>
-                                            </div> <!-- fin del icono del banco y tipo de tarjeta -->
-                                            <div class="flex mb-2 mt-4"> <!-- chip de la tarjeta -->
-                                                <img src="./assets/images/chip-tarjeta.png" class="chip w-12 h-10"
-                                                    alt="">
-                                            </div> <!-- fin del chip -->
-                                            <div class="datos mt-5"> <!-- datos de la persona -->
-                                                <div class="grupo mb-2 mt-3" id="numero">
-                                                    <p class="text-xs">Card Number</p>
-                                                    <p class="numero text-lg">{{cardDTOS.number}}</p>
-                                                </div>
-                                                <div class="grupo flex justify-center" id="expiracion">
-                                                    <p class="text-xs uppercase">{{formatFechaYHora(cardDTOS.fromDate)}}
-                                                        to
-                                                        {{formatFechaYHora(cardDTOS.truDate)}}</p>
-                                                </div>
-                                                <div class="grupo flex justify-between items-center mb-2" id="nombre">
-                                                    <p class="nombre text-lg">{{cardDTOS.cardHolder}}</p>
-                                                    <div>
-                                                        <template v-if="cardDTOS.type=='DEBIT'">
-                                                            <div class="logo-marca">
-                                                                <img src="./assets/images/mastercard.png"
-                                                                    class="w-16 h-13" alt="">
-                                                            </div>
-                                                        </template>
-                                                        <template v-if="cardDTOS.type=='CREDIT'">
-                                                            <div class="logo-marca">
-                                                                <img src="./assets/images/visa.png" class="w-16 h-13"
-                                                                    alt="">
-                                                            </div>
-                                                        </template>
-                                                    </div>
-                                                </div>
-                                            </div> <!-- fin de los datos -->
-                                        </div> <!-- fin de la parte delantera -->
-                                    </div>
-                                    <!-- PARTE TRASERA DE LA CARD -->
-                                    <div
-                                        class="BACK bg-gradient-to-br from-yellow-800 to-yellow-600 p-3 rounded-lg shadow-md">
-                                        <p class="text-center text-xs">customer service center (Arg):34517424247</p>
-                                        <div class="barra-magnetica h-10 bg-black w-full mb-6"></div>
-                                        <div class="datos">
-                                            <div class="grupo mb-4 flex items-center" id="firma">
-                                                <div class="firma m-3 bg-gray-500 w-4/5 mx-auto">
-                                                    <div class="grupo flex items-end justify-end" id="ccv">
-                                                        <p class="bg-slate-400 p-2  text-base">{{cardDTOS.cvv}}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <p class="text-xs text-white">This card is issued by Liberty Bank S.A
-                                                    under license
-                                                    of
-                                                    MasterCard International and Visa
-                                                    International </p>
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-between items-center">
-                                            <a class="text-xs text-white" href="./accounts.html">www.libertybank.com</a>
-                                            <div class="flex gap-2  ">
-                                                <img class="w-5 " src="./assets/images/logobanelco.png" alt="">
-                                                <img class="w-5 " src="./assets/images/logolink.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                </template><!-- fin del template para identificar las cards -->
+            <div class="cuidados  flex flex-col justify-center items-center gap-2 ">
+                <div
+                    class="seguridad bg-gradient-to-t from-gray-200 to-gray-500 p-3 rounded-lg shadow-md md:w-[300px] md:h-[200px]">
+                    <img src="./assets/images/seguridad.png" class="w-12 h-12 animate-bounce" alt="">
+                    <p class="text-black">For your safety, never have pictures of your credit card; this prevents
+                        unauthorized access to
+                        your data for unapproved purchases if you happen to lose your phone.</p>
+                </div>
+                <div class="preguntas bg-gradient-to-t from-gray-200 to-gray-500 p-3 rounded-lg shadow-md md:w-[300px] md:h-[200px]">
+                    <img src="./assets/images/preguntas.png" class="w-12 h-12 animate-bounce" alt="">
+                    <p class="text-black">Can you make purchases anywhere in the world with your card? Absolutely! We are globally
+                        accessible, so never doubt where you can shop.</p>
+                </div>
             </div>
         </main>
-        <footer class="bg-red-600 p-2 flex justify-between text-white">
+        <footer class="bg-white min-h-[5vh] p-2 flex justify-between text-black">
             <div class="redes flex">
                 <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" role="img">
                     <path fill="#222222"
@@ -246,7 +358,7 @@
                         d="M17.5,2 C19.9852814,2 22,4.01471863 22,6.5 L22,17.5 C22,19.9852814 19.9852814,22 17.5,22 L6.5,22 C4.01471863,22 2,19.9852814 2,17.5 L2,6.5 C2,4.01471863 4.01471863,2 6.5,2 L17.5,2 Z M17.5,3 L6.5,3 C4.56700338,3 3,4.56700338 3,6.5 L3,17.5 C3,19.4329966 4.56700338,21 6.5,21 L17.5,21 C19.4329966,21 21,19.4329966 21,17.5 L21,6.5 C21,4.56700338 19.4329966,3 17.5,3 Z M9.16407219,6.76398937 L16.9279761,10.5973103 C17.2190043,10.7410015 17.4555744,10.9752125 17.6021749,11.264786 C17.9763578,12.0038927 17.6805287,12.9063922 16.941422,13.2805751 L9.17751807,17.2111581 C8.96749776,17.3174837 8.7354011,17.3728871 8.5,17.3728871 C7.67157288,17.3728871 7,16.7013142 7,15.8728871 L7,8.1089831 C7,7.87866091 7.05303923,7.65143219 7.15500627,7.44491092 C7.52176321,6.70209139 8.42125266,6.39723243 9.16407219,6.76398937 Z M12.724,12.431 L8.803,16.278 L14.026,13.635 L12.724,12.431 Z M8,8.1089831 L8,15.665 L11.989,11.752 L8.00196545,8.06469237 C8.00065843,8.07938941 8,8.09416706 8,8.1089831 Z M14.62,10.572 L13.439,11.73 L14.977,13.153 L16.4897433,12.3883944 C16.7361122,12.2636668 16.8347219,11.9628336 16.7099943,11.7164647 C16.6611274,11.6199402 16.5822707,11.5418699 16.4852613,11.4939728 L14.62,10.572 Z M9.402,7.996 L12.704,11.05 L13.67,10.103 L9.402,7.996 Z">
                     </path>
                 </svg>
-            </div> 
+            </div>
         </footer>
     </div>
     <script type="module" src="./assets/style/tailwind.config.js"></script>

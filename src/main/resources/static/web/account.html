@@ -12,32 +12,30 @@
 
 <body>
     <div id="app">
-        <header class="flex justify-between bg-red-600 p-2 items-center flex-col lg:flex-row">
+        <header class="flex justify-between bg-white p-2 items-center flex-col lg:flex-row">
             <div class="flex flex-col lg:flex-row justify-center items-center">
                 <img class="h-[40px] w-[40px] rounded-3xl shadow-lg" src="./assets/images/iconoDelBanco.png"
                     alt="iconoDelBanco">
-                <h2 class=" p-1 rounded-lg text-white text-lg ">Liberty Bank</h2>
+                <h2 class=" p-1 rounded-lg text-red-600 text-lg ">Liberty Bank</h2>
             </div>
             <nav>
-                <ul class="flex gap-2 ">
-                    <li><a href="../index.html"
-                        class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-800">Home</a></li>
+                <ul class="flex gap-2 items-center">
                     <li><a href="./accounts.html"
-                            class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Accounts</a></li>
-                    <li><a href="./cards.html" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Cards</a>
+                            class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-black/50">Accounts</a></li>
+                    <li><a href="./cards.html" class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-black/50">Cards</a>
                     </li>
-                    <li><a href="#" class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-red-800">Loans</a>
+                    <li><a href="#" class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-800">Loans</a>
                     </li>
                     <li><a href="#"
-                            class=" p-1 rounded-lg text-white text-sm lg:text-base hover:bg-black/50">Transactions</a>
+                            class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-black/50">Transactions</a>
                     </li>
+                    <li><button v-on:click="logout()"><img src="./assets/images/cerrar-sesion.png" alt=""></button></li>
                 </ul>
             </nav>
         </header>
-        <main class="">
+        <main class="bg-gradient-to-t from-red-900 to-red-500">
             <h2 class="bg-slate-500/30 shadow-lg flex-col justify-center items-center sm:text-xl flex p-3 rounded-b-lg">
                 Transactions</h2>
-
             <div class="overflow-x-auto sm:flex sm:justify-center sm:mt-[30px] ">
                 <table class="w-auto divide-y divide-red-200 shadow-lg">
                     <thead class="bg-red-500">
@@ -79,7 +77,7 @@
                     src="./assets/images/NEW DESING.png" alt="">
             </div>
         </main>
-        <footer class="bg-red-600 p-2 flex justify-between text-white">
+        <footer class="bg-white p-2 flex justify-between text-black">
             <h3>Alvaro Orquera</h3>
             <p>Cohort-52</p>
         </footer>

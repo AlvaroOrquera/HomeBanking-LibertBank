@@ -42,6 +42,9 @@ public class HomebankingApplication {
             clientRepository.save(admin);
             System.out.println(numero1);
             System.out.println(numero2);
+            System.out.println(admin);
+
+
             Account vin001 = new Account("VIN001", LocalDate.now(), 5000);
             Account vin002 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
             Account vin003 = new Account("VIN003", LocalDate.now(), 5000);
@@ -119,7 +122,7 @@ public class HomebankingApplication {
                     "3325-5745-7876-4445", 990, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
             Card cardMelbaTitanium = new Card("Mebal Morel", CardType.CREDIT, CardColors.TITANIUM,
                     "2234-6745-5523-7888", 750, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
-            Card cardAlvaroSilver = new Card("Alvaro Orquera", CardType.CREDIT, CardColors.SILVER,
+                Card cardAlvaroSilver = new Card("Alvaro Orquera", CardType.CREDIT, CardColors.SILVER,
                     "2234-6745-7876-4445", 231, LocalDate.of(2021, 4, 26), LocalDate.of(2026, 4, 26));
             numero1.addCard(cardMelbaGold);
             numero1.addCard(cardMelbaTitanium);
