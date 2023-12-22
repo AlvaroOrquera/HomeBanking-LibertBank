@@ -35,34 +35,37 @@ public class ClientController {
                 .stream()
                 .map(client -> new ClientDTO(client))
                 .collect(Collectors.toList());
-    };
-@Autowired
-public PasswordEncoder passwordEncoder;
+    }
+
+    ;
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
     @PostMapping("/clients")
     public ResponseEntity<String> createClient(@RequestParam String firstName,
                                                @RequestParam String lastName,
                                                @RequestParam String email,
                                                @RequestParam String password) {
-        if (firstName.isBlank()){
+        if (firstName.isBlank()) {
             return new ResponseEntity<>("The name cannot be blank", HttpStatus.FORBIDDEN); //forbidden es el 403
         }
-        if (lastName.isBlank()){
+        if (lastName.isBlank()) {
             return new ResponseEntity<>("The lastname cannot be blank", HttpStatus.FORBIDDEN); //forbidden es el 403
         }
-        if (email.isBlank()){
+        if (email.isBlank()) {
             return new ResponseEntity<>("The email cannot be blank", HttpStatus.FORBIDDEN); //forbidden es el 403
         }
-        if (password.isBlank()){
+        if (password.isBlank()) {
             return new ResponseEntity<>("The password cannot be blank", HttpStatus.FORBIDDEN); //forbidden es el 403
         }
-        if (clientRepository.existsByEmail(email)){
+        if (clientRepository.existsByEmail(email)) {
             return new ResponseEntity<>("this email is used", HttpStatus.FORBIDDEN);
 
         }
 
-        Client client = new Client(firstName, lastName,email,passwordEncoder.encode(password));
+        Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
         clientRepository.save(client);
-        return  new ResponseEntity<>("successfully registered", HttpStatus.CREATED);
+        return new ResponseEntity<>("successfully registered", HttpStatus.CREATED);
     }
 
 

@@ -29,22 +29,17 @@ const app = createApp({
         },
         
         register() {
-            axios.post("/api/login?firstName=" + this.name + "&lastName=" + this.lastname + "&email=" + this.email + "&password=" + this.password)
+            axios.post("/api/clients?firstName=" + this.firstName + "&lastName=" + this.lastName + "&email=" + this.email + "&password=" + this.password)
                 .then(response => {
-                    console.log(response)
-                    if (response.status == 200) {
-                        window.location.href = "./accounts.html"
-                    }
-                    this.clearData()
+                    console.log("registered" + this.email);
+                    console.log(response.data);
+                    this.login();   
                 })
-                .catch(error => {
-                    console.error("Error en la solicitud:", error);
-                });
-                
+                .catch(error => console.log(error))
         },
         clearData() {
             this.name = ""
-            this.lastname = ""
+            this.lastName = ""
             this.email = ""
             this.password = ""
         },
@@ -55,10 +50,10 @@ const app = createApp({
             this.password = event.target.value
         },
         getName(event) {
-            this.name = event.target.value
+            this.firstName = event.target.value
         },
         getLastName(event) {
-            this.lastname = event.target.value
+            this.lastName = event.target.value
         },
         togglePassword() {
             const x = document.getElementById("password");
