@@ -13,8 +13,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration
+@Configuration // con esta anotacion decimos que vamos a tener uno o mas bean por cada metodo
 public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
+    //GlobalAuthenticationConfigurerAdapter: permite configurar detalles relacionados
+    //con la autenticacion de usarios en toda la aplicacion
     @Autowired
     private ClientRepository clientRepository;
 
@@ -28,6 +30,8 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
                 return new User(client.getEmail(), client.getPassword(),
 
                         AuthorityUtils.createAuthorityList(client.getRol().toString()));
+                //AuthorityUtils: en Spring Security proporciona métodos de utilidad para trabajar
+                // con roles y autoridades en el contexto de la seguridad.
 
             } else {
 

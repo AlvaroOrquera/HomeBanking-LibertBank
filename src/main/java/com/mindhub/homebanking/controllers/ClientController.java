@@ -40,7 +40,8 @@ public class ClientController {
     ;
     @Autowired
     public PasswordEncoder passwordEncoder;
-
+    //requestparams: es una anotación en Spring Framework que se utiliza para
+    // extraer y vincular valores de parámetros de una solicitud HTTP a los parámetros de un método controlador.
     @PostMapping("/clients")
     public ResponseEntity<String> createClient(@RequestParam String firstName,
                                                @RequestParam String lastName,
@@ -78,7 +79,13 @@ public class ClientController {
 
     @RequestMapping("/clients/current")
     public ResponseEntity<ClientDTO> getOneClient(Authentication authentication) {
+        // Buscar al cliente en la base de datos utilizando el nombre de usuario (email) al findByEmail lo sacamos
+        // de clientRepository
         Client client = clientRepository.findByEmail(authentication.getName());
+        // Devolver una respuesta HTTP con el objeto ClientDTO y el código de estado OK (200)
         return new ResponseEntity<>(new ClientDTO(client), HttpStatus.OK);
     }
+
+
+
 }

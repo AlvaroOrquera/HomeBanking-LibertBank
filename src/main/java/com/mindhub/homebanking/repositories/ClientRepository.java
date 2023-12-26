@@ -9,6 +9,8 @@ import java.util.List;
 
 @RepositoryRestResource
 public interface ClientRepository extends JpaRepository<Client, Long> {
+    //creamos una consulta en el repositorio para buscar el email
+    //y para verificar que exista el email, esto se puede por la herencia de JpaRepository
     Client findByEmail(String email);
     boolean existsByEmail(String email);
 
