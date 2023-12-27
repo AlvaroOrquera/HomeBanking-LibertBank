@@ -66,6 +66,7 @@ const app = createApp({
                 x.setAttribute("type", "password");
             }
         },
+        
         showModal() {
             this.modalVisible = true;
         },

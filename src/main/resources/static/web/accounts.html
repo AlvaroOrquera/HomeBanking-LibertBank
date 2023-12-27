@@ -31,17 +31,21 @@
                     <li><a href="#"
                             class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-700">Transactions</a>
                     </li>
-                    <li><button class="flex items-center" v-on:click="logout()"><img src="./assets/images/cerrar-sesion.png" alt=""></button></li>
+                    <li><button class="flex items-center" v-on:click="logout()"><img
+                                src="./assets/images/cerrar-sesion.png" alt=""></button></li>
                 </ul>
             </nav>
         </header>
-        <main class="bg-gradient-to-t from-red-900 to-red-500">
-            <div>
-                <img class="w-full object-cover h-96" src="./assets/images/banner.png" alt="">
-            </div>
+        <main class="bg-[url('./assets/images/background.png')] bg-cover">
             <div class="bg-slate-500/30 shadow-lg flex-col justify-center items-center  flex p-3 rounded-b-lg">
                 <h2 class="text-lg lg:text-3xl">Welcome!</h2>
                 <h2 class="text-lg  lg:text-2xl">{{data.firstName}} {{data.lastName}}</h2>
+            </div>
+            <div class="boton w-full items-center">
+                <div class="flex justify-center m-5">
+                    <button v-on:click="createAccount()" class="bg-white hover:scale-110 text-red-600 py-2 px-4 rounded">Create new
+                        Account</button>
+                </div>
             </div>
             <div class="sm:flex sm:items-center sm:justify-center sm:h-full ">
                 <template v-if="account.length > 0" v-for="accounts in account">
@@ -50,7 +54,8 @@
                         <h2 class="text-white">Account Number: {{accounts.number}}</h2>
                         <h2 class="text-white">Balance: {{formatBudget(accounts.balance)}}</h2>
                         <h2 class="text-white">Date Created: {{accounts.createDate}}</h2>
-                        <a v-bind:href="'./account.html?id=' + accounts.id" class="text-white underline mt-4 hover:text-black">See
+                        <a v-bind:href="'./account.html?id=' + accounts.id"
+                            class="text-white underline mt-4 hover:text-black">See
                             your transactions...</a>
                     </div>
                 </template>
@@ -63,7 +68,7 @@
                 </div>
                 <div class="overflow-x-auto w-full sm:flex sm:justify-center p-2 rounded-md ">
                     <table class="md:w-[450px] w-full sm:mt-3 mt-3 divide-y shadow-lg divide-red-200">
-                        <thead class="bg-red-500">
+                        <thead class="bg-gradient-to-t from-red-900 to-red-500">
                             <tr>
                                 <th
                                     class="sm:rounded-l-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">

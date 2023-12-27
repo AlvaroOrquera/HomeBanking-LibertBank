@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.logout.HttpStatusReturnin
 // clase que extiende WebSecurityConfigurerAdapter), se activa la configuración de
 // seguridad web proporcionada por Spring Security.
 public class SecurityConfig {
-    @Bean //se utiliza para permitir que se gestione o se inyecte dependencias en ese metodo
+    @Bean //genera una instancia de este metodo dento del contexto de spring y lo ejecuta al comienzo de la aplicacion
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
                 //requesMatcher es un método en la configuración de seguridad de Spring Security
@@ -31,7 +31,8 @@ public class SecurityConfig {
                 // a qué solicitudes se aplicarán ciertas configuraciones de seguridad.
                 .requestMatchers("/web/login.html", "/web/assets/**", "/index.html").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/login", "/api/clients").permitAll()
-                .requestMatchers("/web/*", "/api/clients/**", "/api/accounts/*/transactions").hasAuthority("CLIENT")
+                .requestMatchers("/web/*","/api/clients/**","/api/clients/current/accounts",
+                        "/api/accounts/*/transactions","api/clients/current/cards").hasAuthority("CLIENT")
                 .requestMatchers("/web/ADMIN/**", "/h2-console/**").hasAuthority("ADMIN")
                 .anyRequest().denyAll()
         );

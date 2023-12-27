@@ -8,4 +8,5 @@ import java.util.Optional;
 
 @RepositoryRestResource //sirve para
 public interface AccountRepository extends JpaRepository<Account, Long> {
+    boolean existsByNumber(String number);
 }

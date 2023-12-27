@@ -27,7 +27,7 @@
                 </ul>
             </nav>
         </header>
-        <main class="bg-gradient-to-t from-red-900 to-red-500 min-h-[90vh] flex justify-center items-center">
+        <main class="bg-[url('./assets/images/background.png')] bg-cover min-h-[90vh] flex justify-center items-center">
             <div class="login&register md:w-[1000px] md:h-[400px] flex rounded-md shadow-lg ">
                 <div
                     class="login flex md:w-[600px] md:h-[450px] justify-center items-center bg-red-600 rounded-md md:rounded-l-md shadow-lg gap-2   ">
@@ -39,16 +39,12 @@
                             </div>
                             <div
                                 class="redes flex justify-center items-center flex-col bg-red-700/60 p-1 rounded-lg shadow-lg mb-3">
-                                <h2 class="text-white text-base">Login with: </h2>
+                                <h2 class="text-white text-base">Follow me</h2>
                                 <div class="flex justify-center items-center">
-                                    <a href="https://www.facebook.com/?locale=es_LA"><img class="h-9 w-9"
-                                            src="./assets/images/facebook.png" alt=""></a>
-                                    <a href="https://www.google.com/?hl=es"><img class="h-9 w-9"
-                                            src="./assets/images/google.png" alt=""></a>
-                                    <a href="https://www.linkedin.com/home"><img class="h-9 w-9"
-                                            src="./assets/images/linkedin.png" alt=""></a>
-                                    <a href="https://www.yahoo.com"><img class="h-9 w-9" src="./assets/images/yahoo.png"
-                                            alt=""></a>
+                                    <a href="https://www.facebook.com/alvaro.orquera.777?locale=es_LA"><img
+                                            class="h-9 w-9" src="./assets/images/facebook.png" alt=""></a>
+                                    <a href="https://www.instagram.com/alvaro.orquera/?hl=es-la"><img class="h-9 w-9"
+                                            src="./assets/images/instagram.png" alt=""></a>
                                 </div>
                             </div>
                             <label class="text-white" for="email">Email</label>
@@ -123,7 +119,7 @@
         <div v-if="modalVisible"
             class="bg-gray-700/60 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
             <section
-                class="bg-gradient-to-t from-red-900 to-red-500 text-black w-[300px] h-[500px] rounded-lg p-2 flex flex-col relative    ">
+                class="bg-gradient-to-t from-red-900 to-red-500 text-black w-[300px] h-[450px] rounded-lg p-2 flex flex-col relative    ">
                 <div class="flex justify-end items-end">
                     <button v-on:click="closeModal()">
                         <img src="./assets/images/salir-de-pantalla-completa.png" class="h-6 w-6" alt="">
@@ -134,29 +130,17 @@
                         <img class="h-12 w-12" src="./assets/images/iconoDelBanco.png" alt="">
                         <h2 class="text-white text-xl"> Liberty Bank</h2>
                     </div>
-                    <div
-                        class="redes flex justify-center items-center flex-col bg-red-700/60 p-1 rounded-lg shadow-lg mb-3">
-                        <h2 class="text-white text-base">Register with: </h2>
-                        <div class="flex justify-center items-center">
-                            <a href="https://www.facebook.com/?locale=es_LA"><img class="h-9 w-9"
-                                    src="./assets/images/facebook.png" alt=""></a>
-                            <a href="https://www.google.com/?hl=es"><img class="h-9 w-9"
-                                    src="./assets/images/google.png" alt=""></a>
-                            <a href="https://www.linkedin.com/home"><img class="h-9 w-9"
-                                    src="./assets/images/linkedin.png" alt=""></a>
-                            <a href="https://www.yahoo.com"><img class="h-9 w-9" src="./assets/images/yahoo.png"
-                                    alt=""></a>
-                        </div>
-                    </div>
                     <h2 class="text-white text-xl">Register:</h2>
                     <form class=" flex flex-col">
                         <label class="flex justify-center text-white">First Name</label>
-                        <input type="text" class="rounded-md" name="name" @input="getName" :value="firstName" required placeholder="Name">
+                        <input type="text" class="rounded-md" name="name" @input="getName" :value="firstName" required
+                            placeholder="Name">
                         <label class="flex justify-center text-white">Last Name</label>
                         <input type="text" class="rounded-md" name="lastname" @input="getLastName" :value="lastName"
                             required placeholder="Last Name">
                         <label class="flex justify-center text-white">Email</label>
-                        <input type="email" class="rounded-md" name="email" @input="getEmail" :value="email" required placeholder="Email">
+                        <input type="email" class="rounded-md" name="email" @input="getEmail" :value="email" required
+                            placeholder="Email">
                         <label class="flex justify-center text-white">Password</label>
                         <div>
                             <input type="password" class="rounded-md" id="password2" name="password"

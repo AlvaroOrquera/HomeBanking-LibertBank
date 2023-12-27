@@ -1,7 +1,9 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.DTO.ClientDTO;
+import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,8 @@ public class ClientController {
     @Autowired //es algo similar a generar una instancia de esto, osea evita hacer el constructor
     //osea hacemos una inyeccion de dependencias
     private ClientRepository clientRepository;
+    @Autowired
+    private AccountRepository accountRepository;
 
 
     //esto es un servlet= microprograma que responde peticiones especificas
@@ -40,6 +45,7 @@ public class ClientController {
     ;
     @Autowired
     public PasswordEncoder passwordEncoder;
+
     //requestparams: es una anotación en Spring Framework que se utiliza para
     // extraer y vincular valores de parámetros de una solicitud HTTP a los parámetros de un método controlador.
     @PostMapping("/clients")
@@ -66,6 +72,13 @@ public class ClientController {
 
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
         clientRepository.save(client);
+        String number;
+        do {
+            number = "VIN-" + getRandomNumber(10000000, 99999999);
+        } while (accountRepository.existsByNumber(number));
+        Account account = new Account(number, LocalDate.now(), 0.0);
+        client.addAccount(account);
+        accountRepository.save(account);
         return new ResponseEntity<>("successfully registered", HttpStatus.CREATED);
     }
 
@@ -86,6 +99,11 @@ public class ClientController {
         return new ResponseEntity<>(new ClientDTO(client), HttpStatus.OK);
     }
 
+
+    //con este metodo me creo un numero random para la cuenta
+    public int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
 
 
 }

@@ -46,7 +46,7 @@ const app = createApp({
                 })
             }
         },
-        logout(){
+        logout() {
             axios.post("/api/logout")
                 .then(response => {
                     console.log(response)
@@ -54,6 +54,19 @@ const app = createApp({
                         window.location.href = "./login.html"
                     }
                 })
+                .catch(error => {
+                    console.log(error)
+                })
         },
+        createAccount() {
+            axios.post("/api/clients/current/accounts")
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => {
+                    this.error = error.response.data
+                    console.log(this.error)
+                })
+        }
     }
 }).mount('#app')
