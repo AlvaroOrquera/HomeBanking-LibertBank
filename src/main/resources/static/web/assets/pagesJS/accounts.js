@@ -62,6 +62,7 @@ const app = createApp({
             axios.post("/api/clients/current/accounts")
                 .then(response => {
                     console.log(response)
+                    this.loadData()
                 })
                 .catch(error => {
                     this.error = error.response.data

@@ -36,14 +36,15 @@
                 </ul>
             </nav>
         </header>
-        <main class="bg-[url('./assets/images/background.png')] bg-cover">
+        <main class="bg-[url('./assets/images/background.png')] bg-cover min-h-screen">
             <div class="bg-slate-500/30 shadow-lg flex-col justify-center items-center  flex p-3 rounded-b-lg">
                 <h2 class="text-lg lg:text-3xl">Welcome!</h2>
                 <h2 class="text-lg  lg:text-2xl">{{data.firstName}} {{data.lastName}}</h2>
             </div>
             <div class="boton w-full items-center">
                 <div class="flex justify-center m-5">
-                    <button v-on:click="createAccount()" class="bg-white hover:scale-110 text-red-600 py-2 px-4 rounded">Create new
+                    <button v-on:click="createAccount()"
+                        class="bg-white hover:scale-110 text-red-600 py-2 px-4 rounded">Create new
                         Account</button>
                 </div>
             </div>
@@ -66,39 +67,40 @@
                         class="bg-slate-500/30 shadow-lg w-1/3 justify-center items-center sm:justify-center sm:text-xl flex p-3 rounded-t-lg">
                         LOANS</h2>
                 </div>
-                <div class="overflow-x-auto w-full sm:flex sm:justify-center p-2 rounded-md ">
-                    <table class="md:w-[450px] w-full sm:mt-3 mt-3 divide-y shadow-lg divide-red-200">
-                        <thead class="bg-gradient-to-t from-red-900 to-red-500">
-                            <tr>
-                                <th
-                                    class="sm:rounded-l-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Name</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Amount</th>
-                                <th
-                                    class="sm:rounded-r-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    payments</th>
-                            </tr>
-                        </thead>
-                        <template v-if="data1.length > 0" v-for="clientsLoansDTOS in data1">
-                            <tbody class="bg-white divide-y divide-red-200">
+                <div v-if="data1.length != 0">
+                    <div class="overflow-x-auto w-full sm:flex sm:justify-center p-2 rounded-md ">
+                        <table class="md:w-[450px] w-full sm:mt-3 mt-3 divide-y shadow-lg divide-red-200">
+                            <thead class="bg-gradient-to-t from-red-900 to-red-500">
                                 <tr>
-                                    <td class="sm:rounded-l-lg px-6 py-4 whitespace-nowrap text-base text-black">
-                                        {{clientsLoansDTOS.name}}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-base text-black">
-                                        {{formatBudget(clientsLoansDTOS .amount)}}</td>
-                                    <td class="sm:rounded-r-lg px-6 py-4 whitespace-nowrap text-base text-black">
-                                        {{clientsLoansDTOS .payments}}
-                                    </td>
+                                    <th
+                                        class="sm:rounded-l-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        Name</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        Amount</th>
+                                    <th
+                                        class="sm:rounded-r-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        payments</th>
                                 </tr>
-                            </tbody>
-                        </template>
-                        <template v-else>
-                            <h2
-                                class="bg-slate-500/30 shadow-lg justify-center items-center sm:justify-center sm:text-xl flex p-3 rounded-t-lg">
-                                No Loans</h2>
-                        </template>
-                    </table>
+                            </thead>
+                            <template v-if="data1.length > 0" v-for="clientsLoansDTOS in data1">
+                                <tbody class="bg-white divide-y divide-red-200">
+                                    <tr>
+                                        <td class="sm:rounded-l-lg px-6 py-4 whitespace-nowrap text-base text-black">
+                                            {{clientsLoansDTOS.name}}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-base text-black">
+                                            {{formatBudget(clientsLoansDTOS .amount)}}</td>
+                                        <td class="sm:rounded-r-lg px-6 py-4 whitespace-nowrap text-base text-black">
+                                            {{clientsLoansDTOS .payments}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </template>
+                        </table>
+                    </div>
+                </div>
+                <div v-else class="sm:flex sm:justify-center flex justify-center">
+                    <h2 class="text-xl">No loans yet</h2>
                 </div>
             </div>
         </main>

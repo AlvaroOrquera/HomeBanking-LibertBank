@@ -72,6 +72,7 @@ public class ClientController {
 
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
         clientRepository.save(client);
+
         String number;
         do {
             number = "VIN-" + getRandomNumber(10000000, 99999999);
@@ -79,6 +80,7 @@ public class ClientController {
         Account account = new Account(number, LocalDate.now(), 0.0);
         client.addAccount(account);
         accountRepository.save(account);
+
         return new ResponseEntity<>("successfully registered", HttpStatus.CREATED);
     }
 

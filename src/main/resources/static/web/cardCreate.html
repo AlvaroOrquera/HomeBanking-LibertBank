@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./assets/style/style.css">
+    <link rel="shortcut icon" href="./assets/images/iconoDelBanco.png" type="image/x-icon">
+    <title>Liberty Bank | Cards</title>
+</head>
+
+<body>
+    <div id="app">
+        <header class="flex min-h-[5vh] justify-between items-center w-full flex-col md:flex-row bg-white p-2">
+            <div class="mx-1 items-center flex flex-col md:flex-row">
+                <img class="h-10 w-10" src="./assets/images/iconoDelBanco.png" alt="iconoDelBanco">
+                <h2 class="p-1 text-red-600">Liberty Bank</h2>
+            </div>
+            <nav>
+                <ul class="flex gap-2">
+                    <li>
+                        <a href="./cards.html"
+                            class="p-2 rounded-lg text-white text-sm lg:text-base bg-red-600 hover:bg-red-800/50">Back
+                            to Cards</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main
+            class="bg-[url('./assets/images/background1.png')] bg-cover min-h-screen flex justify-center items-center">
+            <div
+                class="flex justify-center items-center flex-col gap-4 bg-gradient-to-t from-red-900 to-red-600 p-4 rounded-lg">
+                <form class="flex gap-4 flex-col text-white">
+                    <div>
+                        <label>Choose color</label>
+                        <select class="rounded-md text-black" v-model="selectedColor">
+                            <option>GOLD</option>
+                            <option>SILVER</option>
+                            <option>TITANIUM</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Choose Type</label>
+                        <select class="rounded-md text-black" v-model="selectedType">
+                            <option>CREDIT</option>
+                            <option>DEBIT</option>
+                        </select>
+                    </div>
+                    <div class="flex justify-center">
+                        <button type="button" v-on:click="createCard()"
+                            class="bg-white hover:scale-110 text-red-600 py-2 px-4 rounded">Create new
+                            Card</button>
+                    </div>
+                </form>
+
+            </div>
+        </main>
+    </div>
+    <script type="module" src="./assets/style/tailwind.config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="assets/pagesJS/cardCreate.js"></script>
+</body>
+
+</html>
