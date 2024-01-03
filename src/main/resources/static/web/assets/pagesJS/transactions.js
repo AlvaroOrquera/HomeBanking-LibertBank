@@ -3,7 +3,7 @@ const app = createApp({
     data() {
         return {
             data: [],
-            selectedAccount: "",
+            selectedAccount: "1",
             amount: "",
             accountDest: "",
             description: "",
