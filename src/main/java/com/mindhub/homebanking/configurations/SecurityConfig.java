@@ -31,8 +31,12 @@ public class SecurityConfig {
                 // a qué solicitudes se aplicarán ciertas configuraciones de seguridad.
                 .requestMatchers("/web/login.html", "/web/assets/**", "/index.html").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/login", "/api/clients").permitAll()
-                .requestMatchers("/web/*","/api/clients/**","/api/clients/current/accounts",
-                        "/api/accounts/*/transactions","api/clients/current/cards").hasAuthority("CLIENT")
+                .requestMatchers("/web/*", "/api/clients/**",
+                        "/api/accounts/*/transactions").hasAuthority("CLIENT")
+
+                .requestMatchers(HttpMethod.POST, "/api/clients/current/accounts",
+                        "api/clients/current/cards", "/api/transactions").hasAuthority("CLIENT")
+
                 .requestMatchers("/web/ADMIN/**", "/h2-console/**").hasAuthority("ADMIN")
                 .anyRequest().denyAll()
         );

@@ -68,6 +68,23 @@ const app = createApp({
                     this.error = error.response.data
                     console.log(this.error)
                 })
+        },
+        cerrarSession() {
+            Swal.fire({
+                background: "linear-gradient(to right, #191970, #00BFFF) no-repeat 0 0 / cover",
+                color: "white",
+                title: "Are you sure?",
+                text: "you are about to log out",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, I'm sure!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                this.logout();
+                }
+            });
         }
     }
 }).mount('#app')

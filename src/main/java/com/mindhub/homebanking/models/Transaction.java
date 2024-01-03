@@ -15,11 +15,12 @@ public class Transaction {
     private double amount;
     private String description;
     private LocalDateTime dateTime;
-@ManyToOne
+    @ManyToOne
     private Account account;
 
     public Transaction() {
     }
+
     public Transaction(TransactionType type, double amount, String description, LocalDateTime dateTime) {
         this.type = type;
         this.amount = amount;
