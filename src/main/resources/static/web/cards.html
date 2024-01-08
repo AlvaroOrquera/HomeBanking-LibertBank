@@ -25,13 +25,13 @@
                     <li><a href="./cards.html"
                             class=" p-1 rounded-lg text-black text-sm lg:text-base bg-gray-900/30 hover:bg-red-700">Cards</a>
                     </li>
-                    <li><a href="#" class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-700">Loans</a>
+                    <li><a href="./Loan-aplication.html" class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-700">Loans</a>
                     </li>
                     <li><a href="./transactions.html"
                             class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-700">Transactions</a>
                     </li>
-                    <li><button class="flex items-center" v-on:click="logout()"><img
-                                src="./assets/images/cerrar-sesion.png" alt=""></button></li>
+                    <li><button class="flex items-center" v-on:click="cerrarSession()"><img
+                        src="./assets/images/cerrar-sesion.png" alt=""></button></li>
                 </ul>
             </nav>
         </header>
@@ -724,6 +724,7 @@
             </div>
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="./assets/style/tailwind.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

@@ -34,7 +34,7 @@
                     <label class="block text-sm font-medium text-gray-600">Type of loan:</label>
                     <select @Change="Payments" v-model="selectLoan"
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md ">
-                        <option selected disabled>Select Loan</option>
+                        <option selected disabled value="1">Select Loan</option>
                         <template v-if="data.length > 0" v-for="loan in data">
                             <option :value="loan.id">{{loan.name}}({{"$"+loan.maxAmount}})</option>
                         </template>
@@ -43,7 +43,7 @@
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-600">Select your Payments:</label>
                     <select class="mt-1 block w-full p-2 border border-gray-300 rounded-md" v-model="payments">
-                        <option selected disabled>Select Payment</option>
+                        <option selected disabled value="1">Select Payment</option>
                         <template v-for="Payment in paymentsFilter.payments">
                             <option :value="Payment">{{Payment}}</option>
                         </template>
@@ -51,12 +51,12 @@
                 </div>
                 <div class="mb-4">
                     <label for="amount" class="block text-sm font-medium text-gray-600">Amount:</label>
-                    <input v-model="amount" type="text" required  class="w-full px-4 py-2 rounded-md border border-gray-300">
+                    <input v-model="amount" type="text" required placeholder="Enter amount" class="w-full px-4 py-2 rounded-md border border-gray-300">
                 </div>
                 <div class="mb-4">
                     <label for="account" class="block text-sm font-medium text-gray-600">Destination Account
                         Number:</label>
-                    <input v-model="accountDest" type="text" required class="w-full px-4 py-2 rounded-md border border-gray-300">
+                    <input v-model="accountDest" placeholder="Enter account" type="text" required class="w-full px-4 py-2 rounded-md border border-gray-300">
                 </div>
                 <div>
                     <button v-on:click="createLoans()" type="button"
@@ -102,6 +102,7 @@
             </div>
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="./assets/style/tailwind.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

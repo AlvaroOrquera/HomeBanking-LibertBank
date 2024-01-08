@@ -29,31 +29,36 @@
         </header>
         <main
             class="bg-[url('./assets/images/background1.png')] bg-cover min-h-screen flex justify-center items-center">
-            <div
-                class="flex justify-center items-center flex-col gap-4 bg-gradient-to-t from-red-900 to-red-600 p-4 rounded-lg">
-                <form class="flex gap-4 flex-col text-white">
+            <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-lg sm:w-[600px]">
+                <form class="flex gap-4 flex-col text-white max-w-md mx-auto">
+                    <h1 class="text-2xl font-bold mb-4 text-center text-red-700">Create new Card</h1>
+
                     <div>
-                        <label>Choose color</label>
-                        <select class="rounded-md text-black" v-model="selectedColor">
-                            <option>GOLD</option>
-                            <option>SILVER</option>
-                            <option>TITANIUM</option>
+                        <label class="block text-sm font-medium text-gray-600">Choose color</label>
+                        <select
+                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:border-red-600"
+                            v-model="selectedColor">
+                            <option selected disabled class="text-black" value="0">Select Color</option>
+                            <option class="text-black">GOLD</option>
+                            <option class="text-black">SILVER</option>
+                            <option class="text-black">TITANIUM</option>
                         </select>
                     </div>
                     <div>
-                        <label>Choose Type</label>
-                        <select class="rounded-md text-black" v-model="selectedType">
-                            <option>CREDIT</option>
-                            <option>DEBIT</option>
+                        <label class="block text-sm font-medium text-gray-600">Choose Type</label>
+                        <select
+                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:border-red-600"
+                            v-model="selectedType">
+                            <option selected disabled class="text-black" value="0">Select Type</option>
+                            <option class="text-black">CREDIT</option>
+                            <option class="text-black">DEBIT</option>
                         </select>
                     </div>
                     <div class="flex justify-center">
                         <button type="button" v-on:click="createCard()"
-                            class="bg-white hover:scale-110 text-red-600 py-2 px-4 rounded">Create new
-                            Card</button>
+                            class="bg-red-600 hover:scale-110 text-white py-2 px-4 rounded">Create new Card</button>
                     </div>
                 </form>
-
             </div>
         </main>
         <footer class="bg-white p-2 min-h-[5vh] flex justify-between text-black">
@@ -90,9 +95,10 @@
                         d="M17.5,2 C19.9852814,2 22,4.01471863 22,6.5 L22,17.5 C22,19.9852814 19.9852814,22 17.5,22 L6.5,22 C4.01471863,22 2,19.9852814 2,17.5 L2,6.5 C2,4.01471863 4.01471863,2 6.5,2 L17.5,2 Z M17.5,3 L6.5,3 C4.56700338,3 3,4.56700338 3,6.5 L3,17.5 C3,19.4329966 4.56700338,21 6.5,21 L17.5,21 C19.4329966,21 21,19.4329966 21,17.5 L21,6.5 C21,4.56700338 19.4329966,3 17.5,3 Z M9.16407219,6.76398937 L16.9279761,10.5973103 C17.2190043,10.7410015 17.4555744,10.9752125 17.6021749,11.264786 C17.9763578,12.0038927 17.6805287,12.9063922 16.941422,13.2805751 L9.17751807,17.2111581 C8.96749776,17.3174837 8.7354011,17.3728871 8.5,17.3728871 C7.67157288,17.3728871 7,16.7013142 7,15.8728871 L7,8.1089831 C7,7.87866091 7.05303923,7.65143219 7.15500627,7.44491092 C7.52176321,6.70209139 8.42125266,6.39723243 9.16407219,6.76398937 Z M12.724,12.431 L8.803,16.278 L14.026,13.635 L12.724,12.431 Z M8,8.1089831 L8,15.665 L11.989,11.752 L8.00196545,8.06469237 C8.00065843,8.07938941 8,8.09416706 8,8.1089831 Z M14.62,10.572 L13.439,11.73 L14.977,13.153 L16.4897433,12.3883944 C16.7361122,12.2636668 16.8347219,11.9628336 16.7099943,11.7164647 C16.6611274,11.6199402 16.5822707,11.5418699 16.4852613,11.4939728 L14.62,10.572 Z M9.402,7.996 L12.704,11.05 L13.67,10.103 L9.402,7.996 Z">
                     </path>
                 </svg>
-            </div> 
+            </div>
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="./assets/style/tailwind.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

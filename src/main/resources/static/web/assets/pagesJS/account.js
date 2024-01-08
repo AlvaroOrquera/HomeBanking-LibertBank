@@ -51,5 +51,28 @@ const app = createApp({
                     }
                 })
         },
+        cerrarSession() {
+            Swal.fire({
+                background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover", // Deep dark red gradient
+                customClass: {
+                    container: 'custom-swal-container',
+                    title: 'custom-swal-title',
+                    text: 'custom-swal-text',
+                    cancelButton: 'custom-swal-cancel',
+                    confirmButton: 'custom-swal-confirm',
+                },
+                title: "Are you sure?",
+                text: "You are about to log out.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#8B0000", // Dark red
+                cancelButtonColor: "#717171", // Light gray
+                confirmButtonText: "Yes, I'm sure!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.logout();
+                }
+            });
+        }
     }
 }).mount('#app')

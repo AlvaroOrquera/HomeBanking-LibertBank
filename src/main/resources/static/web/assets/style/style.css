@@ -7,7 +7,7 @@
 .card {
     width: 280px;
     max-width: 354px;
-    height: 250px; 
+    height: 250px;
 }
 
 .flip {
@@ -63,3 +63,14 @@
     }
 }
 
+.custom-swal-title {
+    color: #ffffff;
+    /* Color blanco para el título */
+    font-size: 24px;
+}
+
+.custom-swal-text {
+    color: #ffffff;
+    /* Color blanco para el texto */
+    font-size: 18px;
+}

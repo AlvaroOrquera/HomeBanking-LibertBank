@@ -3,11 +3,11 @@ const app = createApp({
     data() {
         return {
             data: [],
-            selectLoan: "",
+            selectLoan: "1",
             amount: "",
             accountDest: "",
-            payments: "",
-            paymentsFilter: "",
+            payments: "1",
+            paymentsFilter: "1",
 
         }
     },
@@ -42,10 +42,38 @@ const app = createApp({
                 .then(response => {
                     this.data = response.data
                     console.log(this.data)
+                    if (response.status === 201) {
+                        this.successMsg();
+                        this.statusTransaction = true;
+                    } else {
+                        this.errorMsg();
+                        this.statusTransaction = false;
+                    }
                 })
-                .catch(error => {
-                    console.log(error)
-                })
+                .catch(error => console.log(error));
         },
+        
+        errorMsg() {
+            Swal.fire({
+                background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover",
+                color: "white",
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+            });
+        },
+        
+        successMsg() {
+            Swal.fire({
+                background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover",
+                color: "white",
+                icon: "success",
+                title: "Success!",
+                text: "Transaction created successfully!",
+            }).then(() => {
+                // Utiliza el enrutador de Vue.js para redirigir a ./accounts.html
+                window.location.href = "./accounts.html";
+            });
+        }
     }
 }).mount('#app')
