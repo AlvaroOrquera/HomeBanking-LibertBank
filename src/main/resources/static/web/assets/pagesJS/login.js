@@ -1,12 +1,13 @@
-        const { createApp } = Vue
+const { createApp } = Vue
+
 const app = createApp({
     data() {
         return {
             data: [],
             email: "",
             password: "",
-            name: "",
-            lastname: "",
+            firstName: "",
+            lastName: "",
             modalVisible: false,
         }
     },
@@ -27,13 +28,19 @@ const app = createApp({
                     console.log(response)
                 })
         },
-        
+
         register() {
-            axios.post("/api/clients?firstName=" + this.firstName + "&lastName=" + this.lastName + "&email=" + this.email + "&password=" + this.password)
+            const body = {
+                "firstName": this.firstName,
+                "lastName": this.lastName,
+                "email": this.email,
+                "password": this.password
+            }
+            axios.post("/api/clients", body)
                 .then(response => {
                     console.log("registered" + this.email);
                     console.log(response.data);
-                    this.login();   
+                    this.login();
                 })
                 .catch(error => console.log(error))
         },
@@ -66,7 +73,7 @@ const app = createApp({
                 x.setAttribute("type", "password");
             }
         },
-        
+
         showModal() {
             this.modalVisible = true;
         },

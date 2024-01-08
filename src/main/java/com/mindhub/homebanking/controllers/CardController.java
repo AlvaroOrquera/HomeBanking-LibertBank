@@ -6,6 +6,8 @@ import com.mindhub.homebanking.models.CardType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.CardService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +24,15 @@ import java.util.Random;
 @RequestMapping("/api")
 public class CardController {
     @Autowired
-    ClientRepository clientRepository;
+    ClientService clientService;
     @Autowired
-    CardRepository cardRepository;
+    CardService cardService;
 
     @PostMapping("clients/current/cards")
     public ResponseEntity<String> createCards(@RequestParam CardColors colors,
                                               @RequestParam CardType type,
                                               Authentication authentication) {
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.getAuthenticatedClient(authentication.getName());
         //usamos long para indicar el tipo de dato que va a ser
         long colorType = client.getCards().stream()
                 .filter(card -> card.getColors() == colors && card.getType() == type)
@@ -59,7 +61,7 @@ public class CardController {
         LocalDate truDate= fromDate.plusYears(5);
         Card card = new Card(cardHolder,type,colors, cardNumber,cvv,fromDate,truDate);
         client.addCard(card);
-        cardRepository.save(card);
+        cardService.cardSave(card);
         return new ResponseEntity<>("The card was created.", HttpStatus.CREATED);
 
 

@@ -1,10 +1,13 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.DTO.ClientDTO;
+import com.mindhub.homebanking.DTO.CreateClientDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -31,75 +34,71 @@ public class ClientController {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private ClientService  clientService;
+    @Autowired
+    private AccountService accountService;
 
     //esto es un servlet= microprograma que responde peticiones especificas
     //RequestMapping por defecto es tipo GET
     @RequestMapping("/all")
-    public List<ClientDTO> getAllClient() {
-        return clientRepository.findAll()
-                .stream()
-                .map(client -> new ClientDTO(client))
-                .collect(Collectors.toList());
+    public List<ClientDTO> getClients() {
+        return clientService.getAllClientDTO();
     }
 
-    ;
+    @RequestMapping("/clients/current")
+    public ResponseEntity<ClientDTO> getOneClient(Authentication authentication) {
+
+        // Buscar al cliente en la base de datos utilizando el nombre de usuario (email) al findByEmail lo sacamos
+        // de clientRepository
+        Client client = clientService.getAuthenticatedClient(authentication.getName());
+
+        // Devolver una respuesta HTTP con el objeto ClientDTO y el código de estado OK (200)
+        return new ResponseEntity<>(new ClientDTO(client), HttpStatus.OK);
+    }
+
     @Autowired
     public PasswordEncoder passwordEncoder;
-
     //requestparams: es una anotación en Spring Framework que se utiliza para
     // extraer y vincular valores de parámetros de una solicitud HTTP a los parámetros de un método controlador.
+
+
+
+
     @PostMapping("/clients")
-    public ResponseEntity<String> createClient(@RequestParam String firstName,
-                                               @RequestParam String lastName,
-                                               @RequestParam String email,
-                                               @RequestParam String password) {
-        if (firstName.isBlank()) {
+    public ResponseEntity<String> createClient(@RequestBody CreateClientDTO createClientDTO) {
+        if (createClientDTO.getFirstName().isBlank()) {
             return new ResponseEntity<>("The name cannot be blank", HttpStatus.FORBIDDEN); //forbidden es el 403
         }
-        if (lastName.isBlank()) {
+        if (createClientDTO.getLastName().isBlank()) {
             return new ResponseEntity<>("The lastname cannot be blank", HttpStatus.FORBIDDEN); //forbidden es el 403
         }
-        if (email.isBlank()) {
+        if (createClientDTO.getEmail().isBlank()) {
             return new ResponseEntity<>("The email cannot be blank", HttpStatus.FORBIDDEN); //forbidden es el 403
         }
-        if (password.isBlank()) {
+        if (createClientDTO.getPassword().isBlank()) {
             return new ResponseEntity<>("The password cannot be blank", HttpStatus.FORBIDDEN); //forbidden es el 403
         }
-        if (clientRepository.existsByEmail(email)) {
+        if (clientService.existsByEmail(createClientDTO.getEmail())) {
             return new ResponseEntity<>("this email is used", HttpStatus.FORBIDDEN);
-
         }
 
-        Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        clientRepository.save(client);
+        Client client = new Client(createClientDTO.getFirstName(),createClientDTO.getLastName(), createClientDTO.getEmail(), passwordEncoder.encode(createClientDTO.getPassword()));
+        clientService.saveClient(client);
 
         String number;
         do {
             number = "VIN-" + getRandomNumber(10000000, 99999999);
-        } while (accountRepository.existsByNumber(number));
+        } while (accountService.existsByNumber(number));
         Account account = new Account(number, LocalDate.now(), 0.0);
         client.addAccount(account);
-        accountRepository.save(account);
+        accountService.saveAccount(account);
 
         return new ResponseEntity<>("successfully registered", HttpStatus.CREATED);
     }
 
 
-    @RequestMapping("/clients/{id}")
-    public ClientDTO getOneClient(@PathVariable Long id) {
-        return new ClientDTO(clientRepository.findById(id).orElse(null));
-    }
-    // pathvariable sirve para variar la ruta del id, que puede ser cualquiera,
-    //  y con el orElse decimos que si no encuentra un id, devuelva null
 
-    @RequestMapping("/clients/current")
-    public ResponseEntity<ClientDTO> getOneClient(Authentication authentication) {
-        // Buscar al cliente en la base de datos utilizando el nombre de usuario (email) al findByEmail lo sacamos
-        // de clientRepository
-        Client client = clientRepository.findByEmail(authentication.getName());
-        // Devolver una respuesta HTTP con el objeto ClientDTO y el código de estado OK (200)
-        return new ResponseEntity<>(new ClientDTO(client), HttpStatus.OK);
-    }
 
 
     //con este metodo me creo un numero random para la cuenta

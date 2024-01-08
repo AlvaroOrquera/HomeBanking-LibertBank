@@ -7,104 +7,65 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./assets/style/style.css">
     <link rel="shortcut icon" href="./assets/images/iconoDelBanco.png" type="image/x-icon">
-    <title>Liberty Bank | Accounts</title>
+    <title>Libert Bank | Loan</title>
 </head>
 
-<body class="bg-gray-200">
+<body>
     <div id="app">
-        <header class="flex justify-between bg-white p-2 items-center flex-col lg:flex-row">
-            <div class="flex flex-col lg:flex-row justify-center items-center">
-                <img class="h-[40px] w-[40px] rounded-3xl shadow-lg" src="./assets/images/iconoDelBanco.png"
-                    alt="iconoDelBanco">
-                <h2 class=" p-1 rounded-lg text-red-600 text-lg ">Liberty Bank</h2>
+        <header class="flex min-h-[5vh] justify-between items-center w-full flex-col md:flex-row bg-white p-2">
+            <div class="mx-1 items-center flex flex-col md:flex-row">
+                <img class="h-10 w-10" src="./assets/images/iconoDelBanco.png" alt="iconoDelBanco">
+                <h2 class="p-1 text-red-600">Liberty Bank</h2>
             </div>
             <nav>
-                <ul class="flex gap-2 items-center ">
-                    <li><a href="#"
-                            class=" p-1 rounded-lg text-black text-sm lg:text-base bg-gray-900/30 hover:bg-red-700">Accounts</a>
+                <ul class="flex gap-2">
+                    <li>
+                        <a href="./accounts.html"
+                            class="p-2 rounded-lg text-white text-sm lg:text-base bg-red-600 hover:bg-red-800/50">Back
+                            to Accounts</a>
                     </li>
-                    <li><a href="./cards.html"
-                            class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-700">Cards</a>
-                    </li>
-                    <li><a href="./Loan-aplication.html" class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-700">Loans</a>
-                    </li>
-                    <li><a href="./transactions.html"
-                            class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-700">Transactions</a>
-                    </li>
-                    <li><button class="flex items-center" v-on:click="cerrarSession()"><img
-                                src="./assets/images/cerrar-sesion.png" alt=""></button></li>
                 </ul>
             </nav>
         </header>
-        <main class="bg-[url('./assets/images/background.png')] bg-cover min-h-screen">
-            <div class="bg-slate-500/30 shadow-lg flex-col justify-center items-center  flex p-3 rounded-b-lg">
-                <h2 class="text-lg lg:text-3xl">Welcome!</h2>
-                <h2 class="text-lg  lg:text-2xl">{{data.firstName}} {{data.lastName}}</h2>
-            </div>
-            <div class="boton w-full items-center">
-                <div class="flex justify-center m-5">
-                    <button v-on:click="createAccount()"
-                        class="bg-white hover:scale-110 text-red-600 py-2 px-4 rounded">Create new
-                        Account</button>
+        <main class="bg-[url('./assets/images/background.png')] bg-cover min-h-screen flex justify-center items-center">
+            <form class="max-w-md mx-auto bg-white p-6 rounded-md shadow-lg sm:w-[600px]">
+                <h1 class="text-2xl font-bold mb-4 text-center text-red-700">Apply for a loan</h1>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-600">Type of loan:</label>
+                    <select @Change="Payments" v-model="selectLoan"
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md ">
+                        <option selected disabled>Select Loan</option>
+                        <template v-if="data.length > 0" v-for="loan in data">
+                            <option :value="loan.id">{{loan.name}}({{"$"+loan.maxAmount}})</option>
+                        </template>
+                    </select>
                 </div>
-            </div>
-            <div class="sm:flex sm:items-center sm:justify-center sm:h-full ">
-                <template v-if="account.length > 0" v-for="accounts in account">
-                    <div
-                        class="bg-gradient-to-t from-red-900 to-red-500 m-8 p-3 rounded-lg shadow-2xl sm:h-60 sm:w-96 sm:flex sm:flex-col sm:justify-center sm:items-center">
-                        <h2 class="text-white">Account Number: {{accounts.number}}</h2>
-                        <h2 class="text-white">Balance: {{formatBudget(accounts.balance)}}</h2>
-                        <h2 class="text-white">Date Created: {{accounts.createDate}}</h2>
-                        <a v-bind:href="'./account.html?id=' + accounts.id"
-                            class="text-white underline mt-4 hover:text-black">See
-                            your transactions...</a>
-                    </div>
-                </template>
-            </div>
-            <div>
-                <div class="sm:flex sm:justify-center flex justify-center">
-                    <h2
-                        class="bg-slate-500/30 shadow-lg w-1/3 justify-center items-center sm:justify-center sm:text-xl flex p-3 rounded-t-lg">
-                        LOANS</h2>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-600">Select your Payments:</label>
+                    <select class="mt-1 block w-full p-2 border border-gray-300 rounded-md" v-model="payments">
+                        <option selected disabled>Select Payment</option>
+                        <template v-for="Payment in paymentsFilter.payments">
+                            <option :value="Payment">{{Payment}}</option>
+                        </template>
+                    </select>
                 </div>
-                <div v-if="data1.length != 0">
-                    <div class="overflow-x-auto w-full sm:flex sm:justify-center p-2 rounded-md ">
-                        <table class="md:w-[450px] w-full sm:mt-3 mt-3 divide-y shadow-lg divide-red-200">
-                            <thead class="bg-gradient-to-t from-red-900 to-red-500">
-                                <tr>
-                                    <th
-                                        class="sm:rounded-l-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                        Name</th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                        Amount</th>
-                                    <th
-                                        class="sm:rounded-r-lg px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                        payments</th>
-                                </tr>
-                            </thead>
-                            <template v-if="data1.length > 0" v-for="clientsLoansDTOS in data1">
-                                <tbody class="bg-white divide-y divide-red-200">
-                                    <tr>
-                                        <td class="sm:rounded-l-lg px-6 py-4 whitespace-nowrap text-base text-black">
-                                            {{clientsLoansDTOS.name}}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base text-black">
-                                            {{formatBudget(clientsLoansDTOS .amount)}}</td>
-                                        <td class="sm:rounded-r-lg px-6 py-4 whitespace-nowrap text-base text-black">
-                                            {{clientsLoansDTOS .payments}}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </template>
-                        </table>
-                    </div>
+                <div class="mb-4">
+                    <label for="amount" class="block text-sm font-medium text-gray-600">Amount:</label>
+                    <input v-model="amount" type="text" required  class="w-full px-4 py-2 rounded-md border border-gray-300">
                 </div>
-                <div v-else class="sm:flex sm:justify-center flex justify-center">
-                    <h2 class="text-xl">No loans yet</h2>
+                <div class="mb-4">
+                    <label for="account" class="block text-sm font-medium text-gray-600">Destination Account
+                        Number:</label>
+                    <input v-model="accountDest" type="text" required class="w-full px-4 py-2 rounded-md border border-gray-300">
                 </div>
-            </div>
+                <div>
+                    <button v-on:click="createLoans()" type="button"
+                        class="w-full p-2 bg-red-700 text-white rounded-md focus:outline-none focus:ring focus:border-blue-300">Enviar
+                        solicitud</button>
+                </div>
+            </form>
         </main>
-        <footer class="bg-white p-2 flex justify-between text-black">
+        <footer class=" bg-white p-2 min-h-[5vh] flex justify-between text-black">
             <div class="redes flex">
                 <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" role="img">
                     <path fill="#222222"
@@ -141,11 +102,10 @@
             </div>
         </footer>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="./assets/style/tailwind.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="assets/pagesJS/accounts.js"></script>
+    <script src="assets/pagesJS/loan-aplication.js"></script>
 </body>
 
 </html>

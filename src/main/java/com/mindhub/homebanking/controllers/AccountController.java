@@ -6,7 +6,8 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
-import org.hibernate.bytecode.internal.bytebuddy.BytecodeProviderImpl;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,50 +22,45 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class AccountController {
+
     @Autowired
-    private AccountRepository accountRepository;
+    private ClientService clientService;
     @Autowired
-    private ClientRepository clientRepository;
+    private AccountService accountService;
 
 
     @GetMapping("/accounts/all")
     public List<AccountDTO> getAllAccount() {
-        return accountRepository.findAll()
-                .stream()
-                .map(account -> new AccountDTO(account))
-                .collect(Collectors.toList());
+        return accountService.getAllAccounts();
     }
 
     @GetMapping("/accounts/{id}/transactions")
     public List<TransactionDTO> getOneAccount(@PathVariable Long id) {
-        return accountRepository.findById(id)
-                .map(account -> account.getTransactions().stream()
-                        .map(TransactionDTO -> new TransactionDTO(TransactionDTO))
-                        .collect(Collectors.toList()))
-                .orElse(Collections.emptyList());
+        return accountService.getTransactionsByAccountId(id);
     }
 
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<String> newAccount(Authentication authentication) {
+        Client client = clientService.getAuthenticatedClient(authentication.getName());
 
-        Client client = clientRepository.findByEmail(authentication.getName());
         if (client.getAccounts().size() >= 3) {
-            return ResponseEntity.badRequest().body("you can't have more 3 accounts");
+            return ResponseEntity.badRequest().body("You can't have more than 3 accounts");
         }
+
         String number;
         do {
             number = "VIN-" + getRandomNumber(10000000, 99999999);
-        } while (accountRepository.existsByNumber(number));
-        Account account= new Account(number,LocalDate.now(),0.0);
-        clientRepository.save(client);
+        } while (accountService.existsByNumber(number));
+
+        Account account = new Account(number, LocalDate.now(), 0.0);
         client.addAccount(account);
-        accountRepository.save(account);
+        accountService.saveAccount(account);
+
         return new ResponseEntity<>("Your account is created", HttpStatus.CREATED);
     }
 
-    //con este metodo me creo un numero random para la cuenta
-    public int getRandomNumber(int min, int max) {
+    // Método para generar un número aleatorio
+    private int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
-
 }
