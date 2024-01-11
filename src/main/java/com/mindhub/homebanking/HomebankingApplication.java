@@ -130,9 +130,9 @@ public class HomebankingApplication {
 //            cardRepository.save(cardAlvaroSilver);
 //            cardRepository.save(cardMelbaTitanium);
 //            cardRepository.save(cardMelbaGold);
-            //el orden de guardado para un correcto funcionamiento seria: 1ro se guarda el cliente en el repositorio
-            // 2do se guarda el loans que seria el uno para muchos que este va a la clase clientsLoans
-            // y 3ro se guarda recien el clientsLoans que seria el mucho para uno
+//            el orden de guardado para un correcto funcionamiento seria: 1ro se guarda el cliente en el repositorio
+//             2do se guarda el loans que seria el uno para muchos que este va a la clase clientsLoans
+//             y 3ro se guarda recien el clientsLoans que seria el mucho para uno
 
 
         };

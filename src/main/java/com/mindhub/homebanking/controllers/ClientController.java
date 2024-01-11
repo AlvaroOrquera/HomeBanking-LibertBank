@@ -41,12 +41,12 @@ public class ClientController {
 
     //esto es un servlet= microprograma que responde peticiones especificas
     //RequestMapping por defecto es tipo GET
-    @RequestMapping("/all")
+    @GetMapping("/all")
     public List<ClientDTO> getClients() {
         return clientService.getAllClientDTO();
     }
 
-    @RequestMapping("/clients/current")
+    @GetMapping("/clients/current")
     public ResponseEntity<ClientDTO> getOneClient(Authentication authentication) {
 
         // Buscar al cliente en la base de datos utilizando el nombre de usuario (email) al findByEmail lo sacamos

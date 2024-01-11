@@ -18,6 +18,7 @@ public class Client {
 
     private String firstName, lastName, email, password;
     //asigno y inicialiso el roltype
+    @Enumerated(EnumType.STRING)
     private RoleType rol = RoleType.CLIENT;
 
 
@@ -75,6 +76,14 @@ public class Client {
 
     //constructor vacio "client" que sirve cuando yo haga la peticion evite el error status=500
     public Client() {
+    }
+
+    public static String passwordValidator(String password)throws IllegalAccessError{
+        String pass = password;
+        if(!pass.matches("^(?=,*[A-Z])(?=,[a-z])(?=,*\\d)(?=,[!@#$%&.])[A-Za-z\\d!@#$%&*.]{8,}$")){
+            throw new IllegalAccessError("password invalid.");
+        }
+        return pass;
     }
 
     public RoleType getRol() {

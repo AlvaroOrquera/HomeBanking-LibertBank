@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.DTO.AccountDTO;
 import com.mindhub.homebanking.DTO.TransactionDTO;
+import com.mindhub.homebanking.Utils.Utils;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
@@ -49,7 +50,7 @@ public class AccountController {
 
         String number;
         do {
-            number = "VIN-" + getRandomNumber(10000000, 99999999);
+            number = Utils.generateAccountN();
         } while (accountService.existsByNumber(number));
 
         Account account = new Account(number, LocalDate.now(), 0.0);
@@ -57,10 +58,5 @@ public class AccountController {
         accountService.saveAccount(account);
 
         return new ResponseEntity<>("Your account is created", HttpStatus.CREATED);
-    }
-
-    // Método para generar un número aleatorio
-    private int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
     }
 }

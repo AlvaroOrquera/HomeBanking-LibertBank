@@ -1,7 +1,6 @@
 package com.mindhub.homebanking.models;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.time.LocalDate;
 
@@ -13,7 +12,9 @@ public class Card {
     @ManyToOne
     private Client client;
     private String cardHolder;
+    @Enumerated(EnumType.STRING)
     private CardType type;
+    @Enumerated(EnumType.STRING)
     private CardColors colors;
     private String number;
     private Integer cvv;
@@ -21,6 +22,10 @@ public class Card {
     private LocalDate truDate;
 
     public Card() {
+
+    }
+
+    public Card(String cardHolder, CardType type, CardColors colors, String cardNumber, String cvv, LocalDate fromDate, LocalDate truDate) {
     }
 
     public Card(String cardHolder, CardType type, CardColors colors, String number, Integer cvv, LocalDate fromDate, LocalDate truDate) {
