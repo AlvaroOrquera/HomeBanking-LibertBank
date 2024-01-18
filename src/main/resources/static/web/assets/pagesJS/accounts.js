@@ -6,13 +6,14 @@ const app = createApp({
             data: [],
             account: [],
             data1: [],
+            deleteAccount: -1,
+            accountType: [],
         }
     },
     created() {
         this.loadData()
         this.formatBudget()
         this.loadData2()
-        console.log("holitas")
     },
     methods: {
         loadData() {
@@ -20,8 +21,8 @@ const app = createApp({
                 .then(data => {
                     this.data = data.data
                     this.account = data.data.accountDTOS
-                    console.log(this.account)
-                    console.log(this.data)
+                    console.log("account", this.account)
+                    console.log("data", this.data)
                 })
                 .catch(error => {
                     console.log(error)
@@ -31,7 +32,7 @@ const app = createApp({
             axios.get(CLIENT)
                 .then(data => {
                     this.data1 = data.data.clientsLoansDTOS
-                    console.log(this.data1)
+                    console.log("client loans", this.data1)
                 })
                 .catch(error => {
                     console.log(error)
@@ -59,7 +60,7 @@ const app = createApp({
                 })
         },
         createAccount() {
-            axios.post("/api/clients/current/accounts")
+            axios.post("/api/clients/current/accounts?accountType="+ this.accountType)
                 .then(response => {
                     console.log(response)
                     this.loadData()
@@ -67,6 +68,18 @@ const app = createApp({
                 .catch(error => {
                     this.error = error.response.data
                     console.log(this.error)
+                })
+        },
+        changeStatus() {
+            axios.patch("/api/clients/current/accounts?number=" + this.deleteAccount)
+                .then(response => {
+                    console.log(response)
+                    if (response.status == 200) {
+                        this.loadData()
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
                 })
         },
         cerrarSession() {
@@ -91,7 +104,7 @@ const app = createApp({
                     this.logout();
                 }
             });
-        }
+        },
 
     }
 }).mount('#app')

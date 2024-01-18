@@ -28,11 +28,11 @@
             </nav>
         </header>
         <main class="bg-[url('./assets/images/background.png')] bg-cover min-h-screen flex justify-center items-center">
-            <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-lg sm:w-[600px]">
+            <div class="max-w-md mx-auto p-6 rounded-md shadow-2xl shadow-black sm:w-[600px]">
                 <h1 class="text-2xl font-bold mb-4 text-center text-red-700">Transacciones</h1>
                 <form class="space-y-4">
                     <div>
-                        <label for="tipo" class="block text-sm font-medium text-gray-600">Your Accounts</label>
+                        <label class="block text-base font-medium text-gray-900">Your Accounts</label>
                         <select v-model="selectedAccount"
                             class="mt-1 block w-full p-2 border border-gray-300 rounded-md ">
                             <option disabled value="1">Select Account</option>
@@ -43,24 +43,24 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-600">Transfer amount</label>
+                        <label class="block text-base  font-medium text-gray-900">Transfer amount</label>
                         <input type="number" v-model="amount"
                             class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-600">Destination account
+                        <label class="block text-base  font-medium text-gray-900">Destination account
                             number</label>
                         <input type="text" v-model="accountDest"
                             class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-600">Description</label>
+                        <label class="block text-base  font-medium text-gray-900">Description</label>
                         <input type="text" v-model="description"
                             class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
                     </div>
                     <div>
                         <button type="button" @click.prevent="createTransfer()"
-                            class="w-full p-2 bg-red-700 text-white rounded-md focus:outline-none focus:ring focus:border-blue-300">Send
+                            class="w-full p-2 bg-white text-red-700 rounded-md hover:scale-110">Send
                             Cash</button>
                     </div>
                 </form>

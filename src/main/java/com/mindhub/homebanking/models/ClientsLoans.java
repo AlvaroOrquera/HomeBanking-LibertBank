@@ -2,10 +2,9 @@ package com.mindhub.homebanking.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 public class ClientsLoans {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -13,13 +12,15 @@ public class ClientsLoans {
     private double amount;
     private Integer payments;
 
-
     @ManyToOne
     private Client client;
 
     @ManyToOne
     private Loans loans;
 
+
+
+    // Constructores
     public ClientsLoans() {
     }
 
@@ -28,6 +29,7 @@ public class ClientsLoans {
         this.payments = payments;
     }
 
+    // Métodos de acceso
     public Long getId() {
         return id;
     }
@@ -64,6 +66,9 @@ public class ClientsLoans {
         this.loans = loans;
     }
 
+
+
+    // Método toString
     @Override
     public String toString() {
         return "ClientsLoans{" +

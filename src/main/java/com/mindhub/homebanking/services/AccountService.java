@@ -14,4 +14,6 @@ public interface AccountService {
     boolean existsByNumber(String number);
     void saveAccount(Account account);
     Account findByNumber(String number);
+    AccountDTO getAccountById(Long id);
+    void cancelaCuenta(Account account);
 }

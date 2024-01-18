@@ -18,7 +18,7 @@
                 <img class="h-10 w-10" src="./assets/images/iconoDelBanco.png" alt="iconoDelBanco">
                 <h2 class="p-1 text-red-600">Liberty Bank</h2>
             </div>
-            <nav>
+            <nav >
                 <ul class="flex gap-2">
                     <li>
                         <a href="../index.html"
@@ -48,13 +48,13 @@
                                 </div>
                             </div>
                             <label class="text-white" for="email">Email</label>
-                            <input class="rounded-md" type="email" id="email" name="email" placeholder="Email"
+                            <input class="rounded-md p-1" type="email" id="email" name="email" placeholder="Email"
                                 @input="getEmail" :value="email" required>
                             <label class="text-white" for="password" class="mt-2">Password</label>
-                            <div class="flex items-center">
-                                <input type="password" class="rounded-md" id="password" name="password"
+                            <div class="flex items-center bg-white rounded-md">
+                                <input type="password" class="rounded-md p-1" id="password" name="password"
                                     placeholder="Password" @input="getPassword" :value="password">
-                                <i class="far fa-eye cursor-pointer bg-white h-[24px] rounded-md p-1"
+                                <i class="far fa-eye cursor-pointer  h-[24px] rounded-md p-1"
                                     @click="togglePassword()" id="togglePassword"></i>
                             </div>
                             <div class="flex justify-end">

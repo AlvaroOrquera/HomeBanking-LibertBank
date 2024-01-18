@@ -10,7 +10,7 @@ public class LoanDTO {
 
     private String name;
 
-    private double maxAmount;
+    private double maxAmount, porcentage;
 
     private List<Integer> payments;
 
@@ -19,7 +19,11 @@ public class LoanDTO {
         name = loan.getName();
         maxAmount = loan.getMaxAmount();
         payments = loan.getPayments();
+        porcentage = loan.getPercentage();
+    }
 
+    public double getPorcentage() {
+        return porcentage;
     }
 
     public Long getId() {

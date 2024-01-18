@@ -21,32 +21,19 @@ public class ClientRepositoryTest {
     ClientRepository clientRepository;
 
     @Test
-    public void SearchClient(){
-      List<Client> clients =clientRepository.findAll();
-      assertThat(clients, hasItem(hasProperty("firstName", is("Melba"))));
+    public void findClientById() {
+        Client client = clientRepository.findById(1L).orElse(null);
+        assertNotNull(client);
+        assertEquals("Melba", client.getFirstName());
     }
-    //verificacion de password.
     @Test
-    public void PasswordValidatorInvalid() {
-        String invalidPassword = "invalid";
-        assertThrows(IllegalAccessError.class, () -> Client.passwordValidator(invalidPassword));
+    public void allClientsHaveLastName() {
+        List<Client> clients = clientRepository.findAll();
+        assertThat(clients, hasItems(hasProperty("lastname",notNullValue())));
     }
-    //test de prueba para ver la asociacion entre clientloans,client y cards.
     @Test
-    public void AssociationCardClientClientLoans() {
-        Client client = new Client();
-
-        ClientsLoans loan = new ClientsLoans();
-        client.addClientsLoans(loan);
-        assertTrue(client.getClientsLoans().contains(loan));
-
-        Account account = new Account();
-        client.addAccount(account);
-        assertTrue(client.getAccounts().contains(account));
-
-        Card card = new Card();
-        client.addCard(card);
-        assertTrue(client.getCards().contains(card));
+    public void findAllClientsNotEmpty() {
+        List<Client> clients = clientRepository.findAll();
+        assertThat(clients, is(not(empty())));
     }
-
 }

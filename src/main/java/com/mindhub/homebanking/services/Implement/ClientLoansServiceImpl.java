@@ -11,6 +11,10 @@ public class ClientLoansServiceImpl implements ClientLoansService {
     @Autowired
     ClientsLoansRepository clientsLoansRepository;
     @Override
+    public ClientsLoans findById(Long id) {
+        return clientsLoansRepository.findById(id).orElse(null);
+    }
+    @Override
     public void saveClientsLoans(ClientsLoans clientsLoans) {
         clientsLoansRepository.save(clientsLoans);
 

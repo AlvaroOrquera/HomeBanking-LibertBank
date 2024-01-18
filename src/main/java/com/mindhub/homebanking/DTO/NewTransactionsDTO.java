@@ -1,8 +1,6 @@
 package com.mindhub.homebanking.DTO;
 
-import com.mindhub.homebanking.models.Account;
-
-public class CreateTransactionsDTO {
+public class NewTransactionsDTO {
     double amount, currentBalance;
     String originAccount,destinationAccount,description;
 

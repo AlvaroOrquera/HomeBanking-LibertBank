@@ -3,7 +3,7 @@ package com.mindhub.homebanking.models;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
-public enum EstatusCard {
+public enum CardStatus {
     @Enumerated(EnumType.STRING)
-    ACTIVA, INACTIVA, CANCELADA
+    ACTIVE, INACTIVE
 }

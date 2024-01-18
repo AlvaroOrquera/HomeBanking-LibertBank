@@ -7,27 +7,43 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity //crea una tabla en la base de datos
+@Entity
 public class Client {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    // hace que las columnas en la tabla de la base de datos
 
     private String firstName, lastName, email, password;
-    //asigno y inicialiso el roltype
+
     @Enumerated(EnumType.STRING)
     private RoleType rol = RoleType.CLIENT;
 
-
-
-
-    //set que conecta a client con clientsloans
+    // Relación con ClientsLoans
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<ClientsLoans> clientsLoans = new HashSet<>();
 
+    // Relación con Account
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private List<Account> accounts = new ArrayList<>();
+
+    // Relación con Card
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
+
+    // Constructor vacío necesario para evitar errores en las peticiones
+    public Client() {
+    }
+
+    // Constructor principal
+    public Client(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
+    // Métodos de acceso para ClientsLoans
     public Set<ClientsLoans> getClientsLoans() {
         return clientsLoans;
     }
@@ -37,22 +53,7 @@ public class Client {
         this.clientsLoans.add(clientsLoans);
     }
 
-
-    public Client(String firstName, String lastname, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastname;
-        this.email = email;
-        this.password = password;
-    }
-
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    //accounts es una propiedad y tiene que estar en private
-    //eager lo que hace es traer todo lo relacionado con cliente
-    //  onetomany decimos que un cliente va a tener varias cuentas
-    // mappedby decimos que va a mapear las cuentas
-    //fetch decimos como queremos que nos traiga los datos en relacion con el account
-    private List<Account> accounts = new ArrayList<>();
-
+    // Métodos de acceso para Account
     public List<Account> getAccounts() {
         return accounts;
     }
@@ -62,9 +63,7 @@ public class Client {
         this.accounts.add(account);
     }
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    public Set<Card> cards = new HashSet<>();
-
+    // Métodos de acceso para Card
     public Set<Card> getCards() {
         return cards;
     }
@@ -74,18 +73,7 @@ public class Client {
         this.cards.add(card);
     }
 
-    //constructor vacio "client" que sirve cuando yo haga la peticion evite el error status=500
-    public Client() {
-    }
-
-    public static String passwordValidator(String password)throws IllegalAccessError{
-        String pass = password;
-        if(!pass.matches("^(?=,*[A-Z])(?=,[a-z])(?=,*\\d)(?=,[!@#$%&.])[A-Za-z\\d!@#$%&*.]{8,}$")){
-            throw new IllegalAccessError("password invalid.");
-        }
-        return pass;
-    }
-
+    // Métodos de acceso y modificación para otros atributos
     public RoleType getRol() {
         return rol;
     }
@@ -106,18 +94,16 @@ public class Client {
         return id;
     }
 
-
     public String getFirstName() {
         return firstName;
     }
 
-
-    public String getLastname() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastName = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -128,13 +114,15 @@ public class Client {
         this.email = email;
     }
 
+    // Método toString para facilitar la visualización de objetos
     @Override
     public String toString() {
-        return "Client{" + "id=" + id +
-                ", name='" + firstName + '\'' +
-                ", lastname='" + lastName + '\'' +
-                ", email='" + email + '\'' + '}';
+        return "Client{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
-
-
 }
+

@@ -5,7 +5,7 @@ import java.util.List;
 public class LoanAplicationDTO {
     private Long id;
 
-    private Double amount;
+    private double amount;
     private Integer payments;
     private String destinationAccount;
 
@@ -13,7 +13,7 @@ public class LoanAplicationDTO {
         return id;
     }
 
-    public Double getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -24,4 +24,5 @@ public class LoanAplicationDTO {
     public String getDestinationAccount() {
         return destinationAccount;
     }
+
 }

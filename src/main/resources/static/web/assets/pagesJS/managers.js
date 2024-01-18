@@ -3,10 +3,10 @@ const { createApp } = Vue
 const app = createApp({
     data() {
         return {
-            data: [],
             name: "",
-            lastname: "",
-            email: "",
+            maxAmount: "",
+            paymentArray: "",
+            percentage: ""
         }
     },
     created() {
@@ -14,38 +14,25 @@ const app = createApp({
     },
     methods: {
         loadData() {
-            axios("/clients")
-                .then(response => {
-                    this.data = response.data._embedded.clients
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+            axios.get("/api/loans")
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
         },
-        createClient(event) {
-            event.preventDefault()
-            axios.post("/clients",
-                {
-                    "name": this.name,
-                    "lastname": this.lastname,
-                    "email": this.email,
-                })
+        createLoan() {
+            const paymentArray = this.paymentArray.split(',').map(Number);
+            const body = {
+                "name": this.name,
+                "maxAmount": this.maxAmount,
+                "payments": paymentArray,
+                "percentage": this.percentage
+            }
+            axios.post("/api/admin/loans", body)
                 .then(response => {
-                    this.data = response
-                    this.loadData()
-                    this.cleanInputs()
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
-        deleteClient(event) {
-            event.preventDefault()
-            axios.delete("/clients/1")
-                .then(response => {
-                    this.data = response
-                    this.loadData()
-                    this.cleanInputs()
+                    console.log(response)
                 })
                 .catch(error => {
                     console.log(error)

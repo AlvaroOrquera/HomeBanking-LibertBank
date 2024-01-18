@@ -26,19 +26,13 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
         auth.userDetailsService(inputName -> {
             Client client = clientRepository.findByEmail(inputName);
             if (client != null) {
-
                 return new User(client.getEmail(), client.getPassword(),
-
                         AuthorityUtils.createAuthorityList(client.getRol().toString()));
                 //AuthorityUtils: en Spring Security proporciona métodos de utilidad para trabajar
                 // con roles y autoridades en el contexto de la seguridad.
-
             } else {
-
                 throw new UsernameNotFoundException("Unknown user: " + inputName);
-
             }
-
         });
     }
     @Bean

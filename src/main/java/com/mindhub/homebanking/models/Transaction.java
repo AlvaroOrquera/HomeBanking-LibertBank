@@ -8,26 +8,35 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Transaction {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Enumerated(EnumType.STRING)
     private TransactionType type;
-    private double amount;
+
+    private double amount, previousBalance, currentBalance;
     private String description;
     private LocalDateTime dateTime;
+
     @ManyToOne
     private Account account;
 
+    // Constructor vacío necesario para evitar errores en las peticiones
     public Transaction() {
     }
 
+    // Constructor principal
     public Transaction(TransactionType type, double amount, String description, LocalDateTime dateTime) {
         this.type = type;
         this.amount = amount;
         this.description = description;
         this.dateTime = dateTime;
     }
+
+    // Métodos de acceso
+
 
     public Long getId() {
         return id;
@@ -47,6 +56,22 @@ public class Transaction {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public double getPreviousBalance() {
+        return previousBalance;
+    }
+
+    public void setPreviousBalance(double previousBalance) {
+        this.previousBalance = previousBalance;
+    }
+
+    public double getCurrentBalance() {
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(double currentBalance) {
+        this.currentBalance = currentBalance;
     }
 
     public String getDescription() {
@@ -73,7 +98,7 @@ public class Transaction {
         this.account = account;
     }
 
-    // permite imprimir los datos y no el espacio de memoria
+    // Método toString para facilitar la visualización de objetos
     @Override
     public String toString() {
         return "Transaction{" +

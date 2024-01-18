@@ -12,7 +12,7 @@ public class Loans {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    private double maxAmount;
+    private double maxAmount, percentage;
 
    @ElementCollection
    private List<Integer> payments;
@@ -20,6 +20,7 @@ public class Loans {
     //set para el clientloans
     @OneToMany(mappedBy = "loans", fetch = FetchType.EAGER)
     private Set<ClientsLoans> clientsLoans = new HashSet<>();
+    //hacemos el new para inicializarlo vacio e instanciarlo para crear un espacio de memoria
 
     public Set<ClientsLoans> getClientsLoans() {
         return clientsLoans;
@@ -34,10 +35,19 @@ public class Loans {
     }
 
 
-    public Loans(String name, double maxAmount, List<Integer> payments) {
+    public Loans(String name, double maxAmount, List<Integer> payments, double percentage) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
+        this.percentage = percentage;
+    }
+
+    public double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(double percentage) {
+        this.percentage = percentage;
     }
 
     public long getId() {
@@ -47,6 +57,7 @@ public class Loans {
     public void setId(long id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;

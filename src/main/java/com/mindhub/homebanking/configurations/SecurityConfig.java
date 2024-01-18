@@ -31,14 +31,14 @@ public class SecurityConfig {
                 // a qué solicitudes se aplicarán ciertas configuraciones de seguridad.
                 .requestMatchers("/web/login.html", "/web/assets/**", "/index.html").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/login", "/api/clients").permitAll()
-
-                .requestMatchers("/web/*", "/api/clients/**",
-                        "/api/accounts/*/transactions").hasAuthority("CLIENT")
-                .requestMatchers(HttpMethod.GET, "/api/loans").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.GET, "/web/*", "/api/clients/**",
+                        "/api/accounts/*/transactions","/api/accounts/{id}/transactions/pdf").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.PATCH, "/api/clients/current/cards", "/api/clients/current/accounts").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.POST, "/api/clients/current/accounts",
                         "api/clients/current/cards", "/api/transactions", "/api/loans").hasAuthority("CLIENT")
-
-                .requestMatchers("/web/ADMIN/**", "/h2-console/**").hasAuthority("ADMIN")
+                .requestMatchers("/web/ADMIN/**", "/web/assets/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/admin/loans").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/api/loans").hasAnyAuthority("CLIENT","ADMIN")
                 .anyRequest().denyAll()
         );
 

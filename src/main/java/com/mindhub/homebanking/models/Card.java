@@ -17,18 +17,16 @@ public class Card {
     @Enumerated(EnumType.STRING)
     private CardColors colors;
     private String number;
-    private Integer cvv;
+    @Enumerated(EnumType.STRING)
+    private CardStatus status = CardStatus.ACTIVE;
+    private String cvv;
     private LocalDate fromDate;
     private LocalDate truDate;
-
-    public Card() {
+    public Card(){
 
     }
 
-    public Card(String cardHolder, CardType type, CardColors colors, String cardNumber, String cvv, LocalDate fromDate, LocalDate truDate) {
-    }
-
-    public Card(String cardHolder, CardType type, CardColors colors, String number, Integer cvv, LocalDate fromDate, LocalDate truDate) {
+    public Card(String cardHolder, CardType type, CardColors colors, String number, CardStatus status, String cvv, LocalDate fromDate, LocalDate truDate) {
         this.type = type;
         this.colors = colors;
         this.number = number;
@@ -36,6 +34,7 @@ public class Card {
         this.fromDate = fromDate;
         this.truDate = truDate;
         this.cardHolder = cardHolder;
+        this.status= status;
     }
 
     public Long getId() {
@@ -83,11 +82,19 @@ public class Card {
         this.number = number;
     }
 
-    public Integer getCvv() {
+    public CardStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CardStatus status) {
+        this.status = status;
+    }
+
+    public String getCvv() {
         return cvv;
     }
 
-    public void setCvv(Integer cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 

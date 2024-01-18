@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.models;
 
 import jakarta.persistence.*;
+import jdk.jshell.Snippet;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -16,6 +17,9 @@ public class Account {
     private String number;
     private LocalDate createDate;
     private double balance;
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
+    private boolean active = true;
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
@@ -41,16 +45,25 @@ public class Account {
     public Account() {
     }
 
-    public Account(String number, LocalDate createDate, double balance) {
+    public Account(String number, LocalDate createDate, double balance, boolean active, AccountType accountType) {
         this.number = number;
         this.createDate = createDate;
         this.balance = balance;
+        this.active = active;
+        this.accountType = accountType;
     }
 
     public Long getId() {
         return id;
     }
 
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
 
     public String getNumber() {
         return number;
@@ -74,6 +87,14 @@ public class Account {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Client getClient() {

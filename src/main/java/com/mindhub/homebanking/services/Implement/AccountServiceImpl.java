@@ -37,17 +37,22 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<TransactionDTO> getTransactionsByAccountId(Long id) {
-        return accountRepository.findById(id)
-                .map(account -> account.getTransactions().stream()
-                        .map(TransactionDTO -> new TransactionDTO(TransactionDTO))
-                        .collect(Collectors.toList()))
-                .orElse(Collections.emptyList());
+        Account account = accountRepository.findById(id).orElse(null);
+        if (account != null) {
+            if (account.isActive()) {
+                return account.getTransactions().stream()
+                        .map(transactionDTO -> new TransactionDTO(transactionDTO))
+                        .collect(Collectors.toList());
+            }
+        }
+        return null;
     }
 
     @Override
     public boolean existsByNumber(String number) {
         return accountRepository.existsByNumber(number);
     }
+
     @Override
     public void saveAccount(Account account) {
         accountRepository.save(account);
@@ -56,6 +61,18 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account findByNumber(String number) {
         return accountRepository.findByNumber(number);
+    }
+
+    @Override
+    public AccountDTO getAccountById(Long id) {
+        return accountRepository.findById(id).map(AccountDTO :: new).orElse(null);
+    }
+
+    @Override
+    public void cancelaCuenta(Account account) {
+        Account accounts = accountRepository.findByNumber(account.getNumber());
+        accounts.setActive(false);
+        accountRepository.save(accounts);
     }
 
 

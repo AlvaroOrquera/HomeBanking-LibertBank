@@ -3,11 +3,12 @@ const app = createApp({
     data() {
         return {
             data: [],
-            selectLoan: "1",
+            selectLoan: "-1",
             amount: "",
             accountDest: "",
-            payments: "1",
-            paymentsFilter: "1",
+            payments: "-1",
+            paymentsFilter: "-1",
+            totalAmount: 0,
 
         }
     },
@@ -19,7 +20,6 @@ const app = createApp({
             axios.get("/api/loans")
                 .then(response => {
                     this.data = response.data
-                    this.payments = response.data
                     console.log("hola", this.payments)
 
                     console.log(this.data)
@@ -74,6 +74,11 @@ const app = createApp({
                 // Utiliza el enrutador de Vue.js para redirigir a ./accounts.html
                 window.location.href = "./accounts.html";
             });
+        },
+        updateTotalAmount() {
+            const selectLoan= this.data.find(loan => loan.id === this.selectLoan);
+            this.totalAmount = this.amount * ((selectLoan.porcentage/100)+1).toFixed(1);
+            console.log(this.totalAmount)
         }
     }
 }).mount('#app')

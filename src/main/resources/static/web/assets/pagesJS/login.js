@@ -19,16 +19,16 @@ const app = createApp({
             axios.post("/api/login?email=" + this.email + "&password=" + this.password)
                 .then(response => {
                     console.log(response)
-                    if (response.status == 200) {
+                    if (this.email == "alvarocapo2013@gmail.com" && this.password == "Alvaro232315") {
+                        window.location.href = "./ADMIN/manager.html"
+                    } else {
                         window.location.href = "./accounts.html"
                     }
                 })
-
                 .catch(response => {
                     console.log(response)
                 })
         },
-
         register() {
             const body = {
                 "firstName": this.firstName,

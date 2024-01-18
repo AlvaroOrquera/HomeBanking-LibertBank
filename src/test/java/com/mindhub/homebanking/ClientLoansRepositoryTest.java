@@ -17,26 +17,27 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ClientLoansRepositoryTest {
     @Autowired
     ClientsLoansRepository clientsLoansRepository;
+    // test para setear clientes
     @Test
-    public void testSetClient() {
+    public void SetClient() {
         ClientsLoans clientsLoans = new ClientsLoans();
         Client client = new Client();
         clientsLoans.setClient(client);
 
         assertEquals(client, clientsLoans.getClient());
     }
-
+// test de setear prestamos
     @Test
-    public void testSetLoans() {
+    public void SetLoans() {
         ClientsLoans clientsLoans = new ClientsLoans();
         Loans loans = new Loans();
         clientsLoans.setLoans(loans);
 
         assertEquals(loans, clientsLoans.getLoans());
     }
-
+//test del constructor
     @Test
-    public void testClientsLoansConstructor() {
+    public void ClientsLoansConstructor() {
         double amount = 10000.0;
         Integer payments = 12;
 

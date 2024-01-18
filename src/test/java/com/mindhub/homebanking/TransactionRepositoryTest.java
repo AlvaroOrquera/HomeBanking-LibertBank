@@ -23,7 +23,6 @@ public class TransactionRepositoryTest {
         Transaction transaction = new Transaction();
         Account account = new Account();
         transaction.setAccount(account);
-
         assertEquals(account, transaction.getAccount());
     }
     // Verifica que el método toString no devuelva null

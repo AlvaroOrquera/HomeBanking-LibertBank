@@ -4,8 +4,8 @@
             return {
                 data: [],
                 fechaYHora: [],
-                selectedType: 0,
-                selectedColor: 0,
+                selectedType: -1,
+                selectedColor: -1,
             }
         },
         created() {
@@ -55,7 +55,7 @@
                     title: "Success!",
                     text: "Transaction created successfully!",
                 }).then(() => {
-                    window.location.href = "./card.html";
+                    window.location.href = "/web/cards.html";
                 });
             }
         }

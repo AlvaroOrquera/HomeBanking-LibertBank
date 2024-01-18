@@ -1,7 +1,30 @@
 package com.mindhub.homebanking.DTO;
 
-public class CreateLoanDTO {
+import com.mindhub.homebanking.models.Loans;
+import jakarta.persistence.ElementCollection;
+
+import java.util.List;
+
+public class NewLoanDTO {
     private String name;
-    private double maxAmount;
-    
+    private double maxAmount, percentage;
+    @ElementCollection
+    private List<Integer> payments;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public double getMaxAmount() {
+        return maxAmount;
+    }
+
+    public double getPercentage() {
+        return percentage;
+    }
+
+    public List<Integer> getPayments() {
+        return payments;
+    }
 }

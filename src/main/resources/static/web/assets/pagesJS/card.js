@@ -4,6 +4,7 @@ const app = createApp({
         return {
             data: [],
             fechaYHora: [],
+            deleteCard: -1,
         }
     },
     created() {
@@ -14,6 +15,7 @@ const app = createApp({
             axios.get("/api/clients/current")
                 .then(data => {
                     this.data = data.data.cardDTOS
+
                     console.log(this.data)
                 })
                 .catch(error => {
@@ -28,13 +30,25 @@ const app = createApp({
             }
             return '';
         },
-        logout(){
+        logout() {
             axios.post("/api/logout")
                 .then(response => {
                     console.log(response)
                     if (response.status == 200) {
                         window.location.href = "./login.html"
                     }
+                })
+        },
+        changeStatus() {
+            axios.patch("/api/clients/current/cards?id=" + this.deleteCard)
+                .then(response => {
+                    console.log(response)
+                    if (response.status == 200) {
+                        this.loadData()
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
                 })
         },
         cerrarSession() {

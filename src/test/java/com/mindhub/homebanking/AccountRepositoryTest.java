@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -19,27 +20,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AccountRepositoryTest {
     @Autowired
     AccountRepository accountRepository;
-    //test para verificar el constructor.
     @Test
-    public void AccountConstructor() {
-        String number = "123456789";
-        LocalDate createDate = LocalDate.now();
-        double balance = 1000.0;
-
-        Account account = new Account(number, createDate, balance);
-
-        assertEquals(number, account.getNumber());
-        assertEquals(createDate, account.getCreateDate());
-        assertEquals(balance, account.getBalance());
+    public void findAccountByAccountNumber() {
+        Account account = accountRepository.findByNumber("VIN001");
+        assertNotNull(account);
     }
-    //verificacion para ver el comportamiento del metodo addTransaction
     @Test
-    public void AddTransaction() {
-        Account account = new Account();
-        Transaction transaction = new Transaction();
-        account.addTransaction(transaction);
-
-        assertTrue(account.getTransactions().contains(transaction));
-        assertEquals(account, transaction.getAccount());
+    public void allAccountsHaveBalance() {
+        List<Account> accounts = accountRepository.findAll();
+        assertThat(accounts, everyItem(hasProperty("balance", notNullValue())));
     }
 }

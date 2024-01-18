@@ -22,22 +22,52 @@
                 <ul class="flex gap-2 items-center">
                     <li><a href="./accounts.html"
                             class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-black/50">Accounts</a></li>
-                    <li><a href="./cards.html" class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-black/50">Cards</a>
+                    <li><a href="./cards.html"
+                            class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-black/50">Cards</a>
                     </li>
-                    <li><a href="./Loan-aplication.html" class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-800">Loans</a>
+                    <li><a href="./Loan-aplication.html"
+                            class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-red-800">Loans</a>
                     </li>
                     <li><a href="./transactions.html"
                             class=" p-1 rounded-lg text-black text-sm lg:text-base hover:bg-black/50">Transactions</a>
                     </li>
-                    <li><button class="flex items-center" v-on:click="logout()"><img src="./assets/images/cerrar-sesion.png" alt=""></button></li>
+                    <li><button class="flex items-center" v-on:click="cerrarSession()"><img
+                                src="./assets/images/cerrar-sesion.png" alt=""></button></li>
                 </ul>
             </nav>
         </header>
-        <main class="bg-[url('./assets/images/background.png')] bg-cover">
-            <h2 class="bg-slate-500/30 shadow-lg flex-col justify-center items-center sm:text-xl flex p-3 rounded-b-lg">
+        <main class="bg-[url('./assets/images/background.png')] bg-cover flex flex-col justify-center items-center">
+            <h2 class="bg-slate-500/30 shadow-lg w-full justify-center items-center sm:text-xl flex p-3 rounded-b-lg">
                 Transactions</h2>
-            <div class="overflow-x-auto sm:flex sm:justify-center sm:mt-[30px] ">
-                <table class="w-auto divide-y divide-red-200 shadow-lg">
+            <div class="flex flex-col justify-center items-center bg-gradient-to-t from-gray-200 to-gray-500 p-3 rounded-lg
+                shadow-md w-[320px] h-[260px] md:w-[320px] md:h-[260px] mt-2">
+                <p>
+                    Alert! New feature! You can now download a PDF with all the transactions from your account!
+                </p>
+                <form class="flex flex-col justify-center items-center gap-1">
+                    <label for="">Date Time</label>
+                    <select v-model="dateTime" class="block w-full p-1 border border-gray-300 rounded-md">
+                        <option value="-1">Select Date Time</option>
+                        <option v-for="transaction in data" :value="transaction.dateTime">
+                            {{ formatFechaYHora(transaction.dateTime) }}
+                        </option>
+                    </select>
+                
+                    <label for="">End Time</label>
+                    <select v-model="endTime" class="block w-full p-1 border border-gray-300 rounded-md">
+                        <option value="-1">Select End Time</option>
+                        <option v-for="transaction in data" :value="transaction.dateTime">
+                            {{ formatFechaYHora(transaction.dateTime) }}
+                        </option>
+                    </select>
+                
+                    <button type="button" class="bg-white hover:scale-110 text-red-600 py-2 px-4 rounded" @click="descargarPdf">
+                        Download PDF
+                    </button>
+                </form>
+            </div>
+            <div class="overflow-x-auto w-full sm:flex sm:justify-center p-2 rounded-md">
+                <table class="md:w-[450px] w-full sm:mt-3 mt-3 divide-y shadow-lg divide-red-200">
                     <thead class="bg-red-500">
                         <tr>
                             <th
@@ -45,6 +75,10 @@
                                 Type</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                                 Amount</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Previous Balance</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Current Balance</th>
                             <th class=" px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                                 Description</th>
                             <th
@@ -56,16 +90,20 @@
                         <template v-if="data.length > 0" v-for="transactions in data">
                             <tr>
                                 <td v-if="transactions.type=='Credit'"
-                                    class="sm:rounded-l-lg px-6 py-4 whitespace-nowrap text-sm text-green-600">
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-green-600">
                                     {{transactions.type}}
                                 </td>
                                 <td v-else class="px-6 py-4 whitespace-nowrap text-sm text-red-700">
                                     {{transactions.type}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
                                     {{formatBudget(transactions.amount)}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
+                                    {{formatBudget(transactions.previousBalance)}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
+                                    {{formatBudget(transactions.currentBalance)}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{transactions.description}}
                                 </td>
-                                <td class="sm:rounded-r-l gpx-6 py-4 px-2    whitespace-nowrap text-sm text-black">
+                                <td class=" gpx-6 py-4 px-2    whitespace-nowrap text-sm text-black">
                                     {{formatFechaYHora(transactions.dateTime)}}</td>
                             </tr>
                         </template>
@@ -82,6 +120,7 @@
             <p>Cohort-52</p>
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="./assets/style/tailwind.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

@@ -1,9 +1,12 @@
+
 const { createApp } = Vue
 const app = createApp({
     data() {
         return {
             data: [],
             fechaYHora: [],
+            dateTime: -1,
+            endTime: -1,
         }
     },
     created() {
@@ -37,12 +40,12 @@ const app = createApp({
         formatFechaYHora(fechaYHora) {
             if (fechaYHora) {
                 const fechaFormateada = new Date(fechaYHora);
-                const opciones = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                const opciones = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
                 return fechaFormateada.toLocaleString('en-US', opciones);
             }
             return '';
         },
-        logout(){
+        logout() {
             axios.post("/api/logout")
                 .then(response => {
                     console.log(response)
@@ -50,6 +53,33 @@ const app = createApp({
                         window.location.href = "./login.html"
                     }
                 })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        descargarPdf() {
+            // Verifica que se hayan seleccionado fechas
+            if (!this.dateTime || !this.endTime) {
+                console.log("Seleccione fechas válidas");
+                return;
+            }
+            // Construye la URL para la descarga del PDF
+            const pdfUrl = `/api/accounts/${this.id}/transactions/pdf?dateTime=${this.dateTime}&endTime=${this.endTime}`;
+            // Realiza la solicitud para obtener el PDF
+            axios.get(pdfUrl, { responseType: 'blob' })
+                .then(response => {
+                    // Crea una URL de objeto para el blob del PDF
+                    const blob = new Blob([response.data], { type: 'application/pdf' });
+                    const url = window.URL.createObjectURL(blob);
+                    // Abre una nueva ventana o pestaña para la descarga del PDF
+                    window.open(url, '_blank');
+                    // Libera la URL de objeto cuando ya no se necesita
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.log(error);
+                    // Manejo de errores
+                });
         },
         cerrarSession() {
             Swal.fire({
@@ -73,6 +103,6 @@ const app = createApp({
                     this.logout();
                 }
             });
-        }
+        },
     }
 }).mount('#app')

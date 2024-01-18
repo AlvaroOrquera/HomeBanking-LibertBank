@@ -1,6 +1,6 @@
 package com.mindhub.homebanking.DTO;
 
-public class CreateClientDTO {
+public class NewClientDTO {
 
     private String firstName, lastName,email, password;
 

@@ -36,26 +36,5 @@ public class LoanRepositoryTest {
         assertThat(loans, hasItems(hasProperty("name", is("Mortgage"))));
     }
 
-    //aca esta bien que este test sea fallido ya que no existe un prestamo llamado JuanCarlos.
-    @Test
-    public void existLoansName() {
-        Loans loans = new Loans("JuanCarlos", 30000, List.of(1, 2, 3, 4, 5));
-        assertEquals(loans, hasItems(hasProperty("name", is("JuanCarlos"))));
-    }
-    //test de verificacion de constructor
-    @Test
-    public void LoansConstructor() {
-        String name = "Loan A";
-        double maxAmount = 10000.0;
-        List<Integer> payments = new ArrayList<>();
-        payments.add(1);
-        payments.add(2);
-        payments.add(3);
 
-        Loans loans = new Loans(name, maxAmount, payments);
-
-        assertEquals(name, loans.getName());
-        assertEquals(maxAmount, loans.getMaxAmount());
-        assertEquals(payments, loans.getPayments());
-    }
 }

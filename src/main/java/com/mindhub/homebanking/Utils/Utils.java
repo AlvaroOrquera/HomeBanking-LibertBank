@@ -5,9 +5,9 @@ import java.util.Random;
 public class Utils {
     public static String generateCvv() {
         Random random = new Random();
-        int cvv = 100 + random.nextInt(900);  // Genera un número aleatorio entre 100 y 999
+        Integer cvv = 100 + random.nextInt(900);  // Genera un número aleatorio entre 100 y 999
         String formattedCvv = String.format("%03d", cvv);  // Asegura que el CVV siempre tenga tres dígitos
-        return formattedCvv;
+        return formattedCvv.toString();
     }
     public static String generateCardN(){
         //implemento la clase random

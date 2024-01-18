@@ -29,16 +29,16 @@
         </header>
         <main
             class="bg-[url('./assets/images/background1.png')] bg-cover min-h-screen flex justify-center items-center">
-            <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-lg sm:w-[600px]">
-                <form class="flex gap-4 flex-col text-white max-w-md mx-auto">
+            <div class="max-w-md mx-auto p-6 rounded-md shadow-2xl shadow-black sm:w-[600px]">
+                <form class="flex gap-4 flex-col max-w-md mx-auto">
                     <h1 class="text-2xl font-bold mb-4 text-center text-red-700">Create new Card</h1>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-600">Choose color</label>
+                        <label class=" text-sm font-medium text-gray-600">Choose color</label>
                         <select
-                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:border-red-600"
+                            class="mt-1 w-full p-2 border border-gray-300 rounded-md"
                             v-model="selectedColor">
-                            <option selected disabled class="text-black" value="0">Select Color</option>
+                            <option selected disabled class="text-black" value="-1">Select Color</option>
                             <option class="text-black">GOLD</option>
                             <option class="text-black">SILVER</option>
                             <option class="text-black">TITANIUM</option>
@@ -47,9 +47,9 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-600">Choose Type</label>
                         <select
-                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:border-red-600"
+                            class="mt-1 w-full p-2 border border-gray-300 rounded-md"
                             v-model="selectedType">
-                            <option selected disabled class="text-black" value="0">Select Type</option>
+                            <option class="text-black" selected disabled value="-1">Select Type</option>
                             <option class="text-black">CREDIT</option>
                             <option class="text-black">DEBIT</option>
                         </select>
