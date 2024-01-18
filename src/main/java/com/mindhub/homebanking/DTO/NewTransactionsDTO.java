@@ -1,8 +1,14 @@
 package com.mindhub.homebanking.DTO;
 
+import com.mindhub.homebanking.models.Account;
+
 public class CreateTransactionsDTO {
-    double amount;
+    double amount, currentBalance;
     String originAccount,destinationAccount,description;
+
+    public double getCurrentBalance() {
+        return currentBalance;
+    }
 
     public double getAmount() {
         return amount;
