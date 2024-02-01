@@ -11,30 +11,24 @@ public class Loans {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String name;
-    private double maxAmount, percentage;
+    private double maxAmount;
+    private double percentage;
 
-   @ElementCollection
-   private List<Integer> payments;
+    // Colección de pagos asociada a este préstamo
+    @ElementCollection
+    private List<Integer> payments;
 
-    //set para el clientloans
+    // Relación uno a muchos con la entidad ClientsLoans
     @OneToMany(mappedBy = "loans", fetch = FetchType.EAGER)
     private Set<ClientsLoans> clientsLoans = new HashSet<>();
-    //hacemos el new para inicializarlo vacio e instanciarlo para crear un espacio de memoria
 
-    public Set<ClientsLoans> getClientsLoans() {
-        return clientsLoans;
-    }
-
-    public void addtClientsLoans(ClientsLoans clientsLoans) {
-        clientsLoans.setLoans(this);
-        this.clientsLoans.add(clientsLoans);
-    }
-
+    // Constructor por defecto
     public Loans() {
     }
 
-
+    // Constructor con parámetros
     public Loans(String name, double maxAmount, List<Integer> payments, double percentage) {
         this.name = name;
         this.maxAmount = maxAmount;
@@ -42,13 +36,7 @@ public class Loans {
         this.percentage = percentage;
     }
 
-    public double getPercentage() {
-        return percentage;
-    }
-
-    public void setPercentage(double percentage) {
-        this.percentage = percentage;
-    }
+    // Métodos de acceso y modificadores
 
     public long getId() {
         return id;
@@ -57,7 +45,6 @@ public class Loans {
     public void setId(long id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -75,6 +62,14 @@ public class Loans {
         this.maxAmount = maxAmount;
     }
 
+    public double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(double percentage) {
+        this.percentage = percentage;
+    }
+
     public List<Integer> getPayments() {
         return payments;
     }
@@ -83,13 +78,27 @@ public class Loans {
         this.payments = payments;
     }
 
+    // Obtener la colección de préstamos de clientes
+    public Set<ClientsLoans> getClientsLoans() {
+        return clientsLoans;
+    }
+
+    // Añadir un préstamo de cliente a la colección
+    public void addClientsLoans(ClientsLoans clientsLoans) {
+        clientsLoans.setLoans(this);
+        this.clientsLoans.add(clientsLoans);
+    }
+
+    // Representación en cadena para propósitos de impresión y depuración
     @Override
     public String toString() {
         return "Loans{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", maxAmount=" + maxAmount +
+                ", percentage=" + percentage +
                 ", payments=" + payments +
+                ", clientsLoans=" + clientsLoans +
                 '}';
     }
 }

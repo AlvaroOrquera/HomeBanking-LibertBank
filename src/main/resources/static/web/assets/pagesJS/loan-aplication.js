@@ -3,24 +3,39 @@ const app = createApp({
     data() {
         return {
             data: [],
-            selectLoan: "-1",
+            data1: [],
+            selectLoan: -1,
             amount: "",
-            accountDest: "",
-            payments: "-1",
-            paymentsFilter: "-1",
+            accountDest: -1,
+            payments: -1,
+            paymentsFilter: -1,
             totalAmount: 0,
+
 
         }
     },
     created() {
         this.loadData()
+        this.loadData1()
     },
     methods: {
         loadData() {
             axios.get("/api/loans")
                 .then(response => {
                     this.data = response.data
-                    console.log("hola", this.payments)
+                    console.log("payments", this.payments)
+
+                    console.log(this.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        loadData1() {
+            axios.get("/api/clients/current")
+                .then(response => {
+                    this.data1 = response.data.accountDTOS
+                    console.log("data", this.data1)
 
                     console.log(this.data)
                 })
@@ -52,7 +67,7 @@ const app = createApp({
                 })
                 .catch(error => console.log(error));
         },
-        
+
         errorMsg() {
             Swal.fire({
                 background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover",
@@ -62,23 +77,33 @@ const app = createApp({
                 text: "Something went wrong!",
             });
         },
-        
+
         successMsg() {
             Swal.fire({
                 background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover",
                 color: "white",
                 icon: "success",
                 title: "Success!",
-                text: "Transaction created successfully!",
+                text: "Loan created successfully!",
             }).then(() => {
                 // Utiliza el enrutador de Vue.js para redirigir a ./accounts.html
                 window.location.href = "./accounts.html";
             });
         },
         updateTotalAmount() {
-            const selectLoan= this.data.find(loan => loan.id === this.selectLoan);
-            this.totalAmount = this.amount * ((selectLoan.porcentage/100)+1).toFixed(1);
-            console.log(this.totalAmount)
-        }
+            const selectLoan = this.data.find(loan => loan.id === this.selectLoan);
+            const calculatedAmount = this.amount * (1 + (selectLoan.porcentage / 100));
+            this.totalAmount = parseFloat(calculatedAmount.toFixed(1));
+            console.log(this.totalAmount);
+        },
+        formatBudget(balance) {
+            if (balance !== undefined && balance !== null) {
+                return balance.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "ARS",
+                    minimumFractingDigits: 0,
+                })
+            }
+        },
     }
 }).mount('#app')

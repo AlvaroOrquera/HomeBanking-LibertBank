@@ -14,37 +14,32 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String number;
     private LocalDate createDate;
     private double balance;
+
+    // Enumerado para el tipo de cuenta
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
+
     private boolean active = true;
+
+    // Relación muchos a uno con la entidad Client
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
-    //creo la lista tipo set para que no me salgan repetidas, el Hashset: cumple una funcion similar a la de arraylist
-    //construye un conjunto nuevo y vacio
+    // Relación uno a muchos con la entidad Transaction
+    // Utilizando un conjunto (Set) para evitar transacciones duplicadas
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    private Set<Transaction> transactions = new HashSet<>() {};
+    private Set<Transaction> transactions = new HashSet<>();
 
-    public Set<Transaction> getTransactions() {
-        return transactions;
-    }
-     public void addTransaction(Transaction transaction){
-         transaction.setAccount(this);
-         transactions.add(transaction);
-     }
-
-    public void setTransactions(Set<Transaction> transactions) {
-        this.transactions = transactions;
-    }
-//fin del set
-
+    // Constructor por defecto
     public Account() {
     }
 
+    // Constructor con parámetros
     public Account(String number, LocalDate createDate, double balance, boolean active, AccountType accountType) {
         this.number = number;
         this.createDate = createDate;
@@ -52,6 +47,8 @@ public class Account {
         this.active = active;
         this.accountType = accountType;
     }
+
+    // Métodos de acceso y modificadores
 
     public Long getId() {
         return id;
@@ -103,5 +100,20 @@ public class Account {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    // Métodos para manejar la colección de transacciones
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        transaction.setAccount(this);
+        transactions.add(transaction);
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

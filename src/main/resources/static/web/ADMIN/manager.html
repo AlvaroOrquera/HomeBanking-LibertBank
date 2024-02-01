@@ -12,31 +12,33 @@
 
 <body>
     <div id="app">
-        <header class="flex justify-between bg-red-600 p-2 items-center">
+        <header
+            class="sticky top-0 z-50 flex min-h-[5vh] justify-between rounded-b-lg items-center w-full flex-col md:flex-row bg-white p-2">
             <div class="mx-1 ">
                 <img class="h-[40px] w-[40px] shadow-xl" src="../assets/images/iconoDelBanco.png" alt="iconoDelBanco">
             </div>
             <nav>
                 <ul class="flex flex-col gap-2 ">
-                    <li><a href="../../index.html" class=" p-1 rounded-lg text-white">Home</a></li>
-                    <li><a href="#" class=" p-1 rounded-lg text-white">managers</a></li>
+                    <li><a href="../login.html"><img src="./assets/images/cerrar-sesion.png" alt=""></a></li>
                 </ul>
             </nav>
         </header>
 
-        <main class="bg-slate-200 h-full flex justify-center items-center flex-col">
-            <form action="" class="flex flex-col w-auto my-5 bg-gray-400 p-4 rounded-lg">
-                <h2 class=" flex my-2 items-center justify-center text-lg text-bold ">Create Loan</h2>
+        <main
+            class="bg-[url('./assets/images/background1.png')] bg-cover min-h-screen flex justify-center items-center">
+            <form class="max-w-md bg-red-800 mx-auto p-6 rounded-md shadow-2xl shadow-black sm:w-[600px]">
+                <h2 class="block text-base font-medium text-gray-900">Create Loan</h2>
                 <label for="">Name</label>
-                <input type="text" class=" rounded-md px-1" v-model="name" placeholder="Name">
+                <input type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" v-model="name" placeholder="Name">
                 <label for="">Max Amount</label>
-                <input type="text" class=" rounded-md px-1" v-model="maxAmount" placeholder="Max Amount">
+                <input type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" v-model="maxAmount" placeholder="Max Amount">
                 <label for="">Payments</label>
-                <input type="text" class=" rounded-md px-1" v-model="paymentArray" placeholder="Payments">
+                <input type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" v-model="paymentArray" placeholder="Payments">
                 <label for="">Percentage</label>
-                <input type="text" class=" rounded-md px-1" v-model="percentage" placeholder="percentage">
+                <input type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" v-model="percentage" placeholder="percentage">
                 <div class="flex justify-between">
-                    <button @click.prevent="createLoan" class="mt-2 mx-2 bg-slate-700 text-white m-auto px-2 rounded-md">Add
+                    <button @click.prevent="createLoan"
+                        class="mt-2 mx-2 bg-slate-700 text-white m-auto px-2 rounded-md">Add
                         Loan</button>
                 </div>
             </form>

@@ -1,4 +1,3 @@
-
 const { createApp } = Vue
 const app = createApp({
     data() {
@@ -15,13 +14,13 @@ const app = createApp({
         this.id = params.get('id')
         this.loadData()
         this.formatBudget()
-
     },
     methods: {
         loadData() {
             axios.get("/api/accounts/" + this.id + "/transactions")
                 .then(response => {
                     this.data = response.data
+                    this.data.reverse();
                     console.log(this.data)
                 })
                 .catch(error => {
@@ -60,7 +59,8 @@ const app = createApp({
         descargarPdf() {
             // Verifica que se hayan seleccionado fechas
             if (!this.dateTime || !this.endTime) {
-                console.log("Seleccione fechas válidas");
+                // Muestra un SweetAlert indicando que los datos no son válidos
+                this.invalidDataMsg();
                 return;
             }
             // Construye la URL para la descarga del PDF
@@ -75,15 +75,33 @@ const app = createApp({
                     window.open(url, '_blank');
                     // Libera la URL de objeto cuando ya no se necesita
                     window.URL.revokeObjectURL(url);
+                    // Muestra un SweetAlert indicando que el PDF se ha descargado con éxito
+                    this.pdfDownloadedMsg();
                 })
                 .catch(error => {
                     console.log(error);
                     // Manejo de errores
                 });
         },
+        pdfDownloadedMsg() {
+            Swal.fire({
+                background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover",
+                icon: "success",
+                title: "Success!",
+                text: "PDF downloaded successfully!",
+            });
+        },
+        invalidDataMsg() {
+            Swal.fire({
+                background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover",
+                icon: "error",
+                title: "Invalid Dates!",
+                text: "Please enter correct date values.",
+            });
+        },
         cerrarSession() {
             Swal.fire({
-                background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover", // Deep dark red gradient
+                background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover",
                 customClass: {
                     container: 'custom-swal-container',
                     title: 'custom-swal-title',
@@ -95,8 +113,8 @@ const app = createApp({
                 text: "You are about to log out.",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#8B0000", // Dark red
-                cancelButtonColor: "#717171", // Light gray
+                confirmButtonColor: "#8B0000",
+                cancelButtonColor: "#717171",
                 confirmButtonText: "Yes, I'm sure!",
             }).then((result) => {
                 if (result.isConfirmed) {

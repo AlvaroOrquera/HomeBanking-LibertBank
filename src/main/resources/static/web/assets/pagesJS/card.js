@@ -15,7 +15,6 @@ const app = createApp({
             axios.get("/api/clients/current")
                 .then(data => {
                     this.data = data.data.cardDTOS
-
                     console.log(this.data)
                 })
                 .catch(error => {
@@ -44,16 +43,25 @@ const app = createApp({
                 .then(response => {
                     console.log(response)
                     if (response.status == 200) {
-                        this.loadData()
+                        this.loadData();
+                        this.cardStatusChangedMsg(); // Añade esta línea para mostrar el mensaje
                     }
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
+        cardStatusChangedMsg() {
+            Swal.fire({
+                background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover",
+                icon: "info",
+                title: "Card Status Changed",
+                text: "The card has been disabled.",
+            });
+        },
         cerrarSession() {
             Swal.fire({
-                background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover", // Deep dark red gradient
+                background: "linear-gradient(to right, #2B0000, #440000) no-repeat 0 0 / cover",
                 customClass: {
                     container: 'custom-swal-container',
                     title: 'custom-swal-title',
@@ -65,8 +73,8 @@ const app = createApp({
                 text: "You are about to log out.",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#8B0000", // Dark red
-                cancelButtonColor: "#717171", // Light gray
+                confirmButtonColor: "#8B0000",
+                cancelButtonColor: "#717171",
                 confirmButtonText: "Yes, I'm sure!",
             }).then((result) => {
                 if (result.isConfirmed) {

@@ -8,17 +8,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="./assets/images/iconoDelBanco.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Liberty Bank | Login</title>
 </head>
 
 <body>
     <div id="app">
-        <header class="flex min-h-[5vh] justify-between items-center w-full flex-col md:flex-row bg-white p-2">
+        <header
+            class="sticky top-0 z-50 rounded-b-lg flex min-h-[5vh] justify-between items-center w-full flex-col md:flex-row bg-white p-2">
             <div class="mx-1 items-center flex flex-col md:flex-row">
                 <img class="h-10 w-10" src="./assets/images/iconoDelBanco.png" alt="iconoDelBanco">
                 <h2 class="p-1 text-red-600">Liberty Bank</h2>
             </div>
-            <nav >
+            <nav>
                 <ul class="flex gap-2">
                     <li>
                         <a href="../index.html"
@@ -27,12 +29,13 @@
                 </ul>
             </nav>
         </header>
-        <main class="bg-[url('./assets/images/background.png')] bg-cover min-h-[90vh] flex justify-center items-center">
-            <div class="login&register md:w-[1000px] md:h-[400px] flex rounded-md shadow-lg ">
+        <main
+            class="bg-[url('./assets/images/background.png')] bg-cover min-h-screen p-3  flex justify-center items-center ">
+            <div class="login&register md:w-[1000px] md:h-[400px] flex rounded-md shadow-lg">
                 <div
-                    class="login flex md:w-[600px] md:h-[450px] justify-center items-center bg-red-600 rounded-md md:rounded-l-md shadow-lg gap-2   ">
+                    class="login flex md:w-[600px] md:h-[450px]  justify-center items-center bg-red-600 rounded-l-md shadow-lg gap-1">
                     <form id="formLogin">
-                        <div class="form-group flex flex-col p-2 gap-2 ">
+                        <div class="form-group flex flex-col p-2 gap-2 w-[300px] h-[450px] ">
                             <div class="flex flex-col justify-center items-center  mb-2 ">
                                 <img class="h-12 w-12" src="./assets/images/iconoDelBanco.png" alt="">
                                 <h2 class="text-white text-xl"> Liberty Bank</h2>
@@ -54,8 +57,8 @@
                             <div class="flex items-center bg-white rounded-md">
                                 <input type="password" class="rounded-md p-1" id="password" name="password"
                                     placeholder="Password" @input="getPassword" :value="password">
-                                <i class="far fa-eye cursor-pointer  h-[24px] rounded-md p-1"
-                                    @click="togglePassword()" id="togglePassword"></i>
+                                <i class="far fa-eye cursor-pointer  h-[24px] rounded-md p-1" @click="togglePassword()"
+                                    id="togglePassword"></i>
                             </div>
                             <div class="flex justify-end">
                                 <a href="">
@@ -117,9 +120,9 @@
             </div>
         </footer>
         <div v-if="modalVisible"
-            class="bg-gray-700/60 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
-            <section
-                class="bg-gradient-to-t from-red-900 to-red-500 text-black w-[300px] h-[450px] rounded-lg p-2 flex flex-col relative    ">
+            class="bg-gray-700/60 fixed top-[60px] md:top-[30px] lg:top-0 left-0 w-full h-full flex items-center justify-center z-40 ">
+            <section class="bg-gradient-to-t from-red-900 to-red-500 text-black w-[300px] h-[420px] md:w-[550px]
+                        md:h-[450px] p-2 flex flex-col relative">
                 <div class="flex justify-end items-end">
                     <button v-on:click="closeModal()">
                         <img src="./assets/images/salir-de-pantalla-completa.png" class="h-6 w-6" alt="">
@@ -133,17 +136,17 @@
                     <h2 class="text-white text-xl">Register:</h2>
                     <form class=" flex flex-col">
                         <label class="flex justify-center text-white">First Name</label>
-                        <input type="text" class="rounded-md" name="name" @input="getName" :value="firstName" required
-                            placeholder="Name">
+                        <input type="text" class="rounded-md p-1" name="name" @input="getName" :value="firstName"
+                            required placeholder="Name">
                         <label class="flex justify-center text-white">Last Name</label>
-                        <input type="text" class="rounded-md" name="lastname" @input="getLastName" :value="lastName"
+                        <input type="text" class="rounded-md p-1" name="lastname" @input="getLastName" :value="lastName"
                             required placeholder="Last Name">
                         <label class="flex justify-center text-white">Email</label>
-                        <input type="email" class="rounded-md" name="email" @input="getEmail" :value="email" required
-                            placeholder="Email">
+                        <input type="email" class="rounded-md p-1" name="email" @input="getEmail" :value="email"
+                            required placeholder="Email">
                         <label class="flex justify-center text-white">Password</label>
                         <div>
-                            <input type="password" class="rounded-md" id="password2" name="password"
+                            <input type="password" class="rounded-md p-1" id="password2" name="password"
                                 placeholder="Password" @input="getPassword" :value="password">
                         </div>
                         <button type="submit" @click.prevent="register()"
@@ -152,6 +155,10 @@
                     </form>
                 </div>
             </section>
+            <div class="hidden md:block">
+                <img class="md:w-[600px] md:h-[450px]"
+                    src="./assets/images/depositphotos_9968183-stock-photo-build-bank.jpg" alt="">
+            </div>
         </div>
     </div>
     <script type="module" src="./assets/style/tailwind.config.js"></script>

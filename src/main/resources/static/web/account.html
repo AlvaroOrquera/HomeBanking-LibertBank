@@ -12,7 +12,8 @@
 
 <body>
     <div id="app">
-        <header class="flex justify-between bg-white p-2 items-center flex-col lg:flex-row">
+        <header
+            class="sticky top-0 z-50 rounded-b-lg flex justify-between bg-white p-2 items-center flex-col lg:flex-row">
             <div class="flex flex-col lg:flex-row justify-center items-center">
                 <img class="h-[40px] w-[40px] rounded-3xl shadow-lg" src="./assets/images/iconoDelBanco.png"
                     alt="iconoDelBanco">
@@ -39,8 +40,8 @@
         <main class="bg-[url('./assets/images/background.png')] bg-cover flex flex-col justify-center items-center">
             <h2 class="bg-slate-500/30 shadow-lg w-full justify-center items-center sm:text-xl flex p-3 rounded-b-lg">
                 Transactions</h2>
-            <div class="flex flex-col justify-center items-center bg-gradient-to-t from-gray-200 to-gray-500 p-3 rounded-lg
-                shadow-md w-[320px] h-[260px] md:w-[320px] md:h-[260px] mt-2">
+            <div
+                class="flex flex-col justify-center items-center bg-gradient-to-t from-gray-200 to-gray-500 p-3 rounded-lg shadow-md w-[320px] h-[260px] md:w-[320px] md:h-[260px] mt-2">
                 <p>
                     Alert! New feature! You can now download a PDF with all the transactions from your account!
                 </p>
@@ -52,7 +53,7 @@
                             {{ formatFechaYHora(transaction.dateTime) }}
                         </option>
                     </select>
-                
+
                     <label for="">End Time</label>
                     <select v-model="endTime" class="block w-full p-1 border border-gray-300 rounded-md">
                         <option value="-1">Select End Time</option>
@@ -60,8 +61,9 @@
                             {{ formatFechaYHora(transaction.dateTime) }}
                         </option>
                     </select>
-                
-                    <button type="button" class="bg-white hover:scale-110 text-red-600 py-2 px-4 rounded" @click="descargarPdf">
+
+                    <button type="button" class="bg-white hover:scale-110 text-red-600 py-2 px-4 rounded"
+                        @click="descargarPdf">
                         Download PDF
                     </button>
                 </form>

@@ -9,23 +9,40 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // Relación muchos a uno con la entidad Client
     @ManyToOne
     private Client client;
+
     private String cardHolder;
+
+    // Enumerado para el tipo de tarjeta
     @Enumerated(EnumType.STRING)
     private CardType type;
+
+    // Enumerado para el color de la tarjeta
     @Enumerated(EnumType.STRING)
     private CardColors colors;
+
     private String number;
+
+    // Enumerado para el estado de la tarjeta, valor por defecto: ACTIVA
     @Enumerated(EnumType.STRING)
     private CardStatus status = CardStatus.ACTIVE;
-    private String cvv;
-    private LocalDate fromDate;
-    private LocalDate truDate;
-    public Card(){
 
+    private String cvv;
+
+    // Fecha de emisión de la tarjeta
+    private LocalDate fromDate;
+
+    // Fecha de vencimiento de la tarjeta
+    private LocalDate truDate;
+
+    // Constructor por defecto
+    public Card() {
     }
 
+    // Constructor con parámetros
     public Card(String cardHolder, CardType type, CardColors colors, String number, CardStatus status, String cvv, LocalDate fromDate, LocalDate truDate) {
         this.type = type;
         this.colors = colors;
@@ -34,13 +51,14 @@ public class Card {
         this.fromDate = fromDate;
         this.truDate = truDate;
         this.cardHolder = cardHolder;
-        this.status= status;
+        this.status = status;
     }
+
+    // Métodos de acceso y modificadores
 
     public Long getId() {
         return id;
     }
-
 
     public Client getClient() {
         return client;

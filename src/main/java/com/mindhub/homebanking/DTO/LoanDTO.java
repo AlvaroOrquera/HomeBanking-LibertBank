@@ -14,12 +14,15 @@ public class LoanDTO {
 
     private List<Integer> payments;
 
+    private List<String> clientName;
+
     public LoanDTO(Loans loan){
         id = loan.getId();
         name = loan.getName();
         maxAmount = loan.getMaxAmount();
         payments = loan.getPayments();
         porcentage = loan.getPercentage();
+        clientName = loan.getClientsLoans().stream().map(clientsLoans -> clientsLoans.getClient().getFirstName()).toList();
     }
 
     public double getPorcentage() {

@@ -67,7 +67,6 @@ public class ClientsLoans {
     }
 
 
-
     // Método toString
     @Override
     public String toString() {
